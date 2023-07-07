@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// generator typegraphql {
+//   provider = "typegraphql-prisma"
+//   output   = "./src/generated/type-graphql"
+// }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthProvider {
+  providerId       String             @id @default(dbgenerated("gen_random_uuid()"))
+  name             String
+  description      String?
+  createAt         DateTime           @default(now())
+  AuthProviderUser AuthProviderUser[]
+}
+
+model AuthProviderUser {
+  id             Int           @id @default(autoincrement())
+  AuthProviderId String?
+  userId         Int?
+  createAt       DateTime      @default(now())
+  AuthProvider   AuthProvider? @relation(fields: [AuthProviderId], references: [providerId])
+  User           User?         @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id           Int                @id @default(autoincrement())
+  email        String             @unique
+  password     String
+  fullName     String?
+  address      String?
+  avatarFileId Int?
+  dateOfBirth  DateTime?
+  phone        String?
+  bio          String?
+  gender       Boolean?
+  cvFileId     Int?
+  picture      String?
+  Provider     AuthProviderUser[]
+  UserRole     UserRole[]
+}
+
+model UserRole {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  roleName String
+  Role     Role   @relation(fields: [roleName], references: [name])
+  User     User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, roleName])
+}
+
+model Role {
+  name        String     @id
+  description String?
+  UserRole    UserRole[]
+}
