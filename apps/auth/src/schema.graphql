@@ -1,0 +1,155 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+input CreateUserInput {
+  address: String
+  avatarFileId: Int
+  bio: String
+  email: String!
+  fullName: String!
+  gender: Boolean
+  password: String!
+  phone: String
+  roles: [String!]
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  changePassword(input: ChangePasswordInput!): String!
+  createUser(data: CreateUserInput!): User!
+  deleteUser(id: Int!): User!
+  forgotPassword(input: ForgotPasswordInput!): String!
+  login(input: LoginInput!): Token!
+  resetPassword(input: ResetPasswordInput!): String!
+  signup(input: SignupInput!): Token!
+  updateUser(data: UpdateUserInput!, where: WhereUniqueUserInput!): User!
+}
+
+type Query {
+  Role: [Role!]!
+  User(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  User_aggregate(skip: Int, take: Int, where: UserWhereInput): UserAggregate!
+  User_by_pk(id: Int!): User!
+  me: User!
+}
+
+enum QueryMode {
+  Default
+  Insensitive
+}
+
+input ResetPasswordInput {
+  password: String!
+  token: String!
+}
+
+type Role {
+  description: String
+  name: String!
+}
+
+input SignupInput {
+  email: String!
+  password: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Token {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input UpdateUserInput {
+  address: String
+  avatarFileId: Int
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+type User {
+  address: String
+  bio: String
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int!
+  password: String
+  phone: String
+  picture: String
+  roles: [String!]
+  userRole: [UserRole!]
+}
+
+type UserAggregate {
+  _count: Int
+}
+
+input UserOrderByInput {
+  id: SortOrder
+}
+
+type UserRole {
+  id: Int!
+  roleName: String!
+  userId: Int!
+}
+
+input UserWhereInput {
+  OR: [UserWhereInput!]
+  email: StringFilter
+  id: IntFilter
+  password: StringFilter
+}
+
+input WhereUniqueUserInput {
+  id: Int!
+}
