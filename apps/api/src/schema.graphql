@@ -1,0 +1,241 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Bookmark {
+  _id: String
+  createdAt: DateTime
+  news: String
+  user: String
+}
+
+type Category {
+  _id: String
+  name: String!
+}
+
+type Comment {
+  _id: String
+  url: String!
+}
+
+input CommentInsertInput {
+  url: String!
+}
+
+type CommentMessage {
+  _id: String
+  comment: Comment
+  createdAt: DateTime
+  message: String!
+  userId: String!
+}
+
+input CommentMessageInsertInput {
+  comment: String!
+  message: String!
+  userId: String!
+}
+
+input CommentMessageQueryInput {
+  comment: String
+  message: String
+  userId: String
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type FindNewsOutput {
+  docs: [News!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createComment(data: CommentInsertInput!): Comment!
+  createCommentMessage(data: CommentMessageInsertInput!): CommentMessage!
+  deleteManyPublishers(query: PublisherQueryInput): Publisher!
+  deleteManySources(query: SourceQueryInput): Source!
+  deleteOneBookmark(id: String!): Bookmark!
+  deleteOnePublisher(query: PublisherQueryInput!): Publisher!
+  deleteOneSource(query: SourceQueryInput!): Source!
+  deleteOneUpvote(id: String!): Upvote!
+  insertManyPublishers(data: [PublisherInsertInput!]!): Publisher!
+  insertManySources(data: [SourceInsertInput!]!): Source!
+  insertOneBookmark(data: createBookmarkInput!): Bookmark!
+  insertOnePublisher(data: PublisherInsertInput!): Publisher!
+  insertOneSource(data: SourceInsertInput!): Source!
+  insertOneUpvote(data: createUpvoteInput!): Upvote!
+  removeCategory(id: Int!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateManyPublishers(data: PublisherUpdateInput!, query: PublisherQueryInput): Publisher!
+  updateManySources(data: SourceUpdateInput!, query: SourceQueryInput): Source!
+  updateOnePublisher(data: PublisherUpdateInput!, query: PublisherQueryInput!): Publisher!
+  updateOneSource(data: SourceUpdateInput!, query: SourceQueryInput!): Source!
+  upsertOnePublisher(data: PublisherInsertInput!, query: PublisherQueryInput): Publisher!
+  upsertOneSource(data: SourceInsertInput!, query: SourceQueryInput): Source!
+}
+
+type News {
+  _id: String!
+  article: String
+  audio: String
+  createdAt: DateTime
+  image: String
+  isBookmarked: Bookmark
+  isUpvoted: Upvote
+  keywords: [String!]
+  link: String
+  published: DateTime
+  source: Source
+  status: String
+  summary: String
+  text: String
+  title: String
+  upvoteCount: Int
+}
+
+input NewsSortInput {
+  published: SortOrder
+  upvoteCount: SortOrder
+}
+
+input PaginateOptionsInput {
+  limit: Int
+  offset: Int
+  page: Int
+  sort: NewsSortInput
+}
+
+type Publisher {
+  _id: String
+  createdAt: DateTime
+  description: String
+  image: String
+  name: String!
+  website: String
+}
+
+input PublisherInsertInput {
+  description: String
+  image: String
+  name: String!
+  website: String
+}
+
+input PublisherQueryInput {
+  description: String
+  image: String
+  name: String
+  website: String
+}
+
+input PublisherUpdateInput {
+  description: String
+  image: String
+  name: String
+  website: String
+}
+
+type Query {
+  category(id: Int!): Category!
+  findAllBookmark: [Bookmark!]!
+  findAllCommentMessage(query: CommentMessageQueryInput): [CommentMessage!]!
+  findAllUpvote: [Upvote!]!
+  findUserBookmarked: [Bookmark!]
+  me: User!
+  news(paginate: PaginateOptionsInput): FindNewsOutput!
+  news_by_pk(id: String!): News!
+  publisher(query: PublisherQueryInput!): Publisher!
+  publishers(query: PublisherQueryInput): [Publisher!]!
+  reader_news_by_pk(id: String!): News!
+  searchNews(content: String!): [News!]!
+  source(query: SourceQueryInput!): Source!
+  sources(query: SourceQueryInput): [Source!]!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+type Source {
+  _id: String
+  category: String
+  name: String
+  publisher: Publisher
+  url: String!
+}
+
+input SourceInsertInput {
+  _id: String
+  category: String
+  name: String
+  publisher: String!
+  url: String!
+}
+
+input SourceQueryInput {
+  _id: String
+  category: String
+  name: String
+  publisher: String
+  url: String
+}
+
+input SourceUpdateInput {
+  _id: String
+  category: String
+  name: String
+  publisher: String
+  url: String
+}
+
+type Subscription {
+  commentAdded(query: CommentMessageQueryInput): CommentMessage!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+type Upvote {
+  _id: String!
+  createdAt: DateTime
+  news: String
+  user: String
+}
+
+type User {
+  _id: String!
+  email: String!
+  picture: String!
+  uid: Int
+}
+
+input createBookmarkInput {
+  news: String!
+}
+
+input createUpvoteInput {
+  news: String!
+}
