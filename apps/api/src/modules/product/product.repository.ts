@@ -2,14 +2,14 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BaseRepository } from '@/common/mongoose/mongoose';
-import { User, UserDocument } from './entities/user.entity';
+import { Product, ProductDocument } from './entities/product.entity';
 
 @Injectable()
-export class UserRepository
-  extends BaseRepository<UserDocument>
+export class ProductRepository
+  extends BaseRepository<ProductDocument>
   implements OnApplicationBootstrap
 {
-  constructor(@InjectModel(User.name) model: Model<UserDocument>) {
+  constructor(@InjectModel(Product.name) model: Model<ProductDocument>) {
     super(model);
   }
 
