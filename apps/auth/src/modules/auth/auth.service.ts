@@ -11,13 +11,10 @@ import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { SecurityConfig } from 'src/common/configs/config.interface';
 import { generateRandomPassword } from 'src/utils/tool';
 import { UsersService } from '../user/services/users.service';
-import { LoginInput } from './dtos/inputs/LoginInput';
-import { Token } from './entities/Token';
+import { LoginInput } from './dtos/inputs/login.input';
+import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
-import {
-  ChangePasswordInput,
-  ResetPasswordInput,
-} from './dtos/inputs/reset-password.input';
+import { ChangePasswordInput, ResetPasswordInput } from './dtos/inputs/reset-password.input';
 import { User } from '@modules/user/entities/User';
 
 export type UserPayload = {
@@ -32,7 +29,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
     private readonly configService: ConfigService,
-    private readonly userService: UsersService,
+    private readonly userService: UsersService
   ) {}
 
   /**
@@ -45,9 +42,7 @@ export class AuthService {
    * user.
    */
   async createUser(payload: Prisma.UserCreateInput) {
-    const hashedPassword = await this.passwordService.hashPassword(
-      payload.password
-    );
+    const hashedPassword = await this.passwordService.hashPassword(payload.password);
 
     try {
       return await this.prisma.$transaction(async (tx) => {
@@ -71,10 +66,7 @@ export class AuthService {
         });
       });
     } catch (e) {
-      if (
-        e instanceof Prisma.PrismaClientKnownRequestError &&
-        e.code === 'P2002'
-      ) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
         throw new ConflictException(`Email ${payload.email} already used.`);
       } else {
         throw new Error(e);
@@ -131,10 +123,7 @@ export class AuthService {
         role: userRole,
       };
       // update user if needed
-      if (
-        user.picture !== googleUser.picture ||
-        user.fullName !== googleUser.name
-      ) {
+      if (user.picture !== googleUser.picture || user.fullName !== googleUser.name) {
         await this.prisma.user.update({
           where: { id: user.id },
           data: {
@@ -182,10 +171,7 @@ export class AuthService {
     }
     // map role to string
 
-    const passwordValid = await this.passwordService.validatePassword(
-      password,
-      user.password
-    );
+    const passwordValid = await this.passwordService.validatePassword(password, user.password);
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');
@@ -330,10 +316,7 @@ export class AuthService {
       },
     });
 
-    const passwordValid = await this.passwordService.validatePassword(
-      oldPassword,
-      oldUser.password
-    );
+    const passwordValid = await this.passwordService.validatePassword(oldPassword, oldUser.password);
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');

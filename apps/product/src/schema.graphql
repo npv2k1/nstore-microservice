@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  deleteManyProducts(query: ProductQueryInput): Product!
+  deleteOneProduct(query: ProductQueryInput!): Product!
+  insertManyProducts(data: [ProductInsertInput!]!): Product!
+  insertOneProduct(data: ProductInsertInput!): Product!
+  updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!
+  updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
+  upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
+}
+
+type Product {
+  _id: String!
+  name: String
+}
+
+input ProductInsertInput {
+  _id: String
+  name: String
+}
+
+input ProductQueryInput {
+  _id: String
+  name: String
+}
+
+input ProductUpdateInput {
+  _id: String
+  name: String
+}
+
+type Query {
+  me: User!
+  product(query: ProductQueryInput!): Product!
+  products(query: ProductQueryInput): [Product!]!
+}
+
+type User {
+  _id: String!
+  email: String!
+  picture: String!
+  uid: Int
+}
