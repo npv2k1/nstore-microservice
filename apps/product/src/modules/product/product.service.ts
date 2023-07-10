@@ -28,10 +28,6 @@ export class ProductService {
 
   async findMany(args: FindManyProductArgs) {
     const Products = await this.ProductRepo.findAll(args.query);
-    console.log(
-      '🚀 ~ file: Product.service.ts:31 ~ ProductService ~ findMany ~ Products:',
-      Products
-    );
     return Products;
   }
 
