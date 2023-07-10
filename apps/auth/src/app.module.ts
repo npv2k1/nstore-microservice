@@ -8,7 +8,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import config from 'src/common/configs/config';
-import { loggingMiddleware } from 'src/common/middleware/logging.middleware';
+import { loggingMiddleware } from '@/common/prisma/middleware/logging';
 import { PrismaModule } from 'src/common/prisma/prisma';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { UsersModule } from 'src/modules/user/users.module';

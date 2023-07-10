@@ -1,1 +1,2 @@
-export * from "./exclude-password"
+export * from './exclude-password';
+export * from './logging';

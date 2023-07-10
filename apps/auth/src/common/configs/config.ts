@@ -25,13 +25,6 @@ const config: Config = {
     playgroundEnabled: true,
     sortSchema: true,
   },
-  s3Storage: {
-    endpoint: 'http://127.0.0.1:9000',
-    accessKeyId: 'cDQeMNHRdmd1lrP5',
-    secretAccessKey: 'i4QzmYWm4IE59HYotWmO4LNAVxI5WbbA',
-    // bucket: 'nestjs',
-    region: 'auto',
-  },
 };
 
 export default (): Config => config;
