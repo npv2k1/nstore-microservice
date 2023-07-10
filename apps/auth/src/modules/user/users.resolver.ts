@@ -9,7 +9,12 @@ import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.a
 import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
 import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
 import { UserAggregate } from './dtos/outputs/user-aggragate.output';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
+import { Roles } from '@/common/decorators';
 
+@UseGuards(GqlAuthGuard)
+@Roles('admin')
 @Resolver(() => User)
 export class UserResolver {
   constructor(protected readonly userService: UsersService) {}

@@ -193,17 +193,21 @@ export class AuthService {
   }
 
   async validateUser(userId: number): Promise<any> {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        email: true,
-        address: true,
-        fullName: true,
-        phone: true,
-        picture: true,
+      include: {
+        UserRole: {
+          select: {
+            roleName: true,
+          },
+        },
       },
     });
+    const roles = user.UserRole.map((role) => role.roleName);
+    return {
+      ...user,
+      roles: roles,
+    }
   }
 
   generateTokens(payload: UserPayload): Token {
