@@ -1,12 +1,4 @@
-import {
-  Args,
-  Int,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CreateUserArgs } from '../dtos/args/create-user.args';
 import { DeleteUserArgs } from '../dtos/args/DeleteUserArgs';
 import { UpdateUserArgs } from '../dtos/args/update-user.args';
@@ -14,9 +6,9 @@ import { UserAggregateArgs } from '../dtos/args/user-aggregate.args';
 import { UserFindByPkArgs } from '../dtos/args/UserFindByPkArgs';
 import { UserFindManyArgs } from '../dtos/args/UserFindManyArgs';
 import { CreateUserInput } from '../dtos/inputs/create-user.input';
-import { User } from '../entities/User';
+import { User } from '../entities/user.entity';
 import { UserAggregate } from '../entities/user-aggregate.entity';
-import { UserRole } from '../entities/UserRole';
+import { UserRole } from '../entities/user-role.entity';
 import { UsersService } from '../services/users.service';
 
 @Resolver(() => User)

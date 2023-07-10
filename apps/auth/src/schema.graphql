@@ -116,6 +116,7 @@ input UpdateUserInput {
 }
 
 type User {
+  UserRole: [UserRole!]
   address: String
   bio: String
   email: String!
@@ -138,6 +139,8 @@ input UserOrderByInput {
 }
 
 type UserRole {
+  Role: Role
+  User: User
   id: Int!
   roleName: String!
   userId: Int!

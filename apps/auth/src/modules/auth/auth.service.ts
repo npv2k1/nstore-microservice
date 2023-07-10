@@ -15,7 +15,7 @@ import { LoginInput } from './dtos/inputs/login.input';
 import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
 import { ChangePasswordInput, ResetPasswordInput } from './dtos/inputs/reset-password.input';
-import { User } from '@modules/user/entities/User';
+import { User } from '@modules/user/entities/user.entity';
 
 export type UserPayload = {
   userId: number;
