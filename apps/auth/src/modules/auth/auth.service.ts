@@ -10,12 +10,12 @@ import { JwtService } from '@nestjs/jwt';
 import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { SecurityConfig } from 'src/common/configs/config.interface';
 import { generateRandomPassword } from 'src/utils/tool';
-import { UsersService } from '../user/services/users.service';
+import { UsersService } from '@modules/user/users.service';
 import { LoginInput } from './dtos/inputs/login.input';
 import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
 import { ChangePasswordInput, ResetPasswordInput } from './dtos/inputs/reset-password.input';
-import { User } from '@modules/user/entities/User';
+import { User } from '@modules/user/entities/user.entity';
 
 export type UserPayload = {
   userId: number;
@@ -193,17 +193,21 @@ export class AuthService {
   }
 
   async validateUser(userId: number): Promise<any> {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        email: true,
-        address: true,
-        fullName: true,
-        phone: true,
-        picture: true,
+      include: {
+        UserRole: {
+          select: {
+            roleName: true,
+          },
+        },
       },
     });
+    const roles = user.UserRole.map((role) => role.roleName);
+    return {
+      ...user,
+      roles: roles,
+    }
   }
 
   generateTokens(payload: UserPayload): Token {

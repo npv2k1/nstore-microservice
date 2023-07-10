@@ -35,12 +35,10 @@ model User {
   password     String
   fullName     String?
   address      String?
-  avatarFileId Int?
   dateOfBirth  DateTime?
   phone        String?
   bio          String?
   gender       Boolean?
-  cvFileId     Int?
   picture      String?
   Provider     AuthProviderUser[]
   UserRole     UserRole[]

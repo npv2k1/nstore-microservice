@@ -1,32 +1,63 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, PrismaService } from 'src/common/prisma/prisma';
 import { PasswordService } from 'src/modules/auth/password.service';
-import { UserServiceBase } from '../base/user.service.base';
+import { FindManyUserArgs, FindOneUserArgs } from './dtos/args/find-user.args';
+import { InsertManyUserArgs, InsertOneUserArgs } from './dtos/args/insert-user.args';
+import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.args';
+import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
+import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
 
 @Injectable()
-export class UsersService extends UserServiceBase {
-  constructor(
-    protected prisma: PrismaService,
-    protected passwordService: PasswordService
-  ) {
-    super(prisma, passwordService);
+export class UsersService {
+  constructor(protected prisma: PrismaService, protected passwordService: PasswordService) {}
+
+  async findMany(args: FindManyUserArgs) {
+    const Products = await this.prisma.user.findMany(args);
+    return Products;
   }
 
-  async getUserRole(id: number) {
-    return this.prisma.user
-      .findUnique({
-        where: {
-          id: id,
-        },
-      })
-      .UserRole();
+  async findOne(args: FindOneUserArgs) {
+    return await this.prisma.user.findUnique(args);
   }
 
+  async insertOne(args: InsertOneUserArgs) {
+    const roles = args.data.roles;
+    delete args.data.roles;
+    if(roles){
+      return await this.createUser(args, roles);
+    }
+    return await this.createUser(args, ['user']);
+  }
+
+  async insertMany(args: InsertManyUserArgs) {
+    return await this.prisma.user.createMany(args);
+  }
+
+  async updateOne(args: UpdateOneUserArgs) {
+    return await this.prisma.user.update(args);
+  }
+
+  async updateMany(args: UpdateManyUserArgs) {
+    return await this.prisma.user.updateMany(args);
+  }
+
+  async deleteOne(args: DeleteOneUserArgs) {
+    return await this.prisma.user.delete(args);
+  }
+
+  async deleteMany(args: DeleteManyUserArgs) {
+    return await this.prisma.user.deleteMany(args);
+  }
+
+  async aggregate(args: AggregateUserArgs) {
+    return this.prisma.user.aggregate({
+      ...args,
+      _count: true
+    });
+  }
 
   async createUser(args: Prisma.UserCreateArgs, roles?: string[]) {
-    const hashedPassword = await this.passwordService.hashPassword(
-      args.data.password
-    );
+    const hashedPassword = await this.passwordService.hashPassword(args.data.password);
     args.data.password = hashedPassword;
     const user = await this.prisma.user.create({
       data: {
@@ -39,9 +70,7 @@ export class UsersService extends UserServiceBase {
 
   async updateUser(args: Prisma.UserUpdateArgs, roles?: string[]) {
     if (args.data.password) {
-      const hashedPassword = await this.passwordService.hashPassword(
-        args.data.password as string
-      );
+      const hashedPassword = await this.passwordService.hashPassword(args.data.password as string);
       args.data.password = hashedPassword;
     } else {
       delete args.data.password;
@@ -94,16 +123,15 @@ export class UsersService extends UserServiceBase {
     }
   }
 
-  async deleteUser(args: Prisma.UserDeleteArgs) {
-    return this.prisma.user.delete(args);
+  async getUserRole(id: number) {
+    return this.prisma.user
+      .findUnique({
+        where: {
+          id: id,
+        },
+      })
+      .UserRole();
   }
-
-  async aggregate<T extends Prisma.UserAggregateArgs>(
-    args: Prisma.SelectSubset<T, Prisma.UserAggregateArgs>
-  ): Promise<Prisma.GetUserAggregateType<T>> {
-    return this.prisma.user.aggregate(args);
-  }
-
   async findUser(id: string) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -113,7 +141,6 @@ export class UsersService extends UserServiceBase {
         UserRole: true,
       },
     });
-
     delete user.password;
     return user;
   }

@@ -7,31 +7,13 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
-input CreateUserInput {
-  address: String
-  avatarFileId: Int
-  bio: String
-  email: String!
-  fullName: String!
-  gender: Boolean
-  password: String!
-  phone: String
-  roles: [String!]
-}
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 input ForgotPasswordInput {
   email: String!
-}
-
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: Int
-  notIn: [Int!]
 }
 
 input LoginInput {
@@ -41,26 +23,24 @@ input LoginInput {
 
 type Mutation {
   changePassword(input: ChangePasswordInput!): String!
-  createUser(data: CreateUserInput!): User!
-  deleteUser(id: Int!): User!
+  deleteManyUsers(where: UserQueryInput!): User!
+  deleteOneUser(where: UserQueryUniqueInput!): User!
   forgotPassword(input: ForgotPasswordInput!): String!
+  insertManyUsers(data: [UserInsertInput!]!): User!
+  insertOneUser(data: UserInsertInput!): User!
   login(input: LoginInput!): Token!
   resetPassword(input: ResetPasswordInput!): String!
   signup(input: SignupInput!): Token!
-  updateUser(data: UpdateUserInput!, where: WhereUniqueUserInput!): User!
+  updateManyUsers(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
+  updateOneUser(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
 }
 
 type Query {
   Role: [Role!]!
-  User(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
-  User_aggregate(skip: Int, take: Int, where: UserWhereInput): UserAggregate!
-  User_by_pk(id: Int!): User!
+  aggregateUsers(skip: Int, take: Int, where: UserQueryInput): UserAggregate!
   me: User!
-}
-
-enum QueryMode {
-  Default
-  Insensitive
+  user(where: UserQueryUniqueInput!): User!
+  users(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserQueryInput): [User!]!
 }
 
 input ResetPasswordInput {
@@ -83,21 +63,6 @@ enum SortOrder {
   Desc
 }
 
-input StringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: String
-  notIn: [String!]
-  startsWith: String
-}
-
 type Token {
   accessToken: String!
   refreshToken: String!
@@ -105,11 +70,11 @@ type Token {
 
 input UpdateUserInput {
   address: String
-  avatarFileId: Int
   bio: String
   email: String
   fullName: String
   gender: Boolean
+  id: Int
   password: String
   phone: String
   roles: [String!]
@@ -118,6 +83,7 @@ input UpdateUserInput {
 type User {
   address: String
   bio: String
+  dateOfBirth: DateTime
   email: String!
   fullName: String
   gender: Boolean
@@ -126,30 +92,40 @@ type User {
   phone: String
   picture: String
   roles: [String!]
-  userRole: [UserRole!]
 }
 
 type UserAggregate {
   _count: Int
 }
 
+input UserInsertInput {
+  address: String
+  bio: String
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String!
+  phone: String
+  roles: [String!]
+}
+
 input UserOrderByInput {
   id: SortOrder
 }
 
-type UserRole {
-  id: Int!
-  roleName: String!
-  userId: Int!
+input UserQueryInput {
+  address: String
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
 }
 
-input UserWhereInput {
-  OR: [UserWhereInput!]
-  email: StringFilter
-  id: IntFilter
-  password: StringFilter
-}
-
-input WhereUniqueUserInput {
-  id: Int!
+input UserQueryUniqueInput {
+  id: Int
 }

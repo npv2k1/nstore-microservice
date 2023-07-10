@@ -1,10 +1,10 @@
+import { UserRole } from '@modules/user/entities/user-role.entity';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
-import { UserRole } from './UserRole';
 
 @ObjectType()
-class User {
+class UserOutput {
   @ApiProperty({
     required: false,
     type: Number,
@@ -82,4 +82,4 @@ class User {
 
   roles?: Array<string> | null;
 }
-export { User };
+export { UserOutput };

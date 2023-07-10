@@ -1,4 +1,4 @@
-import { User } from '@modules/user/entities/User';
+import { User } from '@modules/user/entities/user.entity';
 import { Inject, Injectable, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
