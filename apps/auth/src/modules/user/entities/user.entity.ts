@@ -8,6 +8,7 @@ import { IUser } from '../interfaces/user.interface';
 export class User implements IUser {
   @Field(() => Date, { nullable: true })
   dateOfBirth: Date;
+
   @ApiProperty({
     required: false,
     type: Number,
@@ -80,8 +81,6 @@ export class User implements IUser {
   @IsString()
   @Field(() => String, { nullable: true })
   picture: string;
-
-  UserRole?: Array<UserRole>;
 
   roles?: Array<string> | null;
 }

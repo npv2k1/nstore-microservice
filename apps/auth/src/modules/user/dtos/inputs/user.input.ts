@@ -3,8 +3,8 @@ import { Field, InputType, Int } from '@nestjs/graphql';
   isAbstract: true,
 })
 export class UserInput {
-  @Field()
-  id: number;
+  @Field(()=>Int, {nullable: true})
+  id?: number;
 
   @Field()
   email: string;
@@ -12,8 +12,8 @@ export class UserInput {
   @Field()
   password: string;
 
-  @Field()
-  fullName: string;
+  @Field(()=>String, {nullable: true})
+  fullName?: string;
 
   @Field(() => String, { nullable: true })
   address!: string;
@@ -23,9 +23,6 @@ export class UserInput {
 
   @Field(() => [String], { nullable: true })
   roles?: Array<string> | null;
-
-  @Field(() => Int, { nullable: true })
-  avatarFileId: number;
 
   @Field(() => String, {
     nullable: true,

@@ -24,7 +24,7 @@ input LoginInput {
 type Mutation {
   changePassword(input: ChangePasswordInput!): String!
   deleteManyUsers(where: UserQueryInput!): User!
-  deleteOneUser(where: UserQueryInput!): User!
+  deleteOneUser(where: UserQueryUniqueInput!): User!
   forgotPassword(input: ForgotPasswordInput!): String!
   insertManyUsers(data: [UserInsertInput!]!): User!
   insertOneUser(data: UserInsertInput!): User!
@@ -70,7 +70,6 @@ type Token {
 
 input UpdateUserInput {
   address: String
-  avatarFileId: Int
   bio: String
   email: String
   fullName: String
@@ -82,7 +81,6 @@ input UpdateUserInput {
 }
 
 type User {
-  UserRole: [UserRole!]
   address: String
   bio: String
   dateOfBirth: DateTime
@@ -94,7 +92,6 @@ type User {
   phone: String
   picture: String
   roles: [String!]
-  userRole: [UserRole!]
 }
 
 type UserAggregate {
@@ -103,12 +100,11 @@ type UserAggregate {
 
 input UserInsertInput {
   address: String
-  avatarFileId: Int
   bio: String
   email: String!
-  fullName: String!
+  fullName: String
   gender: Boolean
-  id: Int!
+  id: Int
   password: String!
   phone: String
   roles: [String!]
@@ -120,7 +116,6 @@ input UserOrderByInput {
 
 input UserQueryInput {
   address: String
-  avatarFileId: Int
   bio: String
   email: String
   fullName: String
@@ -132,13 +127,5 @@ input UserQueryInput {
 }
 
 input UserQueryUniqueInput {
-  id: Int!
-}
-
-type UserRole {
-  Role: Role
-  User: User
-  id: Int!
-  roleName: String!
-  userId: Int!
+  id: Int
 }

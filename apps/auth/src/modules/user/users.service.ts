@@ -21,7 +21,12 @@ export class UsersService {
   }
 
   async insertOne(args: InsertOneUserArgs) {
-    return await this.prisma.user.create(args);
+    const roles = args.data.roles;
+    delete args.data.roles;
+    if(roles){
+      return await this.createUser(args, roles);
+    }
+    return await this.createUser(args, ['user']);
   }
 
   async insertMany(args: InsertManyUserArgs) {

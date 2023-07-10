@@ -15,6 +15,7 @@ import { UsersModule } from 'src/modules/user/users.module';
 import { GqlConfigService } from './common/graphql/gql-config.service';
 import { customPrismaMiddleware } from './utils/prisma.util';
 import { RoleModule } from './modules/role/role.module';
+import { excludePasswordMiddleware } from './common/prisma/middleware';
 
 @Module({
   imports: [
@@ -26,7 +27,11 @@ import { RoleModule } from './modules/role/role.module';
         prismaOptions: {
           log: ['query', 'info', 'warn'],
         },
-        middlewares: [loggingMiddleware(new Logger('PrismaMiddleware')), customPrismaMiddleware()], // configure your prisma middleware
+        middlewares: [
+          loggingMiddleware(new Logger('PrismaMiddleware')),
+          customPrismaMiddleware(),
+          excludePasswordMiddleware(),
+        ], // configure your prisma middleware
       },
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({

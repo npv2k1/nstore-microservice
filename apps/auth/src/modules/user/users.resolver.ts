@@ -76,14 +76,14 @@ export class UserResolver {
     return result;
   }
 
-  @ResolveField(() => [UserRole], { nullable: true })
-  async userRole(@Parent() parent: User): Promise<UserRole[]> {
-    const result = await this.userService.getUserRole(parent.id);
-    if (!result) {
-      return [];
-    }
-    return result;
-  }
+  // @ResolveField(() => [UserRole], { nullable: true })
+  // async userRole(@Parent() parent: User): Promise<UserRole[]> {
+  //   const result = await this.userService.getUserRole(parent.id);
+  //   if (!result) {
+  //     return [];
+  //   }
+  //   return result;
+  // }
 
   @ResolveField(() => [String], { nullable: true, name: 'roles' })
   async getRoles(@Parent() parent: User) {
