@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, PrismaService } from 'src/common/prisma/prisma';
 import { PasswordService } from 'src/modules/auth/password.service';
-import { FindManyUserArgs, FindOneUserArgs } from '../dtos/args/find-user.args';
-import { InsertManyUserArgs, InsertOneUserArgs } from '../dtos/args/insert-user.args';
+import { FindManyUserArgs, FindOneUserArgs } from './dtos/args/find-user.args';
+import { InsertManyUserArgs, InsertOneUserArgs } from './dtos/args/insert-user.args';
+import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.args';
+import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
+import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
 
 @Injectable()
 export class UsersService {
@@ -23,6 +26,29 @@ export class UsersService {
 
   async insertMany(args: InsertManyUserArgs) {
     return await this.prisma.user.createMany(args);
+  }
+
+  async updateOne(args: UpdateOneUserArgs) {
+    return await this.prisma.user.update(args);
+  }
+
+  async updateMany(args: UpdateManyUserArgs) {
+    return await this.prisma.user.updateMany(args);
+  }
+
+  async deleteOne(args: DeleteOneUserArgs) {
+    return await this.prisma.user.delete(args);
+  }
+
+  async deleteMany(args: DeleteManyUserArgs) {
+    return await this.prisma.user.deleteMany(args);
+  }
+
+  async aggregate(args: AggregateUserArgs) {
+    return this.prisma.user.aggregate({
+      ...args,
+      _count: true
+    });
   }
 
   async createUser(args: Prisma.UserCreateArgs, roles?: string[]) {
@@ -92,16 +118,6 @@ export class UsersService {
     }
   }
 
-  async deleteUser(args: Prisma.UserDeleteArgs) {
-    return this.prisma.user.delete(args);
-  }
-
-  async aggregate<T extends Prisma.UserAggregateArgs>(
-    args: Prisma.SelectSubset<T, Prisma.UserAggregateArgs>
-  ): Promise<Prisma.GetUserAggregateType<T>> {
-    return this.prisma.user.aggregate(args);
-  }
-
   async getUserRole(id: number) {
     return this.prisma.user
       .findUnique({
@@ -120,7 +136,6 @@ export class UsersService {
         UserRole: true,
       },
     });
-
     delete user.password;
     return user;
   }

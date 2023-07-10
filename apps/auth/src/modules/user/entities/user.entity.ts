@@ -2,9 +2,12 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 import { UserRole } from './user-role.entity';
+import { IUser } from '../interfaces/user.interface';
 
 @ObjectType()
-class User {
+export class User implements IUser {
+  @Field(() => Date, { nullable: true })
+  dateOfBirth: Date;
   @ApiProperty({
     required: false,
     type: Number,
@@ -82,4 +85,3 @@ class User {
 
   roles?: Array<string> | null;
 }
-export { User };

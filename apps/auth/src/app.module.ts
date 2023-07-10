@@ -14,6 +14,7 @@ import { AuthModule } from 'src/modules/auth/auth.module';
 import { UsersModule } from 'src/modules/user/users.module';
 import { GqlConfigService } from './common/graphql/gql-config.service';
 import { customPrismaMiddleware } from './utils/prisma.util';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
   imports: [
@@ -22,6 +23,9 @@ import { customPrismaMiddleware } from './utils/prisma.util';
     PrismaModule.forRoot({
       isGlobal: true,
       prismaServiceOptions: {
+        prismaOptions: {
+          log: ['query', 'info', 'warn'],
+        },
         middlewares: [loggingMiddleware(new Logger('PrismaMiddleware')), customPrismaMiddleware()], // configure your prisma middleware
       },
     }),
@@ -44,6 +48,7 @@ import { customPrismaMiddleware } from './utils/prisma.util';
     }),
     AuthModule,
     UsersModule,
+    RoleModule,
   ],
   controllers: [],
   providers: [],
