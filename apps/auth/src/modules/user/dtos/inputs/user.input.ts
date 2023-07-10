@@ -1,7 +1,11 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
+@InputType({
+  isAbstract: true,
+})
+export class UserInput {
+  @Field()
+  id: number;
 
-@InputType()
-class CreateUserInput {
   @Field()
   email: string;
 
@@ -33,5 +37,3 @@ class CreateUserInput {
   })
   gender!: boolean | null;
 }
-
-export { CreateUserInput };

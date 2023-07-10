@@ -1,19 +1,13 @@
-import { ArgsType, Field, InputType } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
+import { UserQueryInput, UserQueryUniqueInput } from '../inputs/user-query.input';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { UserOrderByInput } from '../inputs/UserOrderByInput';
-import { UserWhereInput } from '../inputs/UserWhereInput';
+import { UserOrderByInput } from '../inputs/user-order-by.input';
 
 @ArgsType()
-class UserFindManyArgs {
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereInput,
-  })
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  where?: UserWhereInput;
-
+export class FindManyUserArgs {
+  @Field(() => UserQueryInput, { nullable: true })
+  where?: UserQueryInput;
   @ApiProperty({
     required: false,
     type: [UserOrderByInput],
@@ -39,4 +33,8 @@ class UserFindManyArgs {
   take?: number;
 }
 
-export { UserFindManyArgs };
+@ArgsType()
+export class FindOneUserArgs {
+  @Field(() => UserQueryUniqueInput, { nullable: false })
+  where!: UserQueryUniqueInput;
+}

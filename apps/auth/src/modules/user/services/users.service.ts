@@ -1,32 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, PrismaService } from 'src/common/prisma/prisma';
 import { PasswordService } from 'src/modules/auth/password.service';
-import { UserServiceBase } from '../base/user.service.base';
+import { FindManyUserArgs, FindOneUserArgs } from '../dtos/args/find-user.args';
+import { InsertManyUserArgs, InsertOneUserArgs } from '../dtos/args/insert-user.args';
 
 @Injectable()
-export class UsersService extends UserServiceBase {
-  constructor(
-    protected prisma: PrismaService,
-    protected passwordService: PasswordService
-  ) {
-    super(prisma, passwordService);
+export class UsersService {
+  constructor(protected prisma: PrismaService, protected passwordService: PasswordService) {}
+
+  async findMany(args: FindManyUserArgs) {
+    const Products = await this.prisma.user.findMany(args);
+    return Products;
   }
 
-  async getUserRole(id: number) {
-    return this.prisma.user
-      .findUnique({
-        where: {
-          id: id,
-        },
-      })
-      .UserRole();
+  async findOne(args: FindOneUserArgs) {
+    return await this.prisma.user.findUnique(args);
   }
 
+  async insertOne(args: InsertOneUserArgs) {
+    return await this.prisma.user.create(args);
+  }
+
+  async insertMany(args: InsertManyUserArgs) {
+    return await this.prisma.user.createMany(args);
+  }
 
   async createUser(args: Prisma.UserCreateArgs, roles?: string[]) {
-    const hashedPassword = await this.passwordService.hashPassword(
-      args.data.password
-    );
+    const hashedPassword = await this.passwordService.hashPassword(args.data.password);
     args.data.password = hashedPassword;
     const user = await this.prisma.user.create({
       data: {
@@ -39,9 +39,7 @@ export class UsersService extends UserServiceBase {
 
   async updateUser(args: Prisma.UserUpdateArgs, roles?: string[]) {
     if (args.data.password) {
-      const hashedPassword = await this.passwordService.hashPassword(
-        args.data.password as string
-      );
+      const hashedPassword = await this.passwordService.hashPassword(args.data.password as string);
       args.data.password = hashedPassword;
     } else {
       delete args.data.password;
@@ -104,6 +102,15 @@ export class UsersService extends UserServiceBase {
     return this.prisma.user.aggregate(args);
   }
 
+  async getUserRole(id: number) {
+    return this.prisma.user
+      .findUnique({
+        where: {
+          id: id,
+        },
+      })
+      .UserRole();
+  }
   async findUser(id: string) {
     const user = await this.prisma.user.findUnique({
       where: {

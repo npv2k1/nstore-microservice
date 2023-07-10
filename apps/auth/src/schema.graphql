@@ -7,18 +7,6 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
-input CreateUserInput {
-  address: String
-  avatarFileId: Int
-  bio: String
-  email: String!
-  fullName: String!
-  gender: Boolean
-  password: String!
-  phone: String
-  roles: [String!]
-}
-
 input ForgotPasswordInput {
   email: String!
 }
@@ -41,21 +29,21 @@ input LoginInput {
 
 type Mutation {
   changePassword(input: ChangePasswordInput!): String!
-  createUser(data: CreateUserInput!): User!
   deleteUser(id: Int!): User!
   forgotPassword(input: ForgotPasswordInput!): String!
+  insertManyUsers(data: [UserInsertInput!]!): User!
+  insertOneUser(data: UserInsertInput!): User!
   login(input: LoginInput!): Token!
   resetPassword(input: ResetPasswordInput!): String!
   signup(input: SignupInput!): Token!
-  updateUser(data: UpdateUserInput!, where: WhereUniqueUserInput!): User!
 }
 
 type Query {
   Role: [Role!]!
-  User(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
   User_aggregate(skip: Int, take: Int, where: UserWhereInput): UserAggregate!
-  User_by_pk(id: Int!): User!
   me: User!
+  user(where: UserQueryUniqueInput!): User!
+  users(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserQueryInput): [User!]!
 }
 
 enum QueryMode {
@@ -103,18 +91,6 @@ type Token {
   refreshToken: String!
 }
 
-input UpdateUserInput {
-  address: String
-  avatarFileId: Int
-  bio: String
-  email: String
-  fullName: String
-  gender: Boolean
-  password: String
-  phone: String
-  roles: [String!]
-}
-
 type User {
   UserRole: [UserRole!]
   address: String
@@ -134,8 +110,38 @@ type UserAggregate {
   _count: Int
 }
 
+input UserInsertInput {
+  address: String
+  avatarFileId: Int
+  bio: String
+  email: String!
+  fullName: String!
+  gender: Boolean
+  id: Int!
+  password: String!
+  phone: String
+  roles: [String!]
+}
+
 input UserOrderByInput {
   id: SortOrder
+}
+
+input UserQueryInput {
+  address: String
+  avatarFileId: Int
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+input UserQueryUniqueInput {
+  id: Int!
 }
 
 type UserRole {
@@ -151,8 +157,4 @@ input UserWhereInput {
   email: StringFilter
   id: IntFilter
   password: StringFilter
-}
-
-input WhereUniqueUserInput {
-  id: Int!
 }
