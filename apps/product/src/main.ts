@@ -9,6 +9,7 @@ import type {
   SwaggerConfig,
 } from 'src/common/configs/config.interface';
 import { json, urlencoded } from 'express';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
@@ -39,6 +40,39 @@ async function bootstrap() {
   if (corsConfig.enabled) {
     app.enableCors();
   }
+
+  // Load config
+  const MQ_HOST = configService.get('MQ_HOST');
+  const MQ_PORT = configService.get('MQ_PORT');
+  const MQ_USER = configService.get('MQ_USER');
+  const MQ_PASS = configService.get('MQ_PASS');
+  const MQ_QUEUE = configService.get('MQ_QUEUE');
+
+  console.log('RabbitMQ Config: ', {
+    MQ_HOST,
+    MQ_PORT,
+    MQ_USER,
+    MQ_PASS,
+    MQ_QUEUE,
+  });
+
+  // Start microservice
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+      queue: MQ_QUEUE,
+      noAck: false,
+      // prefetchCount: 1, // Process one by one
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });
+
+  await app
+    .startAllMicroservices()
+    .then(() => console.log('Microservice is listening'));
 
   await app.listen(process.env.PORT || nestConfig.port || 3000).then(() => {
     console.log(
