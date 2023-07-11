@@ -1,3 +1,5 @@
+import { User } from '@modules/user/entities/user.entity';
+import { UsersService } from '@modules/user/users.service';
 import {
   BadRequestException,
   ConflictException,
@@ -7,15 +9,14 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { SecurityConfig } from 'src/common/configs/config.interface';
+import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { generateRandomPassword } from 'src/utils/tool';
-import { UsersService } from '@modules/user/users.service';
+import { MailService } from '../mail/mail.service';
 import { LoginInput } from './dtos/inputs/login.input';
+import { ChangePasswordInput } from './dtos/inputs/reset-password.input';
 import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
-import { ChangePasswordInput, ResetPasswordInput } from './dtos/inputs/reset-password.input';
-import { User } from '@modules/user/entities/user.entity';
 
 export type UserPayload = {
   userId: number;
@@ -29,7 +30,8 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
     private readonly configService: ConfigService,
-    private readonly userService: UsersService
+    private readonly userService: UsersService,
+    private readonly mailService: MailService
   ) {}
 
   /**
@@ -207,7 +209,7 @@ export class AuthService {
     return {
       ...user,
       roles: roles,
-    }
+    };
   }
 
   generateTokens(payload: UserPayload): Token {
@@ -305,6 +307,14 @@ export class AuthService {
     const url = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
     // TODO: send email
+    this.mailService.send({
+      to: email,
+      subject: 'Reset Password',
+      html: `
+        <h3>Reset Password</h3>
+        <p>Click <a href="${url}">here</a> to reset your password</p>
+      `,
+    });
   }
 
   async changePassword(input: ChangePasswordInput, user: User) {
