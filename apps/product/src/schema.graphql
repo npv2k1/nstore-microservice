@@ -14,7 +14,11 @@ type Mutation {
 
 type Product {
   _id: String!
+  available: Boolean
+  image: String
   name: String
+  price: Int
+  quantity: Int
 }
 
 input ProductInsertInput {

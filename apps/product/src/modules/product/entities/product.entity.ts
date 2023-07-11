@@ -20,6 +20,30 @@ export class Product {
     nullable: true,
   })
   name: string;
+
+  @Prop()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  price: number;
+
+  @Prop()
+  @Field(() => String, {
+    nullable: true,
+  })
+  image: string;
+
+  @Prop()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  quantity: number;
+
+  @Prop()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  available: boolean;
 }
 
 export type ProductDocument = Product & Document;
