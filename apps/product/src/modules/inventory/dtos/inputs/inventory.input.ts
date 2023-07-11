@@ -4,7 +4,7 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 @InputType({
   isAbstract: true,
 })
-export class ProductInput {
+export class InventoryInput {
   _id?: string;
 
   name?: string;

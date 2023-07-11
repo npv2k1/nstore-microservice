@@ -6,6 +6,7 @@ import { ReadPreferenceMode, TransactionOptions, ObjectId } from 'mongodb';
 import mongoose, {
   ClientSession,
   Document,
+  FilterQuery,
   Model,
   PaginateModel,
   PaginateOptions,
@@ -231,7 +232,8 @@ export class BaseRepository<T extends Document> implements Repository<T> {
     return this.pagingModel.paginate(conditions, options);
   }
 
-  async find(conditions: any, options?: FindOptions): Promise<T[]> {
+  async find(conditions: FilterQuery<T>, options?: FindOptions): Promise<T[]> {
+    
     return this.modifyQuery(this.model.find(conditions, null, options)).exec();
   }
 

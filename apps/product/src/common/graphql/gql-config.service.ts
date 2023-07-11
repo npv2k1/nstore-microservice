@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { GqlOptionsFactory } from '@nestjs/graphql';
+import GraphQLJSON from 'graphql-type-json';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
@@ -25,8 +26,8 @@ export class GqlConfigService implements GqlOptionsFactory {
       debug: graphqlConfig.debug,
       playground: graphqlConfig.playgroundEnabled,
       fieldResolverEnhancers: ['guards'],
-
       context: ({ req }) => ({ req }),
+      // resolvers: { JSON: GraphQLJSON },
     };
   }
 }

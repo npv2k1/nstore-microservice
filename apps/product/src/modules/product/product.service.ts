@@ -17,6 +17,7 @@ import {
 } from './dtos/args/update-product.args';
 import { UpsertOneProductArgs } from './dtos/args/upsert-product.args';
 import { ProductRepository } from './product.repository';
+import { convertToMultiLevel } from '@/utils';
 
 @Injectable()
 export class ProductService {
@@ -27,7 +28,7 @@ export class ProductService {
   }
 
   async findMany(args: FindManyProductArgs) {
-    const Products = await this.ProductRepo.findAll(args.query);
+    const Products = await this.ProductRepo.find(args.query);
     return Products;
   }
 

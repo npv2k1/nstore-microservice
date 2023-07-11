@@ -80,6 +80,9 @@ dependencies:
   graphql-subscriptions:
     specifier: 1.2.1
     version: 1.2.1(graphql@16.5.0)
+  graphql-type-json:
+    specifier: ^0.3.2
+    version: 0.3.2(graphql@16.5.0)
   ioredis:
     specifier: ^5.3.1
     version: 5.3.2
@@ -4682,6 +4685,14 @@ packages:
     dependencies:
       graphql: 16.5.0
       tslib: 2.4.0
+    dev: false
+
+  /graphql-type-json@0.3.2(graphql@16.5.0):
+    resolution: {integrity: sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==}
+    peerDependencies:
+      graphql: '>=0.8.0'
+    dependencies:
+      graphql: 16.5.0
     dev: false
 
   /graphql-ws@5.5.5(graphql@16.5.0):

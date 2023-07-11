@@ -7,8 +7,10 @@ import config from 'src/common/configs/config';
 import { GqlConfigService } from './common/graphql/gql-config.service';
 
 import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
+import { CategoryModule } from './modules/category/category.module';
 import { ProductModule } from './modules/product/product.module';
+import { UserModule } from './modules/user/user.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 
 @Module({
   imports: [
@@ -23,7 +25,9 @@ import { ProductModule } from './modules/product/product.module';
     }),
     AuthModule,
     UserModule,
+    InventoryModule,
     ProductModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],
