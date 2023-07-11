@@ -1,3 +1,5 @@
+import { User } from '@modules/user/entities/user.entity';
+import { UsersService } from '@modules/user/users.service';
 import {
   BadRequestException,
   ConflictException,
@@ -7,18 +9,14 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { SecurityConfig } from 'src/common/configs/config.interface';
+import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { generateRandomPassword } from 'src/utils/tool';
-import { UsersService } from '../user/services/users.service';
-import { LoginInput } from './dtos/inputs/LoginInput';
-import { Token } from './entities/Token';
+import { MailService } from '../mail/mail.service';
+import { LoginInput } from './dtos/inputs/login.input';
+import { ChangePasswordInput } from './dtos/inputs/reset-password.input';
+import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
-import {
-  ChangePasswordInput,
-  ResetPasswordInput,
-} from './dtos/inputs/reset-password.input';
-import { User } from '@modules/user/entities/User';
 
 export type UserPayload = {
   userId: number;
@@ -33,6 +31,7 @@ export class AuthService {
     private readonly passwordService: PasswordService,
     private readonly configService: ConfigService,
     private readonly userService: UsersService,
+    private readonly mailService: MailService
   ) {}
 
   /**
@@ -45,9 +44,7 @@ export class AuthService {
    * user.
    */
   async createUser(payload: Prisma.UserCreateInput) {
-    const hashedPassword = await this.passwordService.hashPassword(
-      payload.password
-    );
+    const hashedPassword = await this.passwordService.hashPassword(payload.password);
 
     try {
       return await this.prisma.$transaction(async (tx) => {
@@ -71,10 +68,7 @@ export class AuthService {
         });
       });
     } catch (e) {
-      if (
-        e instanceof Prisma.PrismaClientKnownRequestError &&
-        e.code === 'P2002'
-      ) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
         throw new ConflictException(`Email ${payload.email} already used.`);
       } else {
         throw new Error(e);
@@ -131,10 +125,7 @@ export class AuthService {
         role: userRole,
       };
       // update user if needed
-      if (
-        user.picture !== googleUser.picture ||
-        user.fullName !== googleUser.name
-      ) {
+      if (user.picture !== googleUser.picture || user.fullName !== googleUser.name) {
         await this.prisma.user.update({
           where: { id: user.id },
           data: {
@@ -182,10 +173,7 @@ export class AuthService {
     }
     // map role to string
 
-    const passwordValid = await this.passwordService.validatePassword(
-      password,
-      user.password
-    );
+    const passwordValid = await this.passwordService.validatePassword(password, user.password);
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');
@@ -207,17 +195,21 @@ export class AuthService {
   }
 
   async validateUser(userId: number): Promise<any> {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        email: true,
-        address: true,
-        fullName: true,
-        phone: true,
-        picture: true,
+      include: {
+        UserRole: {
+          select: {
+            roleName: true,
+          },
+        },
       },
     });
+    const roles = user.UserRole.map((role) => role.roleName);
+    return {
+      ...user,
+      roles: roles,
+    };
   }
 
   generateTokens(payload: UserPayload): Token {
@@ -315,6 +307,14 @@ export class AuthService {
     const url = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
     // TODO: send email
+    this.mailService.send({
+      to: email,
+      subject: 'Reset Password',
+      html: `
+        <h3>Reset Password</h3>
+        <p>Click <a href="${url}">here</a> to reset your password</p>
+      `,
+    });
   }
 
   async changePassword(input: ChangePasswordInput, user: User) {
@@ -330,10 +330,7 @@ export class AuthService {
       },
     });
 
-    const passwordValid = await this.passwordService.validatePassword(
-      oldPassword,
-      oldUser.password
-    );
+    const passwordValid = await this.passwordService.validatePassword(oldPassword, oldUser.password);
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');

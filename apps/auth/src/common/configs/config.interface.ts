@@ -4,7 +4,6 @@ export interface Config {
   swagger: SwaggerConfig;
   security: SecurityConfig;
   graphql: GraphqlConfig;
-  s3Storage: S3StorageConfig;
 }
 
 export interface NestConfig {

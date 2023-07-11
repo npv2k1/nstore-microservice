@@ -1,15 +1,10 @@
 import { INestApplication } from '@nestjs/common';
-import {
-  DocumentBuilder,
-  OpenAPIObject,
-  SwaggerCustomOptions,
-  SwaggerModule,
-} from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
 
 export const swaggerPath = 'api';
 
 export const swaggerDocumentOptions = new DocumentBuilder()
-  .setTitle('@nstack/api')
+  .setTitle('@pnstack/auth')
   .setDescription('\n\n API Documents')
   .setVersion('1.0')
   .addBearerAuth()
@@ -21,7 +16,7 @@ export const swaggerSetupOptions: SwaggerCustomOptions = {
   },
   customCssUrl: './swagger/swagger.css',
   customfavIcon: './swagger/favicon.png',
-  customSiteTitle: '@nstack/api',
+  customSiteTitle: '@pnstack/auth',
 };
 
 /**
@@ -34,10 +29,7 @@ export async function setupSwagger(app: INestApplication) {
   /** check if there is Public decorator for each path (action) and its method (findMany / findOne) on each controller */
   Object.values((document as OpenAPIObject).paths).forEach((path: any) => {
     Object.values(path).forEach((method: any) => {
-      if (
-        Array.isArray(method.security) &&
-        method.security.includes('isPublic')
-      ) {
+      if (Array.isArray(method.security) && method.security.includes('isPublic')) {
         method.security = [];
       }
     });

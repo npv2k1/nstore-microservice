@@ -1,0 +1,1 @@
+# Example mail service client

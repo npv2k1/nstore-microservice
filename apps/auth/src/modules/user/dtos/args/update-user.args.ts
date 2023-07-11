@@ -1,12 +1,21 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { CreateUserInput } from '../inputs/create-user.input';
-import { UpdateUserInput } from '../inputs/update-user.input';
-import { WhereUniqueUserInput } from '../inputs/UserWhereInput';
+import { UpdateUserInput } from '../inputs/user-update.input';
+import { UserQueryUniqueInput } from '../inputs/user-query.input';
 
 @ArgsType()
-export class UpdateUserArgs {
+export class UpdateOneUserArgs {
   @Field()
   data: UpdateUserInput;
   @Field()
-  where: WhereUniqueUserInput;
+  where: UserQueryUniqueInput;
+}
+
+
+
+@ArgsType()
+export class UpdateManyUserArgs {
+  @Field()
+  data: UpdateUserInput;
+  @Field()
+  where: UserQueryUniqueInput;
 }

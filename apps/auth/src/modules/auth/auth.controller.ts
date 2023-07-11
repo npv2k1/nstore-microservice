@@ -5,16 +5,15 @@ import { Response } from 'express';
 import { ReqUser } from 'src/common/decorators/user.decorator';
 import { GoogleOauthGuard, JwtGuard } from 'src/common/guards';
 import { AuthService } from './auth.service';
-import { LoginInput } from './dtos/inputs/LoginInput';
-import { SignupInput } from './dtos/inputs/SignupInput';
-import { Token } from './entities/Token';
+import { LoginInput } from './dtos/inputs/login.input';
+import { SignupInput } from './dtos/inputs/signup.input';
+import { Token } from './entities/token.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // login
   @ApiResponse({
     type: [Token],
   })
@@ -28,6 +27,9 @@ export class AuthController {
     };
   }
 
+  @ApiResponse({
+    type: [Token],
+  })
   @Post('register')
   async signup(@Body() data: SignupInput) {
     const { accessToken, refreshToken } = await this.authService.createUser({
@@ -52,11 +54,6 @@ export class AuthController {
   @UseGuards(JwtGuard)
   async me(@ReqUser() user: User) {
     return user;
-  }
-
-  @Get('ping')
-  async ping() {
-    return 'pong';
   }
 
   @Get('google')

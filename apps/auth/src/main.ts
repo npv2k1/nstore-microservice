@@ -21,13 +21,11 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '100mb' }));
 
   // Validation and transform
-  // app.useGlobalPipes(
-  //   new ValidationPipe({
-  //     transform: true,
-  //   })
-  // );
-
-  // app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    })
+  );
 
   // Prisma Client Exception Filter for unhandled exceptions
   const { httpAdapter } = app.get(HttpAdapterHost);
@@ -41,7 +39,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const nestConfig = configService.get<NestConfig>('nest');
   const port = process.env.PORT || nestConfig.port || 3000;
-  console.log('API PORT: ', port);
   await app
     .listen(port)
     .then(() => {
