@@ -39,29 +39,29 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
-  minio:
-    image: quay.io/minio/minio
-    restart: on-failure
-    ports:
-      - 9000:9000
-      - 9090:9090
-    command: server /data --console-address ":9090"
-    volumes:
-      - ./data/minio:/data
-    env_file:
-      - .env
+  # minio:
+  #   image: quay.io/minio/minio
+  #   restart: on-failure
+  #   ports:
+  #     - 9000:9000
+  #     - 9090:9090
+  #   command: server /data --console-address ":9090"
+  #   volumes:
+  #     - ./data/minio:/data
+  #   env_file:
+  #     - .env
 
-  mongodb:
-    image: mongo
-    restart: on-failure
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: news
-    volumes:
-      - mongodb-data:/data/db
-    ports:
-      - "27018:27017"
+  # mongodb:
+  #   image: mongo
+  #   restart: on-failure
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #     MONGO_INITDB_DATABASE: news
+  #   volumes:
+  #     - mongodb-data:/data/db
+  #   ports:
+  #     - "27018:27017"
 
 volumes:
   rabbitmq-data:
