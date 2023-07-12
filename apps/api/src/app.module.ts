@@ -20,6 +20,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule } from './modules/product/product.module';
 import { CategoryModule } from './modules/category/category.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
+import { CartModule } from './modules/cart/cart.module';
+import { OrderModule } from './modules/order/order.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { ShipmentModule } from './modules/shipment/shipment.module';
+import { CouponModule } from './modules/coupon/coupon.module';
 
 @Module({
   imports: [
@@ -62,9 +67,14 @@ import { InventoryModule } from './modules/inventory/inventory.module';
     AuthModule,
     UsersModule,
     RoleModule,
-    ProductModule,
+    InventoryModule,
     CategoryModule,
-    InventoryModule
+    ProductModule,
+    CartModule,
+    OrderModule,
+    PaymentModule,
+    ShipmentModule,
+    CouponModule,
   ],
   controllers: [],
   providers: [],

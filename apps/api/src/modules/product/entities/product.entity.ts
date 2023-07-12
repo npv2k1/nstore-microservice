@@ -41,7 +41,6 @@ export class Product {
 
   @Prop({
     type: Number,
-    required: true,
   })
   @Field(() => Float, {
     nullable: true,
