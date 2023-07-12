@@ -1,0 +1,198 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  _id: String!
+  description: String
+  image: String
+  name: String
+  parent: Category
+  slug: String
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  changePassword(input: ChangePasswordInput!): String!
+  deleteManyProducts(query: ProductQueryInput): Product!
+  deleteManyUsers(where: UserQueryInput!): User!
+  deleteOneProduct(query: ProductQueryInput!): Product!
+  deleteOneUser(where: UserQueryUniqueInput!): User!
+  forgotPassword(input: ForgotPasswordInput!): String!
+  insertManyProducts(data: [ProductInsertInput!]!): Product!
+  insertManyUsers(data: [UserInsertInput!]!): User!
+  insertOneProduct(data: ProductInsertInput!): Product!
+  insertOneUser(data: UserInsertInput!): User!
+  login(input: LoginInput!): Token!
+  resetPassword(input: ResetPasswordInput!): String!
+  signup(input: SignupInput!): Token!
+  updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!
+  updateManyUsers(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
+  updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
+  updateOneUser(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
+  upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
+}
+
+type Product {
+  _id: String!
+  available: Boolean
+  barcode: String
+  categories: [Category!]
+  gallery: [String!]
+  image: String
+  name: String
+  price: Float
+  productType: String!
+  properties: JSONObject
+  quantity: Int
+  salePrice: Float
+  status: String
+  tags: [String!]
+  unit: String
+  variants: [Product!]
+}
+
+input ProductInsertInput {
+  _id: String
+  categories: [String!]
+  name: String
+  price: Float!
+  properties: JSONObject
+}
+
+input ProductQueryInput {
+  _id: String
+  categories: [String!]
+  categories_in: [String!]
+  name: String
+  price: Float
+  properties: JSONObject
+}
+
+input ProductUpdateInput {
+  _id: String
+  categories: [String!]
+  name: String
+  price: Float
+  properties: JSONObject
+}
+
+type Query {
+  Role: [Role!]!
+  aggregateUsers(skip: Int, take: Int, where: UserQueryInput): UserAggregate!
+  me: User!
+  product(query: ProductQueryInput!): Product!
+  products(query: ProductQueryInput): [Product!]!
+  user(where: UserQueryUniqueInput!): User!
+  users(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserQueryInput): [User!]!
+}
+
+input ResetPasswordInput {
+  password: String!
+  token: String!
+}
+
+type Role {
+  description: String
+  name: String!
+}
+
+input SignupInput {
+  email: String!
+  password: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+type Token {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input UpdateUserInput {
+  address: String
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+type User {
+  address: String
+  bio: String
+  dateOfBirth: DateTime
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int!
+  password: String
+  phone: String
+  picture: String
+  roles: [String!]
+}
+
+type UserAggregate {
+  _count: Int
+}
+
+input UserInsertInput {
+  address: String
+  bio: String
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String!
+  phone: String
+  roles: [String!]
+}
+
+input UserOrderByInput {
+  id: SortOrder
+}
+
+input UserQueryInput {
+  address: String
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+input UserQueryUniqueInput {
+  id: Int
+}

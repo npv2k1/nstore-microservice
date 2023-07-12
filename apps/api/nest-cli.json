@@ -1,0 +1,18 @@
+{
+  "language": "ts",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "plugins": [
+      "@nestjs/swagger/plugin",
+      "@nestjs/graphql/plugin"
+    ],
+    "assets": [
+      {
+        "include": "/templates/**/*",
+        "outDir": "dist"
+      }
+    ],
+    "watchAssets": true
+  }
+}
