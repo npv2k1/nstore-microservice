@@ -18,6 +18,8 @@ import { RoleModule } from './modules/role/role.module';
 import { excludePasswordMiddleware } from './common/prisma/middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule } from './modules/product/product.module';
+import { CategoryModule } from './modules/category/category.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 
 @Module({
   imports: [
@@ -61,6 +63,8 @@ import { ProductModule } from './modules/product/product.module';
     UsersModule,
     RoleModule,
     ProductModule,
+    CategoryModule,
+    InventoryModule
   ],
   controllers: [],
   providers: [],

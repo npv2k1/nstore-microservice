@@ -9,6 +9,7 @@ import { HttpExceptionFilter } from './common/filters/HttpExceptions.filter';
 import { setupPrisma } from './common/prisma/prisma';
 import { setupSocket } from './common/socket/socket';
 import { setupSwagger } from './common/swagger/swagger';
+import { setupMicroservice } from './common/microservice';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -34,6 +35,7 @@ async function bootstrap() {
   await setupPrisma(app);
   await setupSwagger(app);
   await setupSocket(app);
+  await setupMicroservice(app)
 
   // Listen port
   const configService = app.get(ConfigService);
