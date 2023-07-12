@@ -4,22 +4,28 @@
 
 type Cart {
   _id: String!
-  name: String
+  customer: Customer!
+  product: Product!
+  quantity: Int!
+  subtotal: Int!
 }
 
 input CartInsertInput {
   _id: String
-  name: String
+  product: String!
+  quantity: Int! = 1
 }
 
 input CartQueryInput {
   _id: String
-  name: String
+  product: String
+  quantity: Int = 1
 }
 
 input CartUpdateInput {
   _id: String
-  name: String
+  product: String
+  quantity: Int = 1
 }
 
 type Category {
@@ -54,7 +60,12 @@ input ChangePasswordInput {
 
 type Coupon {
   _id: String!
-  name: String
+  code: String
+  discountType: String!
+  discountValue: Int
+  product: Int
+  status: Boolean!
+  type: String!
 }
 
 input CouponInsertInput {
@@ -70,6 +81,13 @@ input CouponQueryInput {
 input CouponUpdateInput {
   _id: String
   name: String
+}
+
+type Customer {
+  _id: String!
+  email: String!
+  picture: String!
+  uid: Int
 }
 
 """
@@ -196,12 +214,26 @@ type Mutation {
 
 type Order {
   _id: String!
-  name: String
+  coupon: Coupon!
+  customer: Customer!
+  deliveryAddress: String!
+  deliveryFee: Int!
+  deliveryStatus: String!
+  items: [OrderItem!]!
+  status: String!
+  total: Int!
 }
 
 input OrderInsertInput {
   _id: String
   name: String
+}
+
+type OrderItem {
+  _id: String!
+  product: Product!
+  quantity: Int
+  subtotal: Int
 }
 
 input OrderQueryInput {
@@ -296,6 +328,7 @@ type Query {
   payments(query: PaymentQueryInput): [Payment!]!
   product(query: ProductQueryInput!): Product!
   products(query: ProductQueryInput): [Product!]!
+  profile: Customer!
   shipment(query: ShipmentQueryInput!): Shipment!
   shipments(query: ShipmentQueryInput): [Shipment!]!
   user(where: UserQueryUniqueInput!): User!
@@ -314,7 +347,8 @@ type Role {
 
 type Shipment {
   _id: String!
-  name: String
+  order: Order!
+  status: String!
 }
 
 input ShipmentInsertInput {

@@ -17,6 +17,7 @@ import { LoginInput } from './dtos/inputs/login.input';
 import { ChangePasswordInput } from './dtos/inputs/reset-password.input';
 import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
+import { CustomerService } from '../customer/customer.service';
 
 export type UserPayload = {
   userId: number;
@@ -31,7 +32,8 @@ export class AuthService {
     private readonly passwordService: PasswordService,
     private readonly configService: ConfigService,
     private readonly userService: UsersService,
-    private readonly mailService: MailService
+    private readonly mailService: MailService,
+    private readonly customerService: CustomerService
   ) {}
 
   /**
@@ -205,10 +207,17 @@ export class AuthService {
         },
       },
     });
+
     const roles = user.UserRole.map((role) => role.roleName);
-    return {
+    const _user = {
       ...user,
       roles: roles,
+    };
+    const customer = await this.customerService.createOrUpdate({ uid: user.id }, _user);
+
+    return {
+      ...user,
+      _id: customer._id,
     };
   }
 

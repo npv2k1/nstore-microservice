@@ -25,6 +25,7 @@ import { OrderModule } from './modules/order/order.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { CouponModule } from './modules/coupon/coupon.module';
+import { CustomerModule } from './modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { CouponModule } from './modules/coupon/coupon.module';
     AuthModule,
     UsersModule,
     RoleModule,
+    CustomerModule,
     InventoryModule,
     CategoryModule,
     ProductModule,

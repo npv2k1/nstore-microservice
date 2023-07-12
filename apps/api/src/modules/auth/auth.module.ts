@@ -14,6 +14,7 @@ import { AuthResolver } from './auth.resolver';
 import { PubSubModule } from 'src/common/graphql/pubsub.module';
 import { GqlAuthGuard } from 'src/common/guards';
 import { MailModule } from '../mail/mail.module';
+import { CustomerModule } from '../customer/customer.module';
 
 @Global()
 @Module({
@@ -21,6 +22,7 @@ import { MailModule } from '../mail/mail.module';
     PubSubModule,
     UsersModule,
     MailModule,
+    CustomerModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
