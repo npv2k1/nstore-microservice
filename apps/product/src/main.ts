@@ -62,8 +62,22 @@ async function bootstrap() {
     options: {
       urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
       queue: MQ_QUEUE,
-      // noAck: false,
+      noAck: false,
       // prefetchCount: 1, // Process one by one
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });
+
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+      queue: "even_bus",
+      noAck: false,
+      prefetchCount: 1, // Process one by one
       queueOptions: {
         durable: false,
       },

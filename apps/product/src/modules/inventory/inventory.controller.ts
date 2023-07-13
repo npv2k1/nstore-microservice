@@ -5,16 +5,21 @@ import {
   Payload,
   RmqContext,
 } from '@nestjs/microservices';
-
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 @Controller('inventory')
 export class InventoryController {
-  @MessagePattern('OrderSuccess')
-  async ping(@Payload() data: any, @Ctx() context: RmqContext) {
+  @MessagePattern('ping')
+  async ping2(@Payload() data: any, @Ctx() context: RmqContext) {
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
+    // console.log('channel', channel);
 
-    console.log(`Pattern: ${context.getPattern()}`, data);
+    await sleep(3000);
+    console.log('Done ping2');
+    channel.ack(originalMsg);
 
-    return 'pong';
+    return 'pong-2';
   }
 }
