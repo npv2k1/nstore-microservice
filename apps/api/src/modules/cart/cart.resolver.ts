@@ -13,16 +13,27 @@ import { Roles, UserEntity } from '@/common/decorators';
 import { ROLES_KEY } from '@/common/decorators/roles.decorator';
 import { ROLE } from '@/common/enums/role.enum';
 import { Customer } from '../customer/entities/customer.entity';
+import { User } from '../user/entities/user.entity';
+import { AuthUser } from '../auth/entities/auth-user,entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Cart)
 export class CartResolver {
   constructor(private readonly cartService: CartService) {}
+
+  @Roles(ROLE.USER)
   @Query(() => [Cart], {
     name: `${pluralize.plural(Cart.name.toLowerCase())}`,
   })
-  async findMany(@Args() args: FindManyCartArgs) {
-    return this.cartService.findMany(args);
+  async findMany(@Args() args: FindManyCartArgs, @UserEntity() user: AuthUser) {
+    let _args = {
+      ...args,
+      query: {
+        ...args.query,
+        customer: user._id,
+      }
+    }
+    return this.cartService.findMany(_args);
   }
 
   @Query(() => Cart, { name: Cart.name.toLowerCase() })
@@ -44,12 +55,14 @@ export class CartResolver {
     return await this.cartService.deleteMany(args);
   }
 
-  @Roles([ROLE.ADMIN, ROLE.USER])
+  @Roles(ROLE.USER)
   @Mutation(() => Cart, {
     name: `insertOne${pluralize.singular(Cart.name)}`,
   })
-  async insertOne(@Args() args: InsertOneCartArgs, @UserEntity() user: Customer) {
-    return await this.cartService.insertOne(args);
+  async insertOne(@Args() args: InsertOneCartArgs, @UserEntity() user: AuthUser) {
+    args.data.customer = user._id;
+
+    return await this.cartService.upsertOneAndIncreaseQuantity(args);
   }
 
   @Mutation(() => Cart, {

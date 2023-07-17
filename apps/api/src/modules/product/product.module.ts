@@ -74,5 +74,6 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
     },
   ],
   controllers: [ProductController],
+  exports: [ProductService],
 })
 export class ProductModule {}

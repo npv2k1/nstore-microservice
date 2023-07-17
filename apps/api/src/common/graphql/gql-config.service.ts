@@ -84,6 +84,12 @@ export class GqlConfigService implements GqlOptionsFactory {
       },
       playground: graphqlConfig.playgroundEnabled,
       // resolvers: { JSON: GraphQLJSON },
+      formatError: (err) => {
+        // console.log('err', err);
+        return {
+          message: err.message,
+        };
+      }
     };
   }
 }

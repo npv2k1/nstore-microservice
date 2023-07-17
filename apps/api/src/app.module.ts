@@ -38,9 +38,9 @@ import { CustomerModule } from './modules/customer/customer.module';
     PrismaModule.forRoot({
       isGlobal: true,
       prismaServiceOptions: {
-        prismaOptions: {
-          log: ['query', 'info', 'warn'],
-        },
+        // prismaOptions: {
+        //   log: ['query', 'info', 'warn'],
+        // },
         middlewares: [
           loggingMiddleware(new Logger('PrismaMiddleware')),
           customPrismaMiddleware(),

@@ -18,49 +18,55 @@ import {
 import { UpsertOneProductArgs } from './dtos/args/upsert-product.args';
 import { ProductRepository } from './product.repository';
 import { convertToMultiLevel } from '@/utils';
+import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly ProductRepo: ProductRepository) {}
+  constructor(private readonly productRepo: ProductRepository) {}
 
   async create(args: InsertOneProductArgs) {
-    return this.ProductRepo.create(args.data);
+    return this.productRepo.create(args.data);
   }
 
   async findMany(args: FindManyProductArgs) {
-    const Products = await this.ProductRepo.find(args.query);
+    const Products = await this.productRepo.find(args.query);
     return Products;
   }
 
   async findOne(args: FindOneProductArgs) {
-    return this.ProductRepo.findOne(args.query);
+    return this.productRepo.findOne(args.query);
+  }
+
+  async findById(id: string){
+    const product =  this.productRepo.findById(id);
+    return product;
   }
 
   async insertOne(args: InsertOneProductArgs) {
-    return await this.ProductRepo.create(args.data);
+    return await this.productRepo.create(args.data);
   }
 
   async insertMany(args: InsertManyProductArgs) {
-    return await this.ProductRepo.create(args.data);
+    return await this.productRepo.create(args.data);
   }
 
   async updateOne(args: UpdateOneProductArgs) {
-    return await this.ProductRepo.updateOne(args.query, args.data);
+    return await this.productRepo.updateOne(args.query, args.data);
   }
 
   async updateMany(args: UpdateManyProductArgs) {
-    return await this.ProductRepo.updateMany(args.query, args.data);
+    return await this.productRepo.updateMany(args.query, args.data);
   }
 
   async deleteOne(args: DeleteOneProductArgs) {
-    return await this.ProductRepo.deleteOne(args.query);
+    return await this.productRepo.deleteOne(args.query);
   }
 
   async deleteMany(args: DeleteManyProductArgs) {
-    return await this.ProductRepo.deleteMany(args.query);
+    return await this.productRepo.deleteMany(args.query);
   }
 
   async upsertOne(args: UpsertOneProductArgs) {
-    return await this.ProductRepo.updateOneOrCreate(args.query, args.data);
+    return await this.productRepo.updateOneOrCreate(args.query, args.data);
   }
 }

@@ -6,11 +6,16 @@ import { Field, ObjectType } from '@nestjs/graphql';
 })
 export class CartInput {
   _id?: string;
-  
+
   product: string;
 
   @Field(() => Int, {
     defaultValue: 1,
   })
   quantity: number;
+
+  @Field(() => String, {
+    nullable: true,
+  })
+  customer?: string;
 }

@@ -12,18 +12,21 @@ type Cart {
 
 input CartInsertInput {
   _id: String
+  customer: String
   product: String!
   quantity: Int! = 1
 }
 
 input CartQueryInput {
   _id: String
+  customer: String
   product: String
   quantity: Int = 1
 }
 
 input CartUpdateInput {
   _id: String
+  customer: String
   product: String
   quantity: Int = 1
 }
