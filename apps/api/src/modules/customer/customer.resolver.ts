@@ -12,7 +12,7 @@ export class CustomerResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => Customer)
   async profile(@UserEntity() user: Customer) {
-    console.log(user);
+    console.log("profile", user);
     return user;
   }
 }

@@ -12,5 +12,7 @@ export class CustomerService {
     return await this.customerRepo.updateOneOrCreate(condiction, data);
   }
 
- 
+  async findByUid(uid: number) {
+    return await this.customerRepo.findOne({ uid });
+  }
 }

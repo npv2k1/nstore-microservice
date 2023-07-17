@@ -1,20 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  DeleteOneOrderArgs,
-  DeleteManyOrderArgs,
-} from './dtos/args/delete-order.args';
-import {
-  FindManyOrderArgs,
-  FindOneOrderArgs,
-} from './dtos/args/find-order.args';
-import {
-  InsertOneOrderArgs,
-  InsertManyOrderArgs,
-} from './dtos/args/insert-order.args';
-import {
-  UpdateOneOrderArgs,
-  UpdateManyOrderArgs,
-} from './dtos/args/update-order.args';
+import { DeleteOneOrderArgs, DeleteManyOrderArgs } from './dtos/args/delete-order.args';
+import { FindManyOrderArgs, FindOneOrderArgs } from './dtos/args/find-order.args';
+import { InsertOneOrderArgs, InsertManyOrderArgs } from './dtos/args/insert-order.args';
+import { UpdateOneOrderArgs, UpdateManyOrderArgs } from './dtos/args/update-order.args';
 import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
 import { OrderRepository } from './order.repository';
 import { ClientProxy } from '@nestjs/microservices';
@@ -28,7 +16,6 @@ export class OrderService {
   ) {}
 
   async create(args: InsertOneOrderArgs) {
-   
     return this.OrderRepo.create(args.data);
   }
 
@@ -42,23 +29,20 @@ export class OrderService {
   }
 
   async insertOne(args: InsertOneOrderArgs) {
-     try {
-       console.log('ping');
-       this.orderProcessService.send('ping', 'ping').subscribe({
-         next: (result) => {
-           console.log(
-             '🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:',
-             result
-           );
-           //  resolve(result);
-         },
-         error: (err) => {
-           console.log(err);
-         },
-       });
-     } catch (error) {
-       console.log(error);
-     }
+    try {
+      console.log('ping');
+      this.orderProcessService.send('ping', 'ping').subscribe({
+        next: (result) => {
+          console.log('🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:', result);
+          //  resolve(result);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
     return await this.OrderRepo.create(args.data);
   }
 

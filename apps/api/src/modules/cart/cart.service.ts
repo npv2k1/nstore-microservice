@@ -9,11 +9,7 @@ import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class CartService {
-  constructor(
-    private readonly CartRepo: CartRepository,
-    @Inject('CART_PROCESS_SERVICE')
-    private readonly cartProcessService: ClientProxy
-  ) {}
+  constructor(private readonly CartRepo: CartRepository) {}
 
   async create(args: InsertOneCartArgs) {
     return this.CartRepo.create(args.data);
@@ -29,20 +25,6 @@ export class CartService {
   }
 
   async insertOne(args: InsertOneCartArgs) {
-    try {
-      console.log('ping');
-      this.cartProcessService.send('ping', 'ping').subscribe({
-        next: (result) => {
-          console.log('🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:', result);
-          //  resolve(result);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
     return await this.CartRepo.create(args.data);
   }
 

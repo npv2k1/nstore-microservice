@@ -24,13 +24,41 @@ export class Customer {
   })
   email: string;
 
-  @Prop({
-    required: true,
-  })
+  @Prop()
   @Field(() => String, {
-    nullable: false,
+    nullable: true,
   })
-  picture: string;
+  fullName: string;
+
+  @Prop()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address: string;
+
+  @Prop()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  dateOfBirth: Date;
+
+  @Prop()
+  @Field(() => String, {
+    nullable: true,
+  })
+  phone: string;
+
+  @Prop()
+  @Field(() => String, {
+    nullable: true,
+  })
+  gender: boolean;
+
+  @Prop()
+  @Field(() => String, {
+    nullable: true,
+  })
+  picture?: string;
 }
 export type CustomerDocument = Customer & Document;
 

@@ -213,11 +213,12 @@ export class AuthService {
       ...user,
       roles: roles,
     };
-    const customer = await this.customerService.createOrUpdate({ uid: user.id }, _user);
 
+    const customer = await this.customerService.createOrUpdate({ uid: user.id }, _user);
     return {
-      ...user,
+      ..._user,
       _id: customer._id,
+      uid: customer.uid,
     };
   }
 

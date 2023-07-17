@@ -85,8 +85,13 @@ input CouponUpdateInput {
 
 type Customer {
   _id: String!
+  address: String
+  dateOfBirth: DateTime
   email: String!
-  picture: String!
+  fullName: String
+  gender: String
+  phone: String
+  picture: String
   uid: Int
 }
 

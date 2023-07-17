@@ -7,7 +7,14 @@ import { UpdateOneCartArgs, UpdateManyCartArgs } from './dtos/args/update-cart.a
 import { UpsertOneCartArgs } from './dtos/args/upsert-cart.args';
 import { Cart } from './entities/cart.entity';
 import { CartService } from './cart.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
+import { Roles, UserEntity } from '@/common/decorators';
+import { ROLES_KEY } from '@/common/decorators/roles.decorator';
+import { ROLE } from '@/common/enums/role.enum';
+import { Customer } from '../customer/entities/customer.entity';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Cart)
 export class CartResolver {
   constructor(private readonly cartService: CartService) {}
@@ -37,10 +44,11 @@ export class CartResolver {
     return await this.cartService.deleteMany(args);
   }
 
+  @Roles([ROLE.ADMIN, ROLE.USER])
   @Mutation(() => Cart, {
     name: `insertOne${pluralize.singular(Cart.name)}`,
   })
-  async insertOne(@Args() args: InsertOneCartArgs) {
+  async insertOne(@Args() args: InsertOneCartArgs, @UserEntity() user: Customer) {
     return await this.cartService.insertOne(args);
   }
 
