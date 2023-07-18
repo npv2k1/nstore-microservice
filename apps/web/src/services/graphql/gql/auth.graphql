@@ -26,6 +26,6 @@ query Me {
     email
     fullName
     picture
-    roles    
+    roles
   }
 }

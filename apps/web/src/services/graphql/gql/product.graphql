@@ -1,0 +1,12 @@
+query Products {
+  products {
+    _id
+    name
+    price
+    available
+    barcode
+    categories {
+      name
+    }
+  }
+}

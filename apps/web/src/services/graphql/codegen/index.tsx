@@ -973,6 +973,11 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, fullName?: string | null, picture?: string | null, roles?: Array<string> | null } };
 
+export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', _id: string, name?: string | null, price?: number | null, available?: boolean | null, barcode?: string | null, categories?: Array<{ __typename?: 'Category', name?: string | null }> | null }> };
+
 
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
@@ -1039,4 +1044,22 @@ export const MeDocument = gql`
 
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
+};
+export const ProductsDocument = gql`
+    query Products {
+  products {
+    _id
+    name
+    price
+    available
+    barcode
+    categories {
+      name
+    }
+  }
+}
+    `;
+
+export function useProductsQuery(options?: Omit<Urql.UseQueryArgs<ProductsQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProductsQuery>({ query: ProductsDocument, ...options });
 };
