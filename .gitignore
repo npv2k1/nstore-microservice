@@ -45,3 +45,7 @@ apps/api/uploads/
 packages/ui/dist/
 
 .env
+
+
+# Ignore temp local
+/temp

@@ -1,0 +1,1 @@
+docker build -t vnews-web:1.1 .
