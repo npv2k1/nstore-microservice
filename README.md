@@ -6,33 +6,33 @@
 
 ## Requirements
 
-- [ ] **Authentication**
-    - [ ] Login
-    - [ ] Register
+- [x] **Authentication**
+    - [x] Login
+    - [x] Register
     - [ ] Verify Email
 
 - **Category**
-    - [ ] CRUD Category
+    - [x] CRUD Category
     - [ ] Allow sorting and changing banner images for each category
-    - [ ] Manage category status (active/inactive)
+    - [x] Manage category status (active/inactive)
 
 - **Items**
-    - [ ] CRUD Items
-    - [ ] Manage item properties:
-        - [ ] Name
-        - [ ] Barcode
-        - [ ] Purchase price
-        - [ ] Selling price
+    - [x] CRUD Items
+    - [x] Manage item properties:
+        - [x] Name
+        - [x] Barcode
+        - [x] Purchase price
+        - [x] Selling price
         - [ ] Weight
         - [ ] Thumbnail image
         - [ ] Detailed images
         - [ ] Product description
-        - [ ] Inventory management (deduct quantity when sold)
+        - [x] Inventory management (deduct quantity when sold)
 
 - **Order**
-    - [ ] Create an order
+    - [x] Create an order
     - [ ] View order details
-    - [ ] Calculate total payment amount
+    - [x] Calculate total payment amount
     - [ ] Deduct item quantity from inventory
 
 - **Voucher**
@@ -45,7 +45,7 @@
     - [ ] Manage prices during flash sale
 
 - [ ] **Item Quantity**
-    - [ ] Track and manage item quantities
+    - [x] Track and manage item quantities
 
 - **Notification**
     - [ ] Send email notifications:
@@ -73,14 +73,14 @@
 ## Additional Features
 
 - [ ] **Authentication and Authorization**
-    - [ ] Implement secure user authentication and authorization mechanism (e.g., JWT, OAuth)
-    - [ ] Manage user roles and permissions (admin, customer, etc.)
-    - [ ] Ensure secure password storage using hashing and salting techniques
+    - [x] Implement secure user authentication and authorization mechanism (e.g., JWT, OAuth)
+    - [x] Manage user roles and permissions (admin, customer, etc.)
+    - [x] Ensure secure password storage using hashing and salting techniques
 
 - [ ] **User Management**
     - [ ] Allow users to update their profile information
     - [ ] Implement password reset functionality
-    - [ ] Enable social login (e.g., Google, Facebook)
+    - [x] Enable social login (e.g., Google, Facebook)
 
 - [ ] **Product Management**
     - [ ] Implement advanced product search functionality (by name, category, attributes, etc.)
