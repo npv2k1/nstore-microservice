@@ -239,6 +239,7 @@ input OrderInsertInput {
 
 type OrderItem {
   _id: String!
+  price: Int!
   product: Product!
   quantity: Int
   subtotal: Int

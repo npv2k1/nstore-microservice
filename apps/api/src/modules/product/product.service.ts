@@ -1,24 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import {
-  DeleteOneProductArgs,
   DeleteManyProductArgs,
+  DeleteOneProductArgs,
 } from './dtos/args/delete-product.args';
 import {
   FindManyProductArgs,
   FindOneProductArgs,
 } from './dtos/args/find-product.args';
 import {
-  InsertOneProductArgs,
   InsertManyProductArgs,
+  InsertOneProductArgs,
 } from './dtos/args/insert-product.args';
 import {
-  UpdateOneProductArgs,
   UpdateManyProductArgs,
+  UpdateOneProductArgs,
 } from './dtos/args/update-product.args';
 import { UpsertOneProductArgs } from './dtos/args/upsert-product.args';
 import { ProductRepository } from './product.repository';
-import { convertToMultiLevel } from '@/utils';
-import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductService {
@@ -68,5 +66,19 @@ export class ProductService {
 
   async upsertOne(args: UpsertOneProductArgs) {
     return await this.productRepo.updateOneOrCreate(args.query, args.data);
+  }
+
+  async reduceProductQuantity(productId: string, quantity: number) {
+    return await this.productRepo.updateOne(
+      { _id: productId },
+      { $inc: { quantity: -quantity } },
+    );
+  }
+
+  async increaseProductQuantity(productId: string, quantity: number) {
+    return await this.productRepo.updateOne(
+      { _id: productId },
+      { $inc: { quantity: quantity } },
+    );
   }
 }

@@ -10,13 +10,16 @@ import { AuthUser } from '../auth/entities/auth-user,entity';
 import { CartService } from '../cart/cart.service';
 import { CustomerService } from '../customer/customer.service';
 import { Order, OrderItem } from './entities/order.entity';
+import { EventBusService } from '../event-bus/event-bus.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     private readonly orderRepo: OrderRepository,
     private readonly cartService: CartService,
-    private readonly customerService: CustomerService
+    private readonly customerService: CustomerService,
+
+    private readonly eventBusService: EventBusService
   ) {}
 
   async create(args: InsertOneOrderArgs) {
@@ -54,6 +57,7 @@ export class OrderService {
     const orderItem = cart.map((item) => {
       return {
         product: item.product._id,
+        price: item.product.price,
         quantity: item.quantity,
         subtotal: item.subtotal,
       };
@@ -86,7 +90,10 @@ export class OrderService {
       items: orderItem,
     };
 
+    await this.eventBusService.emit('OrderCreated', orderInfo);
+
     console.log('orderInfo', orderInfo);
+    // TODO: Clear cart
 
     return await this.orderRepo.create(orderInfo);
   }

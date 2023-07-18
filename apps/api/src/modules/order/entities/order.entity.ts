@@ -22,6 +22,9 @@ export class OrderItem {
   product: Product;
 
   @Prop()
+  price: number;
+
+  @Prop()
   @Field(() => Number, {
     nullable: true,
   })

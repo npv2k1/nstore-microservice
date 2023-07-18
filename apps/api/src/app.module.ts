@@ -26,6 +26,7 @@ import { PaymentModule } from './modules/payment/payment.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { CustomerModule } from './modules/customer/customer.module';
+import { EventBusModule } from './modules/event-bus/event-bus.module';
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { CustomerModule } from './modules/customer/customer.module';
     PaymentModule,
     ShipmentModule,
     CouponModule,
+    EventBusModule,
   ],
   controllers: [],
   providers: [],
