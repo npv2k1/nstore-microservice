@@ -156,7 +156,6 @@ type Mutation {
   deleteManyCategories(query: CategoryQueryInput): Category!
   deleteManyCoupons(query: CouponQueryInput): Coupon!
   deleteManyInventories(query: InventoryQueryInput): Inventory!
-  deleteManyOrders(query: OrderQueryInput): Order!
   deleteManyPayments(query: PaymentQueryInput): Payment!
   deleteManyProducts(query: ProductQueryInput): Product!
   deleteManyShipments(query: ShipmentQueryInput): Shipment!
@@ -165,7 +164,6 @@ type Mutation {
   deleteOneCategory(query: CategoryQueryInput!): Category!
   deleteOneCoupon(query: CouponQueryInput!): Coupon!
   deleteOneInventory(query: InventoryQueryInput!): Inventory!
-  deleteOneOrder(query: OrderQueryInput!): Order!
   deleteOnePayment(query: PaymentQueryInput!): Payment!
   deleteOneProduct(query: ProductQueryInput!): Product!
   deleteOneShipment(query: ShipmentQueryInput!): Shipment!
@@ -175,7 +173,6 @@ type Mutation {
   insertManyCategories(data: [CategoryInsertInput!]!): Category!
   insertManyCoupons(data: [CouponInsertInput!]!): Coupon!
   insertManyInventories(data: [InventoryInsertInput!]!): Inventory!
-  insertManyOrders(data: [OrderInsertInput!]!): Order!
   insertManyPayments(data: [PaymentInsertInput!]!): Payment!
   insertManyProducts(data: [ProductInsertInput!]!): Product!
   insertManyShipments(data: [ShipmentInsertInput!]!): Shipment!
@@ -196,7 +193,6 @@ type Mutation {
   updateManyCategories(data: CategoryUpdateInput!, query: CategoryQueryInput): Category!
   updateManyCoupons(data: CouponUpdateInput!, query: CouponQueryInput): Coupon!
   updateManyInventories(data: InventoryUpdateInput!, query: InventoryQueryInput): Inventory!
-  updateManyOrders(data: OrderUpdateInput!, query: OrderQueryInput): Order!
   updateManyPayments(data: PaymentUpdateInput!, query: PaymentQueryInput): Payment!
   updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!
   updateManyShipments(data: ShipmentUpdateInput!, query: ShipmentQueryInput): Shipment!
@@ -205,7 +201,6 @@ type Mutation {
   updateOneCategory(data: CategoryUpdateInput!, query: CategoryQueryInput!): Category!
   updateOneCoupon(data: CouponUpdateInput!, query: CouponQueryInput!): Coupon!
   updateOneInventory(data: InventoryUpdateInput!, query: InventoryQueryInput!): Inventory!
-  updateOneOrder(data: OrderUpdateInput!, query: OrderQueryInput!): Order!
   updateOnePayment(data: PaymentUpdateInput!, query: PaymentQueryInput!): Payment!
   updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
   updateOneShipment(data: ShipmentUpdateInput!, query: ShipmentQueryInput!): Shipment!
@@ -214,7 +209,6 @@ type Mutation {
   upsertOneCategory(data: CategoryInsertInput!, query: CategoryQueryInput): Category!
   upsertOneCoupon(data: CouponInsertInput!, query: CouponQueryInput): Coupon!
   upsertOneInventory(data: InventoryInsertInput!, query: InventoryQueryInput): Inventory!
-  upsertOneOrder(data: OrderInsertInput!, query: OrderQueryInput): Order!
   upsertOnePayment(data: PaymentInsertInput!, query: PaymentQueryInput): Payment!
   upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
   upsertOneShipment(data: ShipmentInsertInput!, query: ShipmentQueryInput): Shipment!
@@ -227,14 +221,20 @@ type Order {
   deliveryAddress: String!
   deliveryFee: Int!
   deliveryStatus: String!
+  discount: Int!
   items: [OrderItem!]!
+  phone: String!
+  productTotal: Int!
   status: String!
   total: Int!
 }
 
 input OrderInsertInput {
   _id: String
-  name: String
+  coupon: String
+  customer: String
+  deliveryAddress: String!
+  phone: String!
 }
 
 type OrderItem {
@@ -246,12 +246,10 @@ type OrderItem {
 
 input OrderQueryInput {
   _id: String
-  name: String
-}
-
-input OrderUpdateInput {
-  _id: String
-  name: String
+  coupon: String
+  customer: String
+  deliveryAddress: String
+  phone: String
 }
 
 type Payment {

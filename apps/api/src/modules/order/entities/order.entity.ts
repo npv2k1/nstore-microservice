@@ -17,6 +17,7 @@ export class OrderItem {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Product.name,
+    autopopulate: true,
   })
   product: Product;
 
@@ -33,8 +34,9 @@ export class OrderItem {
   subtotal: number;
 }
 
-export type OrderItemDocument = OrderItem & Document;
+// export type OrderItemDocument = OrderItem & Document;
 export const OrderItemSchema = SchemaFactory.createForClass(OrderItem);
+OrderItemSchema.plugin(mongooseAutopopulate);
 
 @Schema()
 @ObjectType()
@@ -44,15 +46,53 @@ export class Order {
   })
   _id?: string;
 
+  @Prop({
+    type: String,
+    default: 'pending',
+  })
   status: string;
 
+  @Prop({
+    type: Number,
+    default: 0,
+  })
   deliveryFee: number;
 
+  @Prop({
+    type: String,
+    default: '',
+  })
   deliveryAddress: string;
 
+  @Prop({
+    type: String,
+    default: '',
+  })
+  phone: string;
+
+  @Prop({
+    type: String,
+    default: '',
+  })
   deliveryStatus: string;
 
+  @Prop({
+    type: Number,
+    default: 0,
+  })
   total: number;
+
+  @Prop({
+    type: Number,
+    default: 0,
+  })
+  productTotal: number;
+
+  @Prop({
+    type: Number,
+    default: 0,
+  })
+  discount: number;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -68,7 +108,9 @@ export class Order {
 
   @Prop({
     type: [OrderItemSchema],
+    required: true,
     default: [],
+    autopopulate: true,
   })
   items: OrderItem[];
 }

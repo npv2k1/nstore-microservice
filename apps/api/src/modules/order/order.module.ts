@@ -5,11 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from './entities/order.entity';
 import { OrderRepository } from './order.repository';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+import { ClientProxyFactory, Transport, createGrpcMethodMetadata } from '@nestjs/microservices';
+import { CartModule } from '../cart/cart.module';
+import { CustomerModule } from '../customer/customer.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+    CartModule,
+    CustomerModule,
   ],
   providers: [
     OrderResolver,

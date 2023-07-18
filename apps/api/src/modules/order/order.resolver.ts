@@ -19,7 +19,12 @@ import {
 import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
+import { UserEntity } from '@/common/decorators';
+import { AuthUser } from '../auth/entities/auth-user,entity';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Order)
 export class OrderResolver {
   constructor(private readonly orderService: OrderService) {}
@@ -35,52 +40,53 @@ export class OrderResolver {
     return this.orderService.findOne(args);
   }
 
-  @Mutation(() => Order, {
-    name: `deleteOne${pluralize.singular(Order.name)}`,
-  })
-  async deleteOne(@Args() args: DeleteOneOrderArgs) {
-    return await this.orderService.deleteOne(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `deleteOne${pluralize.singular(Order.name)}`,
+  // })
+  // async deleteOne(@Args() args: DeleteOneOrderArgs) {
+  //   return await this.orderService.deleteOne(args);
+  // }
 
-  @Mutation(() => Order, {
-    name: `deleteMany${pluralize.plural(Order.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyOrderArgs) {
-    return await this.orderService.deleteMany(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `deleteMany${pluralize.plural(Order.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyOrderArgs) {
+  //   return await this.orderService.deleteMany(args);
+  // }
 
   @Mutation(() => Order, {
     name: `insertOne${pluralize.singular(Order.name)}`,
   })
-  async insertOne(@Args() args: InsertOneOrderArgs) {
+  async insertOne(@Args() args: InsertOneOrderArgs, @UserEntity() user: AuthUser) {
+    args.data.customer = user._id;
     return await this.orderService.insertOne(args);
   }
 
-  @Mutation(() => Order, {
-    name: `insertMany${pluralize.plural(Order.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyOrderArgs) {
-    return await this.orderService.insertMany(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `insertMany${pluralize.plural(Order.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyOrderArgs) {
+  //   return await this.orderService.insertMany(args);
+  // }
 
-  @Mutation(() => Order, {
-    name: `updateOne${pluralize.singular(Order.name)}`,
-  })
-  async updateOne(@Args() args: UpdateOneOrderArgs) {
-    return await this.orderService.updateOne(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `updateOne${pluralize.singular(Order.name)}`,
+  // })
+  // async updateOne(@Args() args: UpdateOneOrderArgs) {
+  //   return await this.orderService.updateOne(args);
+  // }
 
-  @Mutation(() => Order, {
-    name: `updateMany${pluralize.plural(Order.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyOrderArgs) {
-    return await this.orderService.updateMany(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `updateMany${pluralize.plural(Order.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyOrderArgs) {
+  //   return await this.orderService.updateMany(args);
+  // }
 
-  @Mutation(() => Order, {
-    name: `upsertOne${pluralize.singular(Order.name)}`,
-  })
-  async upsertOne(@Args() args: UpsertOneOrderArgs) {
-    return await this.orderService.upsertOne(args);
-  }
+  // @Mutation(() => Order, {
+  //   name: `upsertOne${pluralize.singular(Order.name)}`,
+  // })
+  // async upsertOne(@Args() args: UpsertOneOrderArgs) {
+  //   return await this.orderService.upsertOne(args);
+  // }
 }

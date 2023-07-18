@@ -7,6 +7,7 @@ import { UpsertOneCartArgs } from './dtos/args/upsert-cart.args';
 import { CartRepository } from './cart.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { ProductService } from '../product/product.service';
+import { AuthUser } from '../auth/entities/auth-user,entity';
 
 @Injectable()
 export class CartService {
@@ -75,5 +76,9 @@ export class CartService {
         quantity: cart.quantity + args.data.quantity,
       }
     );
+  }
+
+  async getCartByUser(id: string){
+    return await this.cartRepo.findAll({customer: id});
   }
 }

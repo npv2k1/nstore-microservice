@@ -6,67 +6,112 @@ import { UpdateOneOrderArgs, UpdateManyOrderArgs } from './dtos/args/update-orde
 import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
 import { OrderRepository } from './order.repository';
 import { ClientProxy } from '@nestjs/microservices';
+import { AuthUser } from '../auth/entities/auth-user,entity';
+import { CartService } from '../cart/cart.service';
+import { CustomerService } from '../customer/customer.service';
+import { Order, OrderItem } from './entities/order.entity';
 
 @Injectable()
 export class OrderService {
   constructor(
-    private readonly OrderRepo: OrderRepository,
-    @Inject('ORDER_PROCESS_SERVICE')
-    private readonly orderProcessService: ClientProxy
+    private readonly orderRepo: OrderRepository,
+    private readonly cartService: CartService,
+    private readonly customerService: CustomerService
   ) {}
 
   async create(args: InsertOneOrderArgs) {
-    return this.OrderRepo.create(args.data);
+    const cart = await this.cartService.getCartByUser(args.data.customer);
+
+    if (!cart) {
+      throw new Error('Cart is empty');
+    }
+    const orderItem = cart.map((item) => {
+      return {
+        product: item.product,
+        quantity: item.quantity,
+        subtotal: item.subtotal,
+      };
+    });
+
+    return this.orderRepo.create(args.data);
   }
 
   async findMany(args: FindManyOrderArgs) {
-    const Orders = await this.OrderRepo.findAll(args.query);
+    const Orders = await this.orderRepo.findAll(args.query);
     return Orders;
   }
 
   async findOne(args: FindOneOrderArgs) {
-    return this.OrderRepo.findOne(args.query);
+    return this.orderRepo.findOne(args.query);
   }
 
   async insertOne(args: InsertOneOrderArgs) {
-    try {
-      console.log('ping');
-      this.orderProcessService.send('ping', 'ping').subscribe({
-        next: (result) => {
-          console.log('🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:', result);
-          //  resolve(result);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    } catch (error) {
-      console.log(error);
+    const cart = await this.cartService.getCartByUser(args.data.customer);
+
+    if (!cart) {
+      throw new Error('Cart is empty');
     }
-    return await this.OrderRepo.create(args.data);
+    const orderItem = cart.map((item) => {
+      return {
+        product: item.product._id,
+        quantity: item.quantity,
+        subtotal: item.subtotal,
+      };
+    });
+
+    console.log('orderItem', orderItem);
+
+    // Calculate total
+    const productTotal = cart.reduce((acc, item) => {
+      return acc + item.subtotal;
+    }, 0);
+
+    // Calculate delivery fee
+    const deliveryFee = 0;
+
+    // Calulate discount
+
+    const discount = 0;
+
+    // Calculate total
+    const total = productTotal + deliveryFee - discount;
+
+    const orderInfo = {
+      ...args.data,
+      status: 'pending',
+      deliveryFee: deliveryFee,
+      productTotal: productTotal,
+      discount: discount,
+      total: total,
+      items: orderItem,
+    };
+
+    console.log('orderInfo', orderInfo);
+
+    return await this.orderRepo.create(orderInfo);
   }
 
   async insertMany(args: InsertManyOrderArgs) {
-    return await this.OrderRepo.create(args.data);
+    return await this.orderRepo.create(args.data);
   }
 
   async updateOne(args: UpdateOneOrderArgs) {
-    return await this.OrderRepo.updateOne(args.query, args.data);
+    return await this.orderRepo.updateOne(args.query, args.data);
   }
 
   async updateMany(args: UpdateManyOrderArgs) {
-    return await this.OrderRepo.updateMany(args.query, args.data);
+    return await this.orderRepo.updateMany(args.query, args.data);
   }
 
   async deleteOne(args: DeleteOneOrderArgs) {
-    return await this.OrderRepo.deleteOne(args.query);
+    return await this.orderRepo.deleteOne(args.query);
   }
 
   async deleteMany(args: DeleteManyOrderArgs) {
-    return await this.OrderRepo.deleteMany(args.query);
+    return await this.orderRepo.deleteMany(args.query);
   }
 
   async upsertOne(args: UpsertOneOrderArgs) {
-    return await this.OrderRepo.updateOneOrCreate(args.query, args.data);
+    return await this.orderRepo.updateOneOrCreate(args.query, args.data);
   }
 }
