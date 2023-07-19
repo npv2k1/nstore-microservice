@@ -42,12 +42,12 @@ export class ProductResolver {
     return await this.productService.deleteOne(args);
   }
 
-  @Mutation(() => Product, {
-    name: `deleteMany${pluralize.plural(Product.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyProductArgs) {
-    return await this.productService.deleteMany(args);
-  }
+  // @Mutation(() => Product, {
+  //   name: `deleteMany${pluralize.plural(Product.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyProductArgs) {
+  //   return await this.productService.deleteMany(args);
+  // }
 
   @Mutation(() => Product, {
     name: `insertOne${pluralize.singular(Product.name)}`,
@@ -56,12 +56,12 @@ export class ProductResolver {
     return await this.productService.insertOne(args);
   }
 
-  @Mutation(() => Product, {
-    name: `insertMany${pluralize.plural(Product.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyProductArgs) {
-    return await this.productService.insertMany(args);
-  }
+  // @Mutation(() => Product, {
+  //   name: `insertMany${pluralize.plural(Product.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyProductArgs) {
+  //   return await this.productService.insertMany(args);
+  // }
 
   @Mutation(() => Product, {
     name: `updateOne${pluralize.singular(Product.name)}`,
@@ -70,12 +70,12 @@ export class ProductResolver {
     return await this.productService.updateOne(args);
   }
 
-  @Mutation(() => Product, {
-    name: `updateMany${pluralize.plural(Product.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyProductArgs) {
-    return await this.productService.updateMany(args);
-  }
+  // @Mutation(() => Product, {
+  //   name: `updateMany${pluralize.plural(Product.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyProductArgs) {
+  //   return await this.productService.updateMany(args);
+  // }
 
   @Mutation(() => Product, {
     name: `upsertOne${pluralize.singular(Product.name)}`,

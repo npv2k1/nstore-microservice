@@ -218,9 +218,6 @@ input LoginInput {
 
 type Mutation {
   changePassword(input: ChangePasswordInput!): String!
-  deleteManyInventories(query: InventoryQueryInput): Inventory!
-  deleteManyPayments(query: PaymentQueryInput): Payment!
-  deleteManyProducts(query: ProductQueryInput): Product!
   deleteManyUsers(where: UserQueryInput!): User!
   deleteOneCart(query: CartQueryInput!): Cart!
   deleteOneCategory(query: CategoryQueryInput!): Category!
@@ -232,9 +229,6 @@ type Mutation {
   deleteOneShipment(query: ShipmentQueryInput!): Shipment!
   deleteOneUser(where: UserQueryUniqueInput!): User!
   forgotPassword(input: ForgotPasswordInput!): String!
-  insertManyInventories(data: [InventoryInsertInput!]!): Inventory!
-  insertManyPayments(data: [PaymentInsertInput!]!): Payment!
-  insertManyProducts(data: [ProductInsertInput!]!): Product!
   insertManyUsers(data: [UserInsertInput!]!): User!
   insertOneCart(data: CartInsertInput!): Cart!
   insertOneCategory(data: CategoryInsertInput!): Category!
@@ -249,9 +243,6 @@ type Mutation {
   login(input: LoginInput!): Token!
   resetPassword(input: ResetPasswordInput!): String!
   signup(input: SignupInput!): Token!
-  updateManyInventories(data: InventoryUpdateInput!, query: InventoryQueryInput): Inventory!
-  updateManyPayments(data: PaymentUpdateInput!, query: PaymentQueryInput): Payment!
-  updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!
   updateManyUsers(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
   updateOneCart(data: CartUpdateInput!, query: CartQueryInput!): Cart!
   updateOneCategory(data: CategoryUpdateInput!, query: CategoryQueryInput!): Category!
@@ -264,8 +255,6 @@ type Mutation {
   updateOneUser(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
   upsertOneCoupon(data: CouponInsertInput!, query: CouponQueryInput): Coupon!
   upsertOneFlashSale(data: FlashSaleInsertInput!, query: FlashSaleQueryInput): FlashSale!
-  upsertOneInventory(data: InventoryInsertInput!, query: InventoryQueryInput): Inventory!
-  upsertOnePayment(data: PaymentInsertInput!, query: PaymentQueryInput): Payment!
   upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
 }
 
