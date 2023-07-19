@@ -136,22 +136,37 @@ type FlashSale {
   product: Int
   salePrice: Int!
   startDate: DateTime!
-  status: Boolean!
+  status: String!
 }
 
 input FlashSaleInsertInput {
   _id: String
-  code: String!
+  description: String
+  endDate: DateTime!
+  product: String!
+  salePrice: Int!
+  startDate: DateTime!
+  status: Boolean!
 }
 
 input FlashSaleQueryInput {
   _id: String
-  code: String
+  description: String
+  endDate: DateTime
+  product: String
+  salePrice: Int
+  startDate: DateTime
+  status: Boolean
 }
 
 input FlashSaleUpdateInput {
   _id: String
-  code: String
+  description: String
+  endDate: DateTime
+  product: String
+  salePrice: Int
+  startDate: DateTime
+  status: Boolean
 }
 
 input ForgotPasswordInput {
@@ -203,12 +218,9 @@ input LoginInput {
 
 type Mutation {
   changePassword(input: ChangePasswordInput!): String!
-  deleteManyCarts(query: CartQueryInput): Cart!
-  deleteManyCategories(query: CategoryQueryInput): Category!
   deleteManyInventories(query: InventoryQueryInput): Inventory!
   deleteManyPayments(query: PaymentQueryInput): Payment!
   deleteManyProducts(query: ProductQueryInput): Product!
-  deleteManyShipments(query: ShipmentQueryInput): Shipment!
   deleteManyUsers(where: UserQueryInput!): User!
   deleteOneCart(query: CartQueryInput!): Cart!
   deleteOneCategory(query: CategoryQueryInput!): Category!
@@ -220,12 +232,9 @@ type Mutation {
   deleteOneShipment(query: ShipmentQueryInput!): Shipment!
   deleteOneUser(where: UserQueryUniqueInput!): User!
   forgotPassword(input: ForgotPasswordInput!): String!
-  insertManyCarts(data: [CartInsertInput!]!): Cart!
-  insertManyCategories(data: [CategoryInsertInput!]!): Category!
   insertManyInventories(data: [InventoryInsertInput!]!): Inventory!
   insertManyPayments(data: [PaymentInsertInput!]!): Payment!
   insertManyProducts(data: [ProductInsertInput!]!): Product!
-  insertManyShipments(data: [ShipmentInsertInput!]!): Shipment!
   insertManyUsers(data: [UserInsertInput!]!): User!
   insertOneCart(data: CartInsertInput!): Cart!
   insertOneCategory(data: CategoryInsertInput!): Category!
@@ -240,12 +249,9 @@ type Mutation {
   login(input: LoginInput!): Token!
   resetPassword(input: ResetPasswordInput!): String!
   signup(input: SignupInput!): Token!
-  updateManyCarts(data: CartUpdateInput!, query: CartQueryInput): Cart!
-  updateManyCategories(data: CategoryUpdateInput!, query: CategoryQueryInput): Category!
   updateManyInventories(data: InventoryUpdateInput!, query: InventoryQueryInput): Inventory!
   updateManyPayments(data: PaymentUpdateInput!, query: PaymentQueryInput): Payment!
   updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!
-  updateManyShipments(data: ShipmentUpdateInput!, query: ShipmentQueryInput): Shipment!
   updateManyUsers(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
   updateOneCart(data: CartUpdateInput!, query: CartQueryInput!): Cart!
   updateOneCategory(data: CategoryUpdateInput!, query: CategoryQueryInput!): Category!
@@ -256,14 +262,11 @@ type Mutation {
   updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
   updateOneShipment(data: ShipmentUpdateInput!, query: ShipmentQueryInput!): Shipment!
   updateOneUser(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
-  upsertOneCart(data: CartInsertInput!, query: CartQueryInput): Cart!
-  upsertOneCategory(data: CategoryInsertInput!, query: CategoryQueryInput): Category!
   upsertOneCoupon(data: CouponInsertInput!, query: CouponQueryInput): Coupon!
   upsertOneFlashSale(data: FlashSaleInsertInput!, query: FlashSaleQueryInput): FlashSale!
   upsertOneInventory(data: InventoryInsertInput!, query: InventoryQueryInput): Inventory!
   upsertOnePayment(data: PaymentInsertInput!, query: PaymentQueryInput): Payment!
   upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
-  upsertOneShipment(data: ShipmentInsertInput!, query: ShipmentQueryInput): Shipment!
 }
 
 type Order {

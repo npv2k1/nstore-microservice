@@ -6,18 +6,17 @@ import { UpdateOneFlashSaleArgs, UpdateManyFlashSaleArgs } from './dtos/args/upd
 import { UpsertOneFlashSaleArgs } from './dtos/args/upsert-flashsale.args';
 import { FlashSaleRepository } from './flashsale.repository';
 import { ClientProxy } from '@nestjs/microservices';
+import { EventBusService } from '../event-bus/event-bus.service';
+import { EventBusName } from '@/common/enums/event.enum';
 
 @Injectable()
 export class FlashSaleService {
-  constructor(private readonly FlashSaleRepo: FlashSaleRepository) {}
+  constructor(private readonly FlashSaleRepo: FlashSaleRepository, private readonly eventBusService: EventBusService) {}
 
   async flashsaleSuccess() {
     // return await this.orderService.emit('flashsale_success', { message: 'FlashSale Success' });
   }
 
-  async create(args: InsertOneFlashSaleArgs) {
-    return this.FlashSaleRepo.create(args.data);
-  }
 
   async findMany(args: FindManyFlashSaleArgs) {
     const FlashSales = await this.FlashSaleRepo.findAll(args.query);
@@ -25,7 +24,8 @@ export class FlashSaleService {
   }
 
   async findOne(args: FindOneFlashSaleArgs) {
-    return this.FlashSaleRepo.findOne(args.query);
+    const flashsale = await this.FlashSaleRepo.findOne(args.query); 
+    return flashsale;
   }
 
   async insertOne(args: InsertOneFlashSaleArgs) {

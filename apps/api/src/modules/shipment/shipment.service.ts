@@ -11,12 +11,10 @@ import { ClientProxy } from '@nestjs/microservices';
 export class ShipmentService {
   constructor(
     private readonly ShipmentRepo: ShipmentRepository,
-    @Inject('ORDER_SERVICE')
-    private readonly orderService: ClientProxy
   ) {}
 
   async shipmentSuccess() {
-    return await this.orderService.emit('shipment_success', { message: 'Shipment Success' });
+  
   }
 
   async create(args: InsertOneShipmentArgs) {

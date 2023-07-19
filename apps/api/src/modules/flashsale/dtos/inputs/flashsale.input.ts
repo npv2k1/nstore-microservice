@@ -9,8 +9,35 @@ export class FlashSaleInput {
   })
   _id?: string;
 
+  @Field(() => Boolean, {
+    nullable: false,
+  })
+  status: string;
+
+
+  @Field(()=>String, {
+    nullable:true
+  })
+  description?: string;
+
+  @Field(() => Date, {
+    nullable: false,
+  })
+  startDate: Date;
+
+  @Field(() => Date, {
+    nullable: false,
+  })
+  endDate: Date;
+
+
+  @Field(() => Int, {
+    nullable: false,
+  })
+  salePrice: number;
+
   @Field(() => String, {
     nullable: false,
   })
-  code: string;
+  product: string;
 }

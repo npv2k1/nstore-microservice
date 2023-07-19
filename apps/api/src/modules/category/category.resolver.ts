@@ -43,12 +43,12 @@ export class CategoryResolver {
     return await this.categoryService.deleteOne(args);
   }
 
-  @Mutation(() => Category, {
-    name: `deleteMany${pluralize.plural(Category.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyCategoryArgs) {
-    return await this.categoryService.deleteMany(args);
-  }
+  // @Mutation(() => Category, {
+  //   name: `deleteMany${pluralize.plural(Category.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyCategoryArgs) {
+  //   return await this.categoryService.deleteMany(args);
+  // }
 
   @Mutation(() => Category, {
     name: `insertOne${pluralize.singular(Category.name)}`,
@@ -57,12 +57,12 @@ export class CategoryResolver {
     return await this.categoryService.insertOne(args);
   }
 
-  @Mutation(() => Category, {
-    name: `insertMany${pluralize.plural(Category.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyCategoryArgs) {
-    return await this.categoryService.insertMany(args);
-  }
+  // @Mutation(() => Category, {
+  //   name: `insertMany${pluralize.plural(Category.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyCategoryArgs) {
+  //   return await this.categoryService.insertMany(args);
+  // }
 
   @Mutation(() => Category, {
     name: `updateOne${pluralize.singular(Category.name)}`,
@@ -71,19 +71,19 @@ export class CategoryResolver {
     return await this.categoryService.updateOne(args);
   }
 
-  @Mutation(() => Category, {
-    name: `updateMany${pluralize.plural(Category.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyCategoryArgs) {
-    return await this.categoryService.updateMany(args);
-  }
+  // @Mutation(() => Category, {
+  //   name: `updateMany${pluralize.plural(Category.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyCategoryArgs) {
+  //   return await this.categoryService.updateMany(args);
+  // }
 
-  @Mutation(() => Category, {
-    name: `upsertOne${pluralize.singular(Category.name)}`,
-  })
-  async upsertOne(@Args() args: UpsertOneCategoryArgs) {
-    return await this.categoryService.upsertOne(args);
-  }
+  // @Mutation(() => Category, {
+  //   name: `upsertOne${pluralize.singular(Category.name)}`,
+  // })
+  // async upsertOne(@Args() args: UpsertOneCategoryArgs) {
+  //   return await this.categoryService.upsertOne(args);
+  // }
 
   @ResolveField(() => [Product], { name: 'products', nullable: true })
   async products(@Parent() parent: Category) {

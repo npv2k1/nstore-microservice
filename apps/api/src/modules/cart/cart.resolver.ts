@@ -48,12 +48,12 @@ export class CartResolver {
     return await this.cartService.deleteOne(args);
   }
 
-  @Mutation(() => Cart, {
-    name: `deleteMany${pluralize.plural(Cart.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyCartArgs) {
-    return await this.cartService.deleteMany(args);
-  }
+  // @Mutation(() => Cart, {
+  //   name: `deleteMany${pluralize.plural(Cart.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyCartArgs) {
+  //   return await this.cartService.deleteMany(args);
+  // }
 
   @Roles(ROLE.USER)
   @Mutation(() => Cart, {
@@ -65,12 +65,12 @@ export class CartResolver {
     return await this.cartService.upsertOneAndIncreaseQuantity(args);
   }
 
-  @Mutation(() => Cart, {
-    name: `insertMany${pluralize.plural(Cart.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyCartArgs) {
-    return await this.cartService.insertMany(args);
-  }
+  // @Mutation(() => Cart, {
+  //   name: `insertMany${pluralize.plural(Cart.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyCartArgs) {
+  //   return await this.cartService.insertMany(args);
+  // }
 
   @Mutation(() => Cart, {
     name: `updateOne${pluralize.singular(Cart.name)}`,
@@ -79,17 +79,17 @@ export class CartResolver {
     return await this.cartService.updateOne(args);
   }
 
-  @Mutation(() => Cart, {
-    name: `updateMany${pluralize.plural(Cart.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyCartArgs) {
-    return await this.cartService.updateMany(args);
-  }
+  // @Mutation(() => Cart, {
+  //   name: `updateMany${pluralize.plural(Cart.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyCartArgs) {
+  //   return await this.cartService.updateMany(args);
+  // }
 
-  @Mutation(() => Cart, {
-    name: `upsertOne${pluralize.singular(Cart.name)}`,
-  })
-  async upsertOne(@Args() args: UpsertOneCartArgs) {
-    return await this.cartService.upsertOne(args);
-  }
+  // @Mutation(() => Cart, {
+  //   name: `upsertOne${pluralize.singular(Cart.name)}`,
+  // })
+  // async upsertOne(@Args() args: UpsertOneCartArgs) {
+  //   return await this.cartService.upsertOne(args);
+  // }
 }

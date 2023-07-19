@@ -30,12 +30,12 @@ export class ShipmentResolver {
     return await this.shipmentService.deleteOne(args);
   }
 
-  @Mutation(() => Shipment, {
-    name: `deleteMany${pluralize.plural(Shipment.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyShipmentArgs) {
-    return await this.shipmentService.deleteMany(args);
-  }
+  // @Mutation(() => Shipment, {
+  //   name: `deleteMany${pluralize.plural(Shipment.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyShipmentArgs) {
+  //   return await this.shipmentService.deleteMany(args);
+  // }
 
   @Mutation(() => Shipment, {
     name: `insertOne${pluralize.singular(Shipment.name)}`,
@@ -44,12 +44,12 @@ export class ShipmentResolver {
     return await this.shipmentService.insertOne(args);
   }
 
-  @Mutation(() => Shipment, {
-    name: `insertMany${pluralize.plural(Shipment.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyShipmentArgs) {
-    return await this.shipmentService.insertMany(args);
-  }
+  // @Mutation(() => Shipment, {
+  //   name: `insertMany${pluralize.plural(Shipment.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyShipmentArgs) {
+  //   return await this.shipmentService.insertMany(args);
+  // }
 
   @Mutation(() => Shipment, {
     name: `updateOne${pluralize.singular(Shipment.name)}`,
@@ -58,17 +58,17 @@ export class ShipmentResolver {
     return await this.shipmentService.updateOne(args);
   }
 
-  @Mutation(() => Shipment, {
-    name: `updateMany${pluralize.plural(Shipment.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyShipmentArgs) {
-    return await this.shipmentService.updateMany(args);
-  }
+  // @Mutation(() => Shipment, {
+  //   name: `updateMany${pluralize.plural(Shipment.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyShipmentArgs) {
+  //   return await this.shipmentService.updateMany(args);
+  // }
 
-  @Mutation(() => Shipment, {
-    name: `upsertOne${pluralize.singular(Shipment.name)}`,
-  })
-  async upsertOne(@Args() args: UpsertOneShipmentArgs) {
-    return await this.shipmentService.upsertOne(args);
-  }
+  // @Mutation(() => Shipment, {
+  //   name: `upsertOne${pluralize.singular(Shipment.name)}`,
+  // })
+  // async upsertOne(@Args() args: UpsertOneShipmentArgs) {
+  //   return await this.shipmentService.upsertOne(args);
+  // }
 }
