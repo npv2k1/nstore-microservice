@@ -30,12 +30,12 @@ export class CouponResolver {
     return await this.couponService.deleteOne(args);
   }
 
-  @Mutation(() => Coupon, {
-    name: `deleteMany${pluralize.plural(Coupon.name)}`,
-  })
-  async deleteMany(@Args() args: DeleteManyCouponArgs) {
-    return await this.couponService.deleteMany(args);
-  }
+  // @Mutation(() => Coupon, {
+  //   name: `deleteMany${pluralize.plural(Coupon.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyCouponArgs) {
+  //   return await this.couponService.deleteMany(args);
+  // }
 
   @Mutation(() => Coupon, {
     name: `insertOne${pluralize.singular(Coupon.name)}`,
@@ -44,12 +44,12 @@ export class CouponResolver {
     return await this.couponService.insertOne(args);
   }
 
-  @Mutation(() => Coupon, {
-    name: `insertMany${pluralize.plural(Coupon.name)}`,
-  })
-  async insertMany(@Args() args: InsertManyCouponArgs) {
-    return await this.couponService.insertMany(args);
-  }
+  // @Mutation(() => Coupon, {
+  //   name: `insertMany${pluralize.plural(Coupon.name)}`,
+  // })
+  // async insertMany(@Args() args: InsertManyCouponArgs) {
+  //   return await this.couponService.insertMany(args);
+  // }
 
   @Mutation(() => Coupon, {
     name: `updateOne${pluralize.singular(Coupon.name)}`,
@@ -58,12 +58,12 @@ export class CouponResolver {
     return await this.couponService.updateOne(args);
   }
 
-  @Mutation(() => Coupon, {
-    name: `updateMany${pluralize.plural(Coupon.name)}`,
-  })
-  async updateMany(@Args() args: UpdateManyCouponArgs) {
-    return await this.couponService.updateMany(args);
-  }
+  // @Mutation(() => Coupon, {
+  //   name: `updateMany${pluralize.plural(Coupon.name)}`,
+  // })
+  // async updateMany(@Args() args: UpdateManyCouponArgs) {
+  //   return await this.couponService.updateMany(args);
+  // }
 
   @Mutation(() => Coupon, {
     name: `upsertOne${pluralize.singular(Coupon.name)}`,

@@ -73,17 +73,38 @@ type Coupon {
 
 input CouponInsertInput {
   _id: String
-  name: String
+  code: String!
+  discountType: DiscountType!
+  discountValue: Int!
+  product: String
+  status: Boolean = true
+  type: CouponType!
 }
 
 input CouponQueryInput {
   _id: String
-  name: String
+  code: String
+  discountType: DiscountType
+  discountValue: Int
+  product: String
+  status: Boolean = true
+  type: CouponType
+}
+
+enum CouponType {
+  DELIVERY
+  ORDER
+  PRODUCT
 }
 
 input CouponUpdateInput {
   _id: String
-  name: String
+  code: String
+  discountType: DiscountType
+  discountValue: Int
+  product: String
+  status: Boolean = true
+  type: CouponType
 }
 
 type Customer {
@@ -102,6 +123,11 @@ type Customer {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+enum DiscountType {
+  FIXED
+  PERCENT
+}
 
 input ForgotPasswordInput {
   email: String!
@@ -154,7 +180,6 @@ type Mutation {
   changePassword(input: ChangePasswordInput!): String!
   deleteManyCarts(query: CartQueryInput): Cart!
   deleteManyCategories(query: CategoryQueryInput): Category!
-  deleteManyCoupons(query: CouponQueryInput): Coupon!
   deleteManyInventories(query: InventoryQueryInput): Inventory!
   deleteManyPayments(query: PaymentQueryInput): Payment!
   deleteManyProducts(query: ProductQueryInput): Product!
@@ -171,7 +196,6 @@ type Mutation {
   forgotPassword(input: ForgotPasswordInput!): String!
   insertManyCarts(data: [CartInsertInput!]!): Cart!
   insertManyCategories(data: [CategoryInsertInput!]!): Category!
-  insertManyCoupons(data: [CouponInsertInput!]!): Coupon!
   insertManyInventories(data: [InventoryInsertInput!]!): Inventory!
   insertManyPayments(data: [PaymentInsertInput!]!): Payment!
   insertManyProducts(data: [ProductInsertInput!]!): Product!
@@ -191,7 +215,6 @@ type Mutation {
   signup(input: SignupInput!): Token!
   updateManyCarts(data: CartUpdateInput!, query: CartQueryInput): Cart!
   updateManyCategories(data: CategoryUpdateInput!, query: CategoryQueryInput): Category!
-  updateManyCoupons(data: CouponUpdateInput!, query: CouponQueryInput): Coupon!
   updateManyInventories(data: InventoryUpdateInput!, query: InventoryQueryInput): Inventory!
   updateManyPayments(data: PaymentUpdateInput!, query: PaymentQueryInput): Payment!
   updateManyProducts(data: ProductUpdateInput!, query: ProductQueryInput): Product!

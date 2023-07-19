@@ -11,12 +11,10 @@ import { ClientProxy } from '@nestjs/microservices';
 export class CouponService {
   constructor(
     private readonly CouponRepo: CouponRepository,
-    @Inject('ORDER_SERVICE')
-    private readonly orderService: ClientProxy
   ) {}
 
   async couponSuccess() {
-    return await this.orderService.emit('coupon_success', { message: 'Coupon Success' });
+    // return await this.orderService.emit('coupon_success', { message: 'Coupon Success' });
   }
 
   async create(args: InsertOneCouponArgs) {
