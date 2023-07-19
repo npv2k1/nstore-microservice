@@ -129,6 +129,31 @@ enum DiscountType {
   PERCENT
 }
 
+type FlashSale {
+  _id: String!
+  description: String
+  endDate: DateTime!
+  product: Int
+  salePrice: Int!
+  startDate: DateTime!
+  status: Boolean!
+}
+
+input FlashSaleInsertInput {
+  _id: String
+  code: String!
+}
+
+input FlashSaleQueryInput {
+  _id: String
+  code: String
+}
+
+input FlashSaleUpdateInput {
+  _id: String
+  code: String
+}
+
 input ForgotPasswordInput {
   email: String!
 }
@@ -188,6 +213,7 @@ type Mutation {
   deleteOneCart(query: CartQueryInput!): Cart!
   deleteOneCategory(query: CategoryQueryInput!): Category!
   deleteOneCoupon(query: CouponQueryInput!): Coupon!
+  deleteOneFlashSale(query: FlashSaleQueryInput!): FlashSale!
   deleteOneInventory(query: InventoryQueryInput!): Inventory!
   deleteOnePayment(query: PaymentQueryInput!): Payment!
   deleteOneProduct(query: ProductQueryInput!): Product!
@@ -204,6 +230,7 @@ type Mutation {
   insertOneCart(data: CartInsertInput!): Cart!
   insertOneCategory(data: CategoryInsertInput!): Category!
   insertOneCoupon(data: CouponInsertInput!): Coupon!
+  insertOneFlashSale(data: FlashSaleInsertInput!): FlashSale!
   insertOneInventory(data: InventoryInsertInput!): Inventory!
   insertOneOrder(data: OrderInsertInput!): Order!
   insertOnePayment(data: PaymentInsertInput!): Payment!
@@ -223,6 +250,7 @@ type Mutation {
   updateOneCart(data: CartUpdateInput!, query: CartQueryInput!): Cart!
   updateOneCategory(data: CategoryUpdateInput!, query: CategoryQueryInput!): Category!
   updateOneCoupon(data: CouponUpdateInput!, query: CouponQueryInput!): Coupon!
+  updateOneFlashSale(data: FlashSaleUpdateInput!, query: FlashSaleQueryInput!): FlashSale!
   updateOneInventory(data: InventoryUpdateInput!, query: InventoryQueryInput!): Inventory!
   updateOnePayment(data: PaymentUpdateInput!, query: PaymentQueryInput!): Payment!
   updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
@@ -231,6 +259,7 @@ type Mutation {
   upsertOneCart(data: CartInsertInput!, query: CartQueryInput): Cart!
   upsertOneCategory(data: CategoryInsertInput!, query: CategoryQueryInput): Category!
   upsertOneCoupon(data: CouponInsertInput!, query: CouponQueryInput): Coupon!
+  upsertOneFlashSale(data: FlashSaleInsertInput!, query: FlashSaleQueryInput): FlashSale!
   upsertOneInventory(data: InventoryInsertInput!, query: InventoryQueryInput): Inventory!
   upsertOnePayment(data: PaymentInsertInput!, query: PaymentQueryInput): Payment!
   upsertOneProduct(data: ProductInsertInput!, query: ProductQueryInput): Product!
@@ -246,6 +275,8 @@ type Order {
   deliveryStatus: String!
   discount: Int!
   items: [OrderItem!]!
+  payment: Payment!
+  paymentMethod: String!
   phone: String!
   productTotal: Int!
   status: String!
@@ -257,6 +288,7 @@ input OrderInsertInput {
   coupon: String
   customer: String
   deliveryAddress: String!
+  paymentMethod: PaymentMethod! = COD
   phone: String!
 }
 
@@ -273,27 +305,51 @@ input OrderQueryInput {
   coupon: String
   customer: String
   deliveryAddress: String
+  paymentMethod: PaymentMethod = COD
   phone: String
 }
 
 type Payment {
   _id: String!
-  name: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
 }
 
 input PaymentInsertInput {
   _id: String
-  name: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
+}
+
+enum PaymentMethod {
+  COD
+  CREDIT_CARD
+  PAYPAL
+  STRIPE
 }
 
 input PaymentQueryInput {
   _id: String
-  name: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
 }
 
 input PaymentUpdateInput {
   _id: String
-  name: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
 }
 
 type Product {
@@ -349,6 +405,8 @@ type Query {
   category(query: CategoryQueryInput!): Category!
   coupon(query: CouponQueryInput!): Coupon!
   coupons(query: CouponQueryInput): [Coupon!]!
+  flashsale(query: FlashSaleQueryInput!): FlashSale!
+  flashsales(query: FlashSaleQueryInput): [FlashSale!]!
   inventories(query: InventoryQueryInput): [Inventory!]!
   inventory(query: InventoryQueryInput!): Inventory!
   me: User!

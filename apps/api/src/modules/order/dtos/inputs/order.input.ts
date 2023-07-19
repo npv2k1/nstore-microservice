@@ -1,4 +1,9 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { PaymentMethod } from '@/common/enums/payment.enum';
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+
+registerEnumType(PaymentMethod, {
+  name: 'PaymentMethod',
+});
 
 @InputType({
   isAbstract: true,
@@ -25,4 +30,10 @@ export class OrderInput {
     nullable: false,
   })
   phone: string;
+
+  @Field(() => PaymentMethod, {
+    nullable: false,
+    defaultValue: PaymentMethod.COD,
+  })
+  paymentMethod: PaymentMethod;
 }

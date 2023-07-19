@@ -27,6 +27,7 @@ import { ShipmentModule } from './modules/shipment/shipment.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { EventBusModule } from './modules/event-bus/event-bus.module';
+import { FlashSaleModule } from './modules/flashsale/flashsale.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { EventBusModule } from './modules/event-bus/event-bus.module';
     PaymentModule,
     ShipmentModule,
     CouponModule,
+    FlashSaleModule,
     EventBusModule,
   ],
   controllers: [],

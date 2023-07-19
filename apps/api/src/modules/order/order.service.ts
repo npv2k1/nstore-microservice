@@ -11,6 +11,7 @@ import { CartService } from '../cart/cart.service';
 import { CustomerService } from '../customer/customer.service';
 import { Order, OrderItem } from './entities/order.entity';
 import { EventBusService } from '../event-bus/event-bus.service';
+import { EventBusName } from '@/common/enums/event.enum';
 
 @Injectable()
 export class OrderService {
@@ -89,13 +90,26 @@ export class OrderService {
       total: total,
       items: orderItem,
     };
+    const orderResult = await this.orderRepo.create(orderInfo);
+    await this.eventBusService.emit('OrderCreated', orderResult);
+    const payment = await this.eventBusService.send(EventBusName.CREATE_ORDER_PAYMENT, orderResult);
+    // update payment in order
 
-    await this.eventBusService.emit('OrderCreated', orderInfo);
+    await this.orderRepo.updateOne({ _id: orderResult._id }, { payment: payment._id });
 
-    console.log('orderInfo', orderInfo);
     // TODO: Clear cart
+    console.log("orderResult", {
+      ...orderResult.toJSON(),
+    });
+    // return {
+    //   ...orderResult,
+    //   // payment: payment,
+    // };
+    return {
+      ...orderResult.toJSON(),
+      payment: payment,
+    };
 
-    return await this.orderRepo.create(orderInfo);
   }
 
   async insertMany(args: InsertManyOrderArgs) {

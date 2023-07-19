@@ -16,5 +16,22 @@ export class EventBusService {
     return this.eventBusClient.emit(pattern, data);
   }
 
-
+  async send(pattern: string, data: any): Promise<any> {
+    return await new Promise((resolve, reject) => {
+      try {
+        this.eventBusClient.send(pattern, data).subscribe({
+          next: (result) => {
+            resolve(result);
+          },
+          error: (err) => {
+            console.log(err);
+            reject(err);
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        reject(error);
+      }
+    });
+  }
 }

@@ -36,9 +36,10 @@
     - [ ] Deduct item quantity from inventory
 
 - **Voucher**
-    - [ ] Apply voucher to an order
+    - [x] Apply voucher to an order
     - [ ] Manage vouchers:
         - [ ] Set limitations on quantity and time
+        - [x] Create voucher codes
 
 - **FlashSale**
     - [ ] Manage flash sale time

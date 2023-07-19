@@ -5,6 +5,8 @@ import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } fro
 import { Product } from '@/modules/product/entities/product.entity';
 import { Customer } from '@/modules/customer/entities/customer.entity';
 import { Coupon } from '@/modules/coupon/entities/coupon.entity';
+import { Payment } from '@/modules/payment/entities/payment.entity';
+import { PaymentMethod } from '@/common/enums/payment.enum';
 
 @Schema()
 @ObjectType()
@@ -108,6 +110,19 @@ export class Order {
     ref: Coupon.name,
   })
   coupon: Coupon;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Payment.name,
+  })
+  payment: Payment;
+
+  @Prop({
+    type: String,
+    enum: PaymentMethod,
+    default: PaymentMethod.COD,
+  })
+  paymentMethod: string;
 
   @Prop({
     type: [OrderItemSchema],

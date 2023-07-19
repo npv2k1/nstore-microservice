@@ -18,17 +18,18 @@ import {
 import { UpsertOnePaymentArgs } from './dtos/args/upsert-payment.args';
 import { PaymentRepository } from './payment.repository';
 import { ClientProxy } from '@nestjs/microservices';
+import { EventBusService } from '../event-bus/event-bus.service';
+import { EventBusName } from '@/common/enums/event.enum';
 
 @Injectable()
 export class PaymentService {
   constructor(
     private readonly PaymentRepo: PaymentRepository,
-    @Inject('ORDER_SERVICE')
-    private readonly orderService: ClientProxy
+    private readonly eventBusService: EventBusService,
   ) {}
 
   async paymentSuccess(){
-    return await this.orderService.emit('payment_success', {message: 'Payment Success'});
+    return await this.eventBusService.emit(EventBusName.PAYMENT_COMPLETED, { message: 'Payment Success' });
   }
 
   async create(args: InsertOnePaymentArgs) {
