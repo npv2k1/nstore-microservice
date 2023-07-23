@@ -63,6 +63,21 @@ export type CategoryInsertInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type CategoryPagination = {
+  __typename?: 'CategoryPagination';
+  docs: Array<Category>;
+  hasNextPage: Scalars['Boolean'];
+  hasPrevPage: Scalars['Boolean'];
+  limit: Scalars['Int'];
+  nextPage?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pagingCounter: Scalars['Int'];
+  prevPage?: Maybe<Scalars['Int']>;
+  totalDocs: Scalars['Int'];
+  totalPages: Scalars['Int'];
+};
+
 export type CategoryQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
@@ -523,6 +538,12 @@ export type OrderQueryInput = {
   phone?: InputMaybe<Scalars['String']>;
 };
 
+export type PaginateOptionsInput = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+};
+
 export type Payment = {
   __typename?: 'Payment';
   _id: Scalars['String'];
@@ -595,6 +616,21 @@ export type ProductInsertInput = {
   properties?: InputMaybe<Scalars['JSONObject']>;
 };
 
+export type ProductPagination = {
+  __typename?: 'ProductPagination';
+  docs: Array<Product>;
+  hasNextPage: Scalars['Boolean'];
+  hasPrevPage: Scalars['Boolean'];
+  limit: Scalars['Int'];
+  nextPage?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pagingCounter: Scalars['Int'];
+  prevPage?: Maybe<Scalars['Int']>;
+  totalDocs: Scalars['Int'];
+  totalPages: Scalars['Int'];
+};
+
 export type ProductQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
   categories?: InputMaybe<Array<Scalars['String']>>;
@@ -618,7 +654,7 @@ export type Query = {
   aggregateUsers: UserAggregate;
   cart: Cart;
   carts: Array<Cart>;
-  categories: Array<Category>;
+  categories: CategoryPagination;
   category: Category;
   coupon: Coupon;
   coupons: Array<Coupon>;
@@ -632,7 +668,7 @@ export type Query = {
   payment: Payment;
   payments: Array<Payment>;
   product: Product;
-  products: Array<Product>;
+  products: ProductPagination;
   profile: Customer;
   shipment: Shipment;
   shipments: Array<Shipment>;
@@ -659,6 +695,7 @@ export type QueryCartsArgs = {
 
 
 export type QueryCategoriesArgs = {
+  paginate?: InputMaybe<PaginateOptionsInput>;
   query?: InputMaybe<CategoryQueryInput>;
 };
 
@@ -724,6 +761,7 @@ export type QueryProductArgs = {
 
 
 export type QueryProductsArgs = {
+  paginate?: InputMaybe<PaginateOptionsInput>;
   query?: InputMaybe<ProductQueryInput>;
 };
 
@@ -903,10 +941,65 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, fullName?: string | null, picture?: string | null, roles?: Array<string> | null } };
 
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CategoriesQueryVariables = Exact<{
+  paginate?: InputMaybe<PaginateOptionsInput>;
+  query?: InputMaybe<CategoryQueryInput>;
+}>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', _id: string, name?: string | null, price?: number | null, available?: boolean | null, barcode?: string | null, categories?: Array<{ __typename?: 'Category', name?: string | null }> | null }> };
+export type CategoriesQuery = { __typename?: 'Query', categories: { __typename?: 'CategoryPagination', hasNextPage: boolean, hasPrevPage: boolean, limit: number, nextPage?: number | null, offset?: number | null, page?: number | null, pagingCounter: number, prevPage?: number | null, totalDocs: number, totalPages: number, docs: Array<{ __typename?: 'Category', _id: string, description?: string | null, image?: string | null, name?: string | null, slug?: string | null }> } };
+
+export type InsertOneCategoryMutationVariables = Exact<{
+  data: CategoryInsertInput;
+}>;
+
+
+export type InsertOneCategoryMutation = { __typename?: 'Mutation', insertOneCategory: { __typename?: 'Category', _id: string, description?: string | null, image?: string | null, name?: string | null, slug?: string | null } };
+
+export type DeleteOneCategoryMutationVariables = Exact<{
+  query: CategoryQueryInput;
+}>;
+
+
+export type DeleteOneCategoryMutation = { __typename?: 'Mutation', deleteOneCategory: { __typename?: 'Category', _id: string, description?: string | null, image?: string | null, name?: string | null, slug?: string | null } };
+
+export type UpdateOneCategoryMutationVariables = Exact<{
+  data: CategoryUpdateInput;
+  query: CategoryQueryInput;
+}>;
+
+
+export type UpdateOneCategoryMutation = { __typename?: 'Mutation', updateOneCategory: { __typename?: 'Category', _id: string, description?: string | null, image?: string | null, name?: string | null, slug?: string | null } };
+
+export type ProductsQueryVariables = Exact<{
+  paginate?: InputMaybe<PaginateOptionsInput>;
+  query?: InputMaybe<ProductQueryInput>;
+}>;
+
+
+export type ProductsQuery = { __typename?: 'Query', products: { __typename?: 'ProductPagination', hasNextPage: boolean, hasPrevPage: boolean, limit: number, nextPage?: number | null, offset?: number | null, page?: number | null, pagingCounter: number, prevPage?: number | null, totalDocs: number, totalPages: number, docs: Array<{ __typename?: 'Product', _id: string, available?: boolean | null, barcode?: string | null, gallery?: Array<string> | null, image?: string | null, name?: string | null, price?: number | null, productType: string, properties?: any | null, quantity?: number | null, salePrice?: number | null, status?: string | null, tags?: Array<string> | null, unit?: string | null, categories?: Array<{ __typename?: 'Category', _id: string, name?: string | null }> | null }> } };
+
+export type InsertOneProductMutationVariables = Exact<{
+  data: ProductInsertInput;
+}>;
+
+
+export type InsertOneProductMutation = { __typename?: 'Mutation', insertOneProduct: { __typename?: 'Product', _id: string, name?: string | null, price?: number | null } };
+
+export type DeleteOneProductMutationVariables = Exact<{
+  query: ProductQueryInput;
+}>;
+
+
+export type DeleteOneProductMutation = { __typename?: 'Mutation', deleteOneProduct: { __typename?: 'Product', _id: string, name?: string | null } };
+
+export type UpdateOneProductMutationVariables = Exact<{
+  data: ProductUpdateInput;
+  query: ProductQueryInput;
+}>;
+
+
+export type UpdateOneProductMutation = { __typename?: 'Mutation', updateOneProduct: { __typename?: 'Product', _id: string, available?: boolean | null, barcode?: string | null, gallery?: Array<string> | null, image?: string | null, name?: string | null, price?: number | null, productType: string, properties?: any | null, quantity?: number | null, salePrice?: number | null, status?: string | null, tags?: Array<string> | null, unit?: string | null, categories?: Array<{ __typename?: 'Category', _id: string, name?: string | null }> | null } };
 
 export type GetUsersQueryVariables = Exact<{
   where?: InputMaybe<UserQueryInput>;
@@ -1024,23 +1117,170 @@ export const MeDocument = gql`
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
 };
-export const ProductsDocument = gql`
-    query Products {
-  products {
-    _id
-    name
-    price
-    available
-    barcode
-    categories {
+export const CategoriesDocument = gql`
+    query Categories($paginate: PaginateOptionsInput, $query: CategoryQueryInput) {
+  categories(paginate: $paginate, query: $query) {
+    docs {
+      _id
+      description
+      image
       name
+      slug
     }
+    hasNextPage
+    hasPrevPage
+    limit
+    nextPage
+    offset
+    page
+    pagingCounter
+    prevPage
+    totalDocs
+    totalPages
+  }
+}
+    `;
+
+export function useCategoriesQuery(options?: Omit<Urql.UseQueryArgs<CategoriesQueryVariables>, 'query'>) {
+  return Urql.useQuery<CategoriesQuery>({ query: CategoriesDocument, ...options });
+};
+export const InsertOneCategoryDocument = gql`
+    mutation InsertOneCategory($data: CategoryInsertInput!) {
+  insertOneCategory(data: $data) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}
+    `;
+
+export function useInsertOneCategoryMutation() {
+  return Urql.useMutation<InsertOneCategoryMutation, InsertOneCategoryMutationVariables>(InsertOneCategoryDocument);
+};
+export const DeleteOneCategoryDocument = gql`
+    mutation DeleteOneCategory($query: CategoryQueryInput!) {
+  deleteOneCategory(query: $query) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}
+    `;
+
+export function useDeleteOneCategoryMutation() {
+  return Urql.useMutation<DeleteOneCategoryMutation, DeleteOneCategoryMutationVariables>(DeleteOneCategoryDocument);
+};
+export const UpdateOneCategoryDocument = gql`
+    mutation UpdateOneCategory($data: CategoryUpdateInput!, $query: CategoryQueryInput!) {
+  updateOneCategory(data: $data, query: $query) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}
+    `;
+
+export function useUpdateOneCategoryMutation() {
+  return Urql.useMutation<UpdateOneCategoryMutation, UpdateOneCategoryMutationVariables>(UpdateOneCategoryDocument);
+};
+export const ProductsDocument = gql`
+    query Products($paginate: PaginateOptionsInput, $query: ProductQueryInput) {
+  products(paginate: $paginate, query: $query) {
+    docs {
+      _id
+      available
+      barcode
+      categories {
+        _id
+        name
+      }
+      gallery
+      image
+      name
+      price
+      productType
+      properties
+      quantity
+      salePrice
+      status
+      tags
+      unit
+    }
+    hasNextPage
+    hasPrevPage
+    limit
+    nextPage
+    offset
+    page
+    pagingCounter
+    prevPage
+    totalDocs
+    totalPages
   }
 }
     `;
 
 export function useProductsQuery(options?: Omit<Urql.UseQueryArgs<ProductsQueryVariables>, 'query'>) {
   return Urql.useQuery<ProductsQuery>({ query: ProductsDocument, ...options });
+};
+export const InsertOneProductDocument = gql`
+    mutation InsertOneProduct($data: ProductInsertInput!) {
+  insertOneProduct(data: $data) {
+    _id
+    name
+    price
+  }
+}
+    `;
+
+export function useInsertOneProductMutation() {
+  return Urql.useMutation<InsertOneProductMutation, InsertOneProductMutationVariables>(InsertOneProductDocument);
+};
+export const DeleteOneProductDocument = gql`
+    mutation DeleteOneProduct($query: ProductQueryInput!) {
+  deleteOneProduct(query: $query) {
+    _id
+    name
+  }
+}
+    `;
+
+export function useDeleteOneProductMutation() {
+  return Urql.useMutation<DeleteOneProductMutation, DeleteOneProductMutationVariables>(DeleteOneProductDocument);
+};
+export const UpdateOneProductDocument = gql`
+    mutation UpdateOneProduct($data: ProductUpdateInput!, $query: ProductQueryInput!) {
+  updateOneProduct(data: $data, query: $query) {
+    _id
+    available
+    barcode
+    categories {
+      _id
+      name
+    }
+    gallery
+    image
+    name
+    price
+    productType
+    properties
+    quantity
+    salePrice
+    status
+    tags
+    unit
+  }
+}
+    `;
+
+export function useUpdateOneProductMutation() {
+  return Urql.useMutation<UpdateOneProductMutation, UpdateOneProductMutationVariables>(UpdateOneProductDocument);
 };
 export const GetUsersDocument = gql`
     query GetUsers($where: UserQueryInput, $take: Int, $skip: Int, $orderBy: [UserOrderByInput!]) {

@@ -1,12 +1,72 @@
-query Products {
-  products {
+query Products($paginate: PaginateOptionsInput, $query: ProductQueryInput) {
+  products(paginate: $paginate, query: $query) {
+    docs {
+      _id
+      available
+      barcode
+      categories {
+        _id
+        name
+      }
+      gallery
+      image
+      name
+      price
+      productType
+      properties
+      quantity
+      salePrice
+      status
+      tags
+      unit
+    }
+    hasNextPage
+    hasPrevPage
+    limit
+    nextPage
+    offset
+    page
+    pagingCounter
+    prevPage
+    totalDocs
+    totalPages
+  }
+}
+
+mutation InsertOneProduct($data: ProductInsertInput!) {
+  insertOneProduct(data: $data) {
     _id
     name
     price
+  }
+}
+
+mutation DeleteOneProduct($query: ProductQueryInput!) {
+  deleteOneProduct(query: $query) {
+    _id
+    name
+  }
+}
+
+mutation UpdateOneProduct($data: ProductUpdateInput!, $query: ProductQueryInput!) {
+  updateOneProduct(data: $data, query: $query) {
+    _id
     available
     barcode
     categories {
+      _id
       name
     }
+    gallery
+    image
+    name
+    price
+    productType
+    properties
+    quantity
+    salePrice
+    status
+    tags
+    unit
   }
 }

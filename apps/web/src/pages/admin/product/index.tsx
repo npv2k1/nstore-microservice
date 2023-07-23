@@ -1,15 +1,3 @@
-import { useProductsQuery } from '@/services/graphql'
-import React from 'react'
+import ProductPage from "@/modules/product/pages";
 
-const AdminProductPage = () => {
-
-  const [data, ] = useProductsQuery()
-
-  console.log(data)
-
-  return (
-    <div>AdminProductsPage</div>
-  )
-}
-
-export default AdminProductPage
+export default ProductPage;

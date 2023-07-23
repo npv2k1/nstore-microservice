@@ -1,34 +1,24 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import {
-  DeleteOneCategoryArgs,
-  DeleteManyCategoryArgs,
-} from './dtos/args/delete-category.args';
-import {
-  FindManyCategoryArgs,
-  FindOneCategoryArgs,
-} from './dtos/args/find-category.args';
-import {
-  InsertOneCategoryArgs,
-  InsertManyCategoryArgs,
-} from './dtos/args/insert-category.args';
-import {
-  UpdateOneCategoryArgs,
-  UpdateManyCategoryArgs,
-} from './dtos/args/update-category.args';
+import { DeleteOneCategoryArgs, DeleteManyCategoryArgs } from './dtos/args/delete-category.args';
+import { FindManyCategoryArgs, FindOneCategoryArgs } from './dtos/args/find-category.args';
+import { InsertOneCategoryArgs, InsertManyCategoryArgs } from './dtos/args/insert-category.args';
+import { UpdateOneCategoryArgs, UpdateManyCategoryArgs } from './dtos/args/update-category.args';
 import { UpsertOneCategoryArgs } from './dtos/args/upsert-category.args';
 import { Category } from './entities/category.entity';
 import { CategoryService } from './category.service';
 import { Product } from '../product/entities/product.entity';
+import { CategoryPagination } from './dtos/outputs/category-pagination';
 
 @Resolver(() => Category)
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
-  @Query(() => [Category], {
+  @Query(() => CategoryPagination, {
     name: `${pluralize.plural(Category.name.toLowerCase())}`,
   })
   async findMany(@Args() args: FindManyCategoryArgs) {
-    return this.categoryService.findMany(args);
+    const res =  await this.categoryService.findManyPaginate(args);
+    return res;
   }
 
   @Query(() => Category, { name: Category.name.toLowerCase() })
@@ -88,7 +78,7 @@ export class CategoryResolver {
   @ResolveField(() => [Product], { name: 'products', nullable: true })
   async products(@Parent() parent: Category) {
     // return (await this.newsService.countUpvote(news._id)) || 0;
-    
+
     return null;
   }
 }

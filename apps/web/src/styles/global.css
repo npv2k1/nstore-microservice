@@ -12,7 +12,9 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-
+ img {
+  display: initial;
+ }
 }
 
 @layer components {

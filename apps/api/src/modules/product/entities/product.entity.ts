@@ -1,4 +1,4 @@
-import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
@@ -34,7 +34,7 @@ export class Product {
     type: Number,
     required: true,
   })
-  @Field(() => Float, {
+  @Field(() => Int, {
     nullable: true,
   })
   price: number;
@@ -42,7 +42,7 @@ export class Product {
   @Prop({
     type: Number,
   })
-  @Field(() => Float, {
+  @Field(() => Int, {
     nullable: true,
   })
   salePrice: number;

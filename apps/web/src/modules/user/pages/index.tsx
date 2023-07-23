@@ -12,6 +12,7 @@ import SearchForm from '../components/SearchForm';
 import UserPageProvider, { UserPageActionType, UserPageCtx } from '../store';
 import { makeTableColumn } from '../store/makeTableColumn';
 import { User, useDeleteUserMutation, useGetUsersQuery } from '@/services/graphql';
+import { getAdminLayout } from '@/modules/admin/components/layouts';
 
 export const DEFAULT_PAGE_SIZE = 10;
 
@@ -180,4 +181,7 @@ const UserPage = () => {
     </UserPageProvider>
   );
 };
+
+UserPage.getLayout = getAdminLayout
+
 export default UserPage;

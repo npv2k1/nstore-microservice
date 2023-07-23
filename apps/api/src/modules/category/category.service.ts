@@ -31,6 +31,11 @@ export class CategoryService {
     return Categorys;
   }
 
+  async findManyPaginate(args: FindManyCategoryArgs) {
+    const { paginate } = args;
+    return await this.CategoryRepo.paginate(args.query, paginate);  
+  }
+
   async findOne(args: FindOneCategoryArgs) {
     return this.CategoryRepo.findOne(args.query);
   }

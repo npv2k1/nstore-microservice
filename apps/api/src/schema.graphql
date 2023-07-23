@@ -46,6 +46,20 @@ input CategoryInsertInput {
   name: String
 }
 
+type CategoryPagination {
+  docs: [Category!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
 input CategoryQueryInput {
   _id: String
   name: String
@@ -301,6 +315,12 @@ input OrderQueryInput {
   phone: String
 }
 
+input PaginateOptionsInput {
+  limit: Int
+  offset: Int
+  page: Int
+}
+
 type Payment {
   _id: String!
   order: String
@@ -352,11 +372,11 @@ type Product {
   gallery: [String!]
   image: String
   name: String
-  price: Float
+  price: Int
   productType: String!
   properties: JSONObject
   quantity: Int
-  salePrice: Float
+  salePrice: Int
   status: String
   tags: [String!]
   unit: String
@@ -366,25 +386,42 @@ type Product {
 input ProductInsertInput {
   _id: String
   categories: [String!]
+  image: String
   name: String
-  price: Float!
+  price: Int!
   properties: JSONObject
+}
+
+type ProductPagination {
+  docs: [Product!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input ProductQueryInput {
   _id: String
   categories: [String!]
   categories_in: [String!]
+  image: String
   name: String
-  price: Float
+  price: Int
   properties: JSONObject
 }
 
 input ProductUpdateInput {
   _id: String
   categories: [String!]
+  image: String
   name: String
-  price: Float
+  price: Int
   properties: JSONObject
 }
 
@@ -393,7 +430,7 @@ type Query {
   aggregateUsers(skip: Int, take: Int, where: UserQueryInput): UserAggregate!
   cart(query: CartQueryInput!): Cart!
   carts(query: CartQueryInput): [Cart!]!
-  categories(query: CategoryQueryInput): [Category!]!
+  categories(paginate: PaginateOptionsInput, query: CategoryQueryInput): CategoryPagination!
   category(query: CategoryQueryInput!): Category!
   coupon(query: CouponQueryInput!): Coupon!
   coupons(query: CouponQueryInput): [Coupon!]!
@@ -407,7 +444,7 @@ type Query {
   payment(query: PaymentQueryInput!): Payment!
   payments(query: PaymentQueryInput): [Payment!]!
   product(query: ProductQueryInput!): Product!
-  products(query: ProductQueryInput): [Product!]!
+  products(paginate: PaginateOptionsInput, query: ProductQueryInput): ProductPagination!
   profile: Customer!
   shipment(query: ShipmentQueryInput!): Shipment!
   shipments(query: ShipmentQueryInput): [Shipment!]!

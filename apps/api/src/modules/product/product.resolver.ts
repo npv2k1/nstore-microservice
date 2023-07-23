@@ -1,33 +1,27 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import {
-  DeleteManyProductArgs,
-  DeleteOneProductArgs,
-} from './dtos/args/delete-product.args';
-import {
-  FindManyProductArgs,
-  FindOneProductArgs,
-} from './dtos/args/find-product.args';
-import {
-  InsertManyProductArgs,
-  InsertOneProductArgs,
-} from './dtos/args/insert-product.args';
-import {
-  UpdateManyProductArgs,
-  UpdateOneProductArgs,
-} from './dtos/args/update-product.args';
+import { DeleteManyProductArgs, DeleteOneProductArgs } from './dtos/args/delete-product.args';
+import { FindManyProductArgs, FindOneProductArgs } from './dtos/args/find-product.args';
+import { InsertManyProductArgs, InsertOneProductArgs } from './dtos/args/insert-product.args';
+import { UpdateManyProductArgs, UpdateOneProductArgs } from './dtos/args/update-product.args';
 import { UpsertOneProductArgs } from './dtos/args/upsert-product.args';
 import { Product } from './entities/product.entity';
 import { ProductService } from './product.service';
+import { ProductPagination, ProductResultUnion } from './dtos/outputs/product-pagination';
 
 @Resolver(() => Product)
 export class ProductResolver {
   constructor(private readonly productService: ProductService) {}
-  @Query(() => [Product], {
+
+  @Query(() => ProductPagination, {
     name: `${pluralize.plural(Product.name.toLowerCase())}`,
   })
   async findMany(@Args() args: FindManyProductArgs) {
-    return this.productService.findMany(args);
+    // if (args.paginate) {
+    //   const dt = await this.productService.findManyPaginate(args);
+    // }
+    // return this.productService.findMany(args);
+    return await this.productService.findManyPaginate(args);
   }
 
   @Query(() => Product, { name: Product.name.toLowerCase() })

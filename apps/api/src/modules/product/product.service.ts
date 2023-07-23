@@ -1,20 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import {
-  DeleteManyProductArgs,
-  DeleteOneProductArgs,
-} from './dtos/args/delete-product.args';
-import {
-  FindManyProductArgs,
-  FindOneProductArgs,
-} from './dtos/args/find-product.args';
-import {
-  InsertManyProductArgs,
-  InsertOneProductArgs,
-} from './dtos/args/insert-product.args';
-import {
-  UpdateManyProductArgs,
-  UpdateOneProductArgs,
-} from './dtos/args/update-product.args';
+import { DeleteManyProductArgs, DeleteOneProductArgs } from './dtos/args/delete-product.args';
+import { FindManyProductArgs, FindOneProductArgs } from './dtos/args/find-product.args';
+import { InsertManyProductArgs, InsertOneProductArgs } from './dtos/args/insert-product.args';
+import { UpdateManyProductArgs, UpdateOneProductArgs } from './dtos/args/update-product.args';
 import { UpsertOneProductArgs } from './dtos/args/upsert-product.args';
 import { ProductRepository } from './product.repository';
 
@@ -31,12 +19,17 @@ export class ProductService {
     return Products;
   }
 
+  async findManyPaginate(args: FindManyProductArgs) {
+    const { paginate } = args;
+    return await this.productRepo.paginate(args.query, paginate);
+  }
+
   async findOne(args: FindOneProductArgs) {
     return this.productRepo.findOne(args.query);
   }
 
-  async findById(id: string){
-    const product =  this.productRepo.findById(id);
+  async findById(id: string) {
+    const product = this.productRepo.findById(id);
     return product;
   }
 
@@ -69,16 +62,10 @@ export class ProductService {
   }
 
   async reduceProductQuantity(productId: string, quantity: number) {
-    return await this.productRepo.updateOne(
-      { _id: productId },
-      { $inc: { quantity: -quantity } },
-    );
+    return await this.productRepo.updateOne({ _id: productId }, { $inc: { quantity: -quantity } });
   }
 
   async increaseProductQuantity(productId: string, quantity: number) {
-    return await this.productRepo.updateOne(
-      { _id: productId },
-      { $inc: { quantity: quantity } },
-    );
+    return await this.productRepo.updateOne({ _id: productId }, { $inc: { quantity: quantity } });
   }
 }
