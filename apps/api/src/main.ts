@@ -35,7 +35,7 @@ async function bootstrap() {
   await setupPrisma(app);
   await setupSwagger(app);
   await setupSocket(app);
-  await setupMicroservice(app)
+  await setupMicroservice(app);
 
   // Listen port
   const configService = app.get(ConfigService);

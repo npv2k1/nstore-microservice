@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev:all": "concurrently -n codegen,web \"npm run dev:codegen\" \"npm run dev:web\"",
-    "dev": "next dev -p 3005",
+    "dev": "next dev -p 3000",
     "dev:codegen": "graphql-codegen --watch",
     "build": "next build",
     "start": "next start",

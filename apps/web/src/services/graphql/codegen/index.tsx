@@ -91,17 +91,38 @@ export type Coupon = {
 
 export type CouponInsertInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  code: Scalars['String'];
+  discountType: DiscountType;
+  discountValue: Scalars['Int'];
+  product?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  type: CouponType;
 };
 
 export type CouponQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  code?: InputMaybe<Scalars['String']>;
+  discountType?: InputMaybe<DiscountType>;
+  discountValue?: InputMaybe<Scalars['Int']>;
+  product?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<CouponType>;
 };
+
+export enum CouponType {
+  Delivery = 'DELIVERY',
+  Order = 'ORDER',
+  Product = 'PRODUCT'
+}
 
 export type CouponUpdateInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  code?: InputMaybe<Scalars['String']>;
+  discountType?: InputMaybe<DiscountType>;
+  discountValue?: InputMaybe<Scalars['Int']>;
+  product?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<CouponType>;
 };
 
 export type Customer = {
@@ -115,6 +136,52 @@ export type Customer = {
   phone?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   uid?: Maybe<Scalars['Int']>;
+};
+
+export enum DiscountType {
+  Fixed = 'FIXED',
+  Percent = 'PERCENT'
+}
+
+export type FlashSale = {
+  __typename?: 'FlashSale';
+  _id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  endDate: Scalars['DateTime'];
+  product?: Maybe<Scalars['Int']>;
+  salePrice: Scalars['Int'];
+  startDate: Scalars['DateTime'];
+  status: Scalars['String'];
+};
+
+export type FlashSaleInsertInput = {
+  _id?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  endDate: Scalars['DateTime'];
+  product: Scalars['String'];
+  salePrice: Scalars['Int'];
+  startDate: Scalars['DateTime'];
+  status: Scalars['Boolean'];
+};
+
+export type FlashSaleQueryInput = {
+  _id?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  product?: InputMaybe<Scalars['String']>;
+  salePrice?: InputMaybe<Scalars['Int']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FlashSaleUpdateInput = {
+  _id?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  product?: InputMaybe<Scalars['String']>;
+  salePrice?: InputMaybe<Scalars['Int']>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+  status?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type ForgotPasswordInput = {
@@ -163,37 +230,22 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword: Scalars['String'];
-  deleteManyCarts: Cart;
-  deleteManyCategories: Category;
-  deleteManyCoupons: Coupon;
-  deleteManyInventories: Inventory;
-  deleteManyOrders: Order;
-  deleteManyPayments: Payment;
-  deleteManyProducts: Product;
-  deleteManyShipments: Shipment;
   deleteManyUsers: User;
   deleteOneCart: Cart;
   deleteOneCategory: Category;
   deleteOneCoupon: Coupon;
+  deleteOneFlashSale: FlashSale;
   deleteOneInventory: Inventory;
-  deleteOneOrder: Order;
   deleteOnePayment: Payment;
   deleteOneProduct: Product;
   deleteOneShipment: Shipment;
   deleteOneUser: User;
   forgotPassword: Scalars['String'];
-  insertManyCarts: Cart;
-  insertManyCategories: Category;
-  insertManyCoupons: Coupon;
-  insertManyInventories: Inventory;
-  insertManyOrders: Order;
-  insertManyPayments: Payment;
-  insertManyProducts: Product;
-  insertManyShipments: Shipment;
   insertManyUsers: User;
   insertOneCart: Cart;
   insertOneCategory: Category;
   insertOneCoupon: Coupon;
+  insertOneFlashSale: FlashSale;
   insertOneInventory: Inventory;
   insertOneOrder: Order;
   insertOnePayment: Payment;
@@ -203,77 +255,24 @@ export type Mutation = {
   login: Token;
   resetPassword: Scalars['String'];
   signup: Token;
-  updateManyCarts: Cart;
-  updateManyCategories: Category;
-  updateManyCoupons: Coupon;
-  updateManyInventories: Inventory;
-  updateManyOrders: Order;
-  updateManyPayments: Payment;
-  updateManyProducts: Product;
-  updateManyShipments: Shipment;
   updateManyUsers: User;
   updateOneCart: Cart;
   updateOneCategory: Category;
   updateOneCoupon: Coupon;
+  updateOneFlashSale: FlashSale;
   updateOneInventory: Inventory;
-  updateOneOrder: Order;
   updateOnePayment: Payment;
   updateOneProduct: Product;
   updateOneShipment: Shipment;
   updateOneUser: User;
-  upsertOneCart: Cart;
-  upsertOneCategory: Category;
   upsertOneCoupon: Coupon;
-  upsertOneInventory: Inventory;
-  upsertOneOrder: Order;
-  upsertOnePayment: Payment;
+  upsertOneFlashSale: FlashSale;
   upsertOneProduct: Product;
-  upsertOneShipment: Shipment;
 };
 
 
 export type MutationChangePasswordArgs = {
   input: ChangePasswordInput;
-};
-
-
-export type MutationDeleteManyCartsArgs = {
-  query?: InputMaybe<CartQueryInput>;
-};
-
-
-export type MutationDeleteManyCategoriesArgs = {
-  query?: InputMaybe<CategoryQueryInput>;
-};
-
-
-export type MutationDeleteManyCouponsArgs = {
-  query?: InputMaybe<CouponQueryInput>;
-};
-
-
-export type MutationDeleteManyInventoriesArgs = {
-  query?: InputMaybe<InventoryQueryInput>;
-};
-
-
-export type MutationDeleteManyOrdersArgs = {
-  query?: InputMaybe<OrderQueryInput>;
-};
-
-
-export type MutationDeleteManyPaymentsArgs = {
-  query?: InputMaybe<PaymentQueryInput>;
-};
-
-
-export type MutationDeleteManyProductsArgs = {
-  query?: InputMaybe<ProductQueryInput>;
-};
-
-
-export type MutationDeleteManyShipmentsArgs = {
-  query?: InputMaybe<ShipmentQueryInput>;
 };
 
 
@@ -297,13 +296,13 @@ export type MutationDeleteOneCouponArgs = {
 };
 
 
-export type MutationDeleteOneInventoryArgs = {
-  query: InventoryQueryInput;
+export type MutationDeleteOneFlashSaleArgs = {
+  query: FlashSaleQueryInput;
 };
 
 
-export type MutationDeleteOneOrderArgs = {
-  query: OrderQueryInput;
+export type MutationDeleteOneInventoryArgs = {
+  query: InventoryQueryInput;
 };
 
 
@@ -332,46 +331,6 @@ export type MutationForgotPasswordArgs = {
 };
 
 
-export type MutationInsertManyCartsArgs = {
-  data: Array<CartInsertInput>;
-};
-
-
-export type MutationInsertManyCategoriesArgs = {
-  data: Array<CategoryInsertInput>;
-};
-
-
-export type MutationInsertManyCouponsArgs = {
-  data: Array<CouponInsertInput>;
-};
-
-
-export type MutationInsertManyInventoriesArgs = {
-  data: Array<InventoryInsertInput>;
-};
-
-
-export type MutationInsertManyOrdersArgs = {
-  data: Array<OrderInsertInput>;
-};
-
-
-export type MutationInsertManyPaymentsArgs = {
-  data: Array<PaymentInsertInput>;
-};
-
-
-export type MutationInsertManyProductsArgs = {
-  data: Array<ProductInsertInput>;
-};
-
-
-export type MutationInsertManyShipmentsArgs = {
-  data: Array<ShipmentInsertInput>;
-};
-
-
 export type MutationInsertManyUsersArgs = {
   data: Array<UserInsertInput>;
 };
@@ -389,6 +348,11 @@ export type MutationInsertOneCategoryArgs = {
 
 export type MutationInsertOneCouponArgs = {
   data: CouponInsertInput;
+};
+
+
+export type MutationInsertOneFlashSaleArgs = {
+  data: FlashSaleInsertInput;
 };
 
 
@@ -437,54 +401,6 @@ export type MutationSignupArgs = {
 };
 
 
-export type MutationUpdateManyCartsArgs = {
-  data: CartUpdateInput;
-  query?: InputMaybe<CartQueryInput>;
-};
-
-
-export type MutationUpdateManyCategoriesArgs = {
-  data: CategoryUpdateInput;
-  query?: InputMaybe<CategoryQueryInput>;
-};
-
-
-export type MutationUpdateManyCouponsArgs = {
-  data: CouponUpdateInput;
-  query?: InputMaybe<CouponQueryInput>;
-};
-
-
-export type MutationUpdateManyInventoriesArgs = {
-  data: InventoryUpdateInput;
-  query?: InputMaybe<InventoryQueryInput>;
-};
-
-
-export type MutationUpdateManyOrdersArgs = {
-  data: OrderUpdateInput;
-  query?: InputMaybe<OrderQueryInput>;
-};
-
-
-export type MutationUpdateManyPaymentsArgs = {
-  data: PaymentUpdateInput;
-  query?: InputMaybe<PaymentQueryInput>;
-};
-
-
-export type MutationUpdateManyProductsArgs = {
-  data: ProductUpdateInput;
-  query?: InputMaybe<ProductQueryInput>;
-};
-
-
-export type MutationUpdateManyShipmentsArgs = {
-  data: ShipmentUpdateInput;
-  query?: InputMaybe<ShipmentQueryInput>;
-};
-
-
 export type MutationUpdateManyUsersArgs = {
   data: UpdateUserInput;
   where: UserQueryUniqueInput;
@@ -509,15 +425,15 @@ export type MutationUpdateOneCouponArgs = {
 };
 
 
-export type MutationUpdateOneInventoryArgs = {
-  data: InventoryUpdateInput;
-  query: InventoryQueryInput;
+export type MutationUpdateOneFlashSaleArgs = {
+  data: FlashSaleUpdateInput;
+  query: FlashSaleQueryInput;
 };
 
 
-export type MutationUpdateOneOrderArgs = {
-  data: OrderUpdateInput;
-  query: OrderQueryInput;
+export type MutationUpdateOneInventoryArgs = {
+  data: InventoryUpdateInput;
+  query: InventoryQueryInput;
 };
 
 
@@ -545,51 +461,21 @@ export type MutationUpdateOneUserArgs = {
 };
 
 
-export type MutationUpsertOneCartArgs = {
-  data: CartInsertInput;
-  query?: InputMaybe<CartQueryInput>;
-};
-
-
-export type MutationUpsertOneCategoryArgs = {
-  data: CategoryInsertInput;
-  query?: InputMaybe<CategoryQueryInput>;
-};
-
-
 export type MutationUpsertOneCouponArgs = {
   data: CouponInsertInput;
   query?: InputMaybe<CouponQueryInput>;
 };
 
 
-export type MutationUpsertOneInventoryArgs = {
-  data: InventoryInsertInput;
-  query?: InputMaybe<InventoryQueryInput>;
-};
-
-
-export type MutationUpsertOneOrderArgs = {
-  data: OrderInsertInput;
-  query?: InputMaybe<OrderQueryInput>;
-};
-
-
-export type MutationUpsertOnePaymentArgs = {
-  data: PaymentInsertInput;
-  query?: InputMaybe<PaymentQueryInput>;
+export type MutationUpsertOneFlashSaleArgs = {
+  data: FlashSaleInsertInput;
+  query?: InputMaybe<FlashSaleQueryInput>;
 };
 
 
 export type MutationUpsertOneProductArgs = {
   data: ProductInsertInput;
   query?: InputMaybe<ProductQueryInput>;
-};
-
-
-export type MutationUpsertOneShipmentArgs = {
-  data: ShipmentInsertInput;
-  query?: InputMaybe<ShipmentQueryInput>;
 };
 
 export type Order = {
@@ -600,19 +486,29 @@ export type Order = {
   deliveryAddress: Scalars['String'];
   deliveryFee: Scalars['Int'];
   deliveryStatus: Scalars['String'];
+  discount: Scalars['Int'];
   items: Array<OrderItem>;
+  payment: Payment;
+  paymentMethod: Scalars['String'];
+  phone: Scalars['String'];
+  productTotal: Scalars['Int'];
   status: Scalars['String'];
   total: Scalars['Int'];
 };
 
 export type OrderInsertInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  coupon?: InputMaybe<Scalars['String']>;
+  customer?: InputMaybe<Scalars['String']>;
+  deliveryAddress: Scalars['String'];
+  paymentMethod?: PaymentMethod;
+  phone: Scalars['String'];
 };
 
 export type OrderItem = {
   __typename?: 'OrderItem';
   _id: Scalars['String'];
+  price: Scalars['Int'];
   product: Product;
   quantity?: Maybe<Scalars['Int']>;
   subtotal?: Maybe<Scalars['Int']>;
@@ -620,33 +516,55 @@ export type OrderItem = {
 
 export type OrderQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type OrderUpdateInput = {
-  _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  coupon?: InputMaybe<Scalars['String']>;
+  customer?: InputMaybe<Scalars['String']>;
+  deliveryAddress?: InputMaybe<Scalars['String']>;
+  paymentMethod?: InputMaybe<PaymentMethod>;
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 export type Payment = {
   __typename?: 'Payment';
   _id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['String']>;
+  paymentAmount?: Maybe<Scalars['Int']>;
+  paymentDate?: Maybe<Scalars['String']>;
+  paymentMethod?: Maybe<Scalars['String']>;
+  paymentStatus?: Maybe<Scalars['String']>;
 };
 
 export type PaymentInsertInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Scalars['String']>;
+  paymentAmount?: InputMaybe<Scalars['Int']>;
+  paymentDate?: InputMaybe<Scalars['String']>;
+  paymentMethod?: InputMaybe<Scalars['String']>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
 };
+
+export enum PaymentMethod {
+  Cod = 'COD',
+  CreditCard = 'CREDIT_CARD',
+  Paypal = 'PAYPAL',
+  Stripe = 'STRIPE'
+}
 
 export type PaymentQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Scalars['String']>;
+  paymentAmount?: InputMaybe<Scalars['Int']>;
+  paymentDate?: InputMaybe<Scalars['String']>;
+  paymentMethod?: InputMaybe<Scalars['String']>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
 };
 
 export type PaymentUpdateInput = {
   _id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Scalars['String']>;
+  paymentAmount?: InputMaybe<Scalars['Int']>;
+  paymentDate?: InputMaybe<Scalars['String']>;
+  paymentMethod?: InputMaybe<Scalars['String']>;
+  paymentStatus?: InputMaybe<Scalars['String']>;
 };
 
 export type Product = {
@@ -704,6 +622,8 @@ export type Query = {
   category: Category;
   coupon: Coupon;
   coupons: Array<Coupon>;
+  flashsale: FlashSale;
+  flashsales: Array<FlashSale>;
   inventories: Array<Inventory>;
   inventory: Inventory;
   me: User;
@@ -755,6 +675,16 @@ export type QueryCouponArgs = {
 
 export type QueryCouponsArgs = {
   query?: InputMaybe<CouponQueryInput>;
+};
+
+
+export type QueryFlashsaleArgs = {
+  query: FlashSaleQueryInput;
+};
+
+
+export type QueryFlashsalesArgs = {
+  query?: InputMaybe<FlashSaleQueryInput>;
 };
 
 
@@ -978,6 +908,55 @@ export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', _id: string, name?: string | null, price?: number | null, available?: boolean | null, barcode?: string | null, categories?: Array<{ __typename?: 'Category', name?: string | null }> | null }> };
 
+export type GetUsersQueryVariables = Exact<{
+  where?: InputMaybe<UserQueryInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<UserOrderByInput> | UserOrderByInput>;
+}>;
+
+
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', address?: string | null, email: string, fullName?: string | null, id: number, password?: string | null, roles?: Array<string> | null, gender?: boolean | null }>, aggregateUsers: { __typename?: 'UserAggregate', _count?: number | null } };
+
+export type DeleteUserMutationVariables = Exact<{
+  where: UserQueryUniqueInput;
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteOneUser: { __typename?: 'User', id: number } };
+
+export type GetRolesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetRolesQuery = { __typename?: 'Query', Role: Array<{ __typename?: 'Role', description?: string | null, name: string }> };
+
+export type CreateUserMutationVariables = Exact<{
+  data: UserInsertInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', insertOneUser: { __typename?: 'User', id: number, roles?: Array<string> | null } };
+
+export type FindDetailUserQueryVariables = Exact<{
+  where: UserQueryUniqueInput;
+}>;
+
+
+export type FindDetailUserQuery = { __typename?: 'Query', user: { __typename?: 'User', address?: string | null, picture?: string | null, email: string, fullName?: string | null, id: number, password?: string | null, roles?: Array<string> | null, gender?: boolean | null } };
+
+export type UpdateUserMutationVariables = Exact<{
+  where: UserQueryUniqueInput;
+  data: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateOneUser: { __typename?: 'User', address?: string | null, picture?: string | null, email: string, fullName?: string | null, id: number, password?: string | null, roles?: Array<string> | null, gender?: boolean | null } };
+
+export type GetListRoleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetListRoleQuery = { __typename?: 'Query', Role: Array<{ __typename?: 'Role', name: string, description?: string | null }> };
+
 
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
@@ -1062,4 +1041,108 @@ export const ProductsDocument = gql`
 
 export function useProductsQuery(options?: Omit<Urql.UseQueryArgs<ProductsQueryVariables>, 'query'>) {
   return Urql.useQuery<ProductsQuery>({ query: ProductsDocument, ...options });
+};
+export const GetUsersDocument = gql`
+    query GetUsers($where: UserQueryInput, $take: Int, $skip: Int, $orderBy: [UserOrderByInput!]) {
+  users(where: $where, take: $take, skip: $skip, orderBy: $orderBy) {
+    address
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+    roles
+  }
+  aggregateUsers(where: $where) {
+    _count
+  }
+}
+    `;
+
+export function useGetUsersQuery(options?: Omit<Urql.UseQueryArgs<GetUsersQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUsersQuery>({ query: GetUsersDocument, ...options });
+};
+export const DeleteUserDocument = gql`
+    mutation DeleteUser($where: UserQueryUniqueInput!) {
+  deleteOneUser(where: $where) {
+    id
+  }
+}
+    `;
+
+export function useDeleteUserMutation() {
+  return Urql.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument);
+};
+export const GetRolesDocument = gql`
+    query GetRoles {
+  Role {
+    description
+    name
+  }
+}
+    `;
+
+export function useGetRolesQuery(options?: Omit<Urql.UseQueryArgs<GetRolesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetRolesQuery>({ query: GetRolesDocument, ...options });
+};
+export const CreateUserDocument = gql`
+    mutation CreateUser($data: UserInsertInput!) {
+  insertOneUser(data: $data) {
+    id
+    roles
+  }
+}
+    `;
+
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
+export const FindDetailUserDocument = gql`
+    query FindDetailUser($where: UserQueryUniqueInput!) {
+  user(where: $where) {
+    address
+    picture
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+  }
+}
+    `;
+
+export function useFindDetailUserQuery(options: Omit<Urql.UseQueryArgs<FindDetailUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<FindDetailUserQuery>({ query: FindDetailUserDocument, ...options });
+};
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($where: UserQueryUniqueInput!, $data: UpdateUserInput!) {
+  updateOneUser(where: $where, data: $data) {
+    address
+    picture
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
+};
+export const GetListRoleDocument = gql`
+    query GetListRole {
+  Role {
+    name
+    description
+  }
+}
+    `;
+
+export function useGetListRoleQuery(options?: Omit<Urql.UseQueryArgs<GetListRoleQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetListRoleQuery>({ query: GetListRoleDocument, ...options });
 };
