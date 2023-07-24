@@ -12,6 +12,7 @@ import ApiProvider from 'src/services';
 
 
 import { ToastContainer } from 'react-toastify';
+import AuthProvider from '@/modules/auth/contexts/AuthContext';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -27,8 +28,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ApiProvider>
-      <ToastContainer />
-      {getLayout(<Component {...pageProps} />)}
+      <AuthProvider>
+        <ToastContainer />
+        {getLayout(<Component {...pageProps} />)}
+      </AuthProvider>
     </ApiProvider>
   );
 }

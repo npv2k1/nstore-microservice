@@ -597,11 +597,11 @@ export type Product = {
   gallery?: Maybe<Array<Scalars['String']>>;
   image?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Int']>;
   productType: Scalars['String'];
   properties?: Maybe<Scalars['JSONObject']>;
   quantity?: Maybe<Scalars['Int']>;
-  salePrice?: Maybe<Scalars['Float']>;
+  salePrice?: Maybe<Scalars['Int']>;
   status?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   unit?: Maybe<Scalars['String']>;
@@ -611,8 +611,9 @@ export type Product = {
 export type ProductInsertInput = {
   _id?: InputMaybe<Scalars['String']>;
   categories?: InputMaybe<Array<Scalars['String']>>;
+  image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  price: Scalars['Float'];
+  price: Scalars['Int'];
   properties?: InputMaybe<Scalars['JSONObject']>;
 };
 
@@ -635,16 +636,18 @@ export type ProductQueryInput = {
   _id?: InputMaybe<Scalars['String']>;
   categories?: InputMaybe<Array<Scalars['String']>>;
   categories_in?: InputMaybe<Array<Scalars['String']>>;
+  image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  price?: InputMaybe<Scalars['Float']>;
+  price?: InputMaybe<Scalars['Int']>;
   properties?: InputMaybe<Scalars['JSONObject']>;
 };
 
 export type ProductUpdateInput = {
   _id?: InputMaybe<Scalars['String']>;
   categories?: InputMaybe<Array<Scalars['String']>>;
+  image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  price?: InputMaybe<Scalars['Float']>;
+  price?: InputMaybe<Scalars['Int']>;
   properties?: InputMaybe<Scalars['JSONObject']>;
 };
 
@@ -939,7 +942,7 @@ export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: '
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, fullName?: string | null, picture?: string | null, roles?: Array<string> | null } };
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', address?: string | null, bio?: string | null, dateOfBirth?: any | null, email: string, fullName?: string | null, gender?: boolean | null, id: number, password?: string | null, phone?: string | null, picture?: string | null, roles?: Array<string> | null } };
 
 export type CategoriesQueryVariables = Exact<{
   paginate?: InputMaybe<PaginateOptionsInput>;
@@ -1105,9 +1108,15 @@ export function useSignupMutation() {
 export const MeDocument = gql`
     query Me {
   me {
-    id
+    address
+    bio
+    dateOfBirth
     email
     fullName
+    gender
+    id
+    password
+    phone
     picture
     roles
   }

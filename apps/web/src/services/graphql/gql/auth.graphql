@@ -22,9 +22,15 @@ mutation Signup($input: SignupInput!) {
 }
 query Me {
   me {
-    id
+    address
+    bio
+    dateOfBirth
     email
     fullName
+    gender
+    id
+    password
+    phone
     picture
     roles
   }

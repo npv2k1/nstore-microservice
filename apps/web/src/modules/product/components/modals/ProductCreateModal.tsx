@@ -56,8 +56,8 @@ const ProductCreateModal = ({ open, onCancel }: CreateUserModalProps) => {
     }
 
     message.success('Create product successfully');
-    clearForm();
-    onCancel();
+    // clearForm();
+    // onCancel();
   };
 
   const clearForm = ()=>{
