@@ -33,8 +33,9 @@ export class FlashSale {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Product.name,
+    autopopulate: true,
   })
-  @Field(() => Number, {
+  @Field(() => Product, {
     nullable: true,
   })
   product: Product;

@@ -147,7 +147,7 @@ type FlashSale {
   _id: String!
   description: String
   endDate: DateTime!
-  product: Int
+  product: Product
   salePrice: Int!
   startDate: DateTime!
   status: String!

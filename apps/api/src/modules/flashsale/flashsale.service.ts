@@ -8,15 +8,23 @@ import { FlashSaleRepository } from './flashsale.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { EventBusService } from '../event-bus/event-bus.service';
 import { EventBusName } from '@/common/enums/event.enum';
+import moment from 'moment';
 
 @Injectable()
 export class FlashSaleService {
   constructor(private readonly FlashSaleRepo: FlashSaleRepository, private readonly eventBusService: EventBusService) {}
-
-  async flashsaleSuccess() {
-    // return await this.orderService.emit('flashsale_success', { message: 'FlashSale Success' });
+ 
+  async findAllFlashSaleSchedule() {
+    const currentTime = moment();
+    const startTimeThreshold = currentTime.clone().add(15, 'minutes');
+    const flashsale = await this.FlashSaleRepo.find({
+      startDate: {
+        $lte: startTimeThreshold.toDate(), 
+        $gte: currentTime.toDate(),
+      },
+    });
+    return flashsale;
   }
-
 
   async findMany(args: FindManyFlashSaleArgs) {
     const FlashSales = await this.FlashSaleRepo.findAll(args.query);
@@ -24,7 +32,7 @@ export class FlashSaleService {
   }
 
   async findOne(args: FindOneFlashSaleArgs) {
-    const flashsale = await this.FlashSaleRepo.findOne(args.query); 
+    const flashsale = await this.FlashSaleRepo.findOne(args.query);
     return flashsale;
   }
 

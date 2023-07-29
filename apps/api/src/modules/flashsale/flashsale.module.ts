@@ -9,5 +9,6 @@ import { EventBusModule } from '../event-bus/event-bus.module';
 @Module({
   imports: [MongooseModule.forFeature([{ name: FlashSale.name, schema: FlashSaleSchema }]), EventBusModule],
   providers: [FlashSaleResolver, FlashSaleService, FlashSaleRepository],
+  exports: [FlashSaleService, FlashSaleRepository],
 })
 export class FlashSaleModule {}

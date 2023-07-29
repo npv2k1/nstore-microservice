@@ -15,4 +15,8 @@ export class CustomerService {
   async findByUid(uid: number) {
     return await this.customerRepo.findOne({ uid });
   }
+
+  async findAll(){
+    return await this.customerRepo.findAll();
+  }
 }

@@ -61,10 +61,10 @@ const AuthProvider = ({ children }: Props) => {
   }, [userData]);
 
   useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      router.push('/auth/login');
-    }
+    // const token = getToken();
+    // if (!token) {
+    //   router.push('/auth/login');
+    // }
   },[])
 
   return <AuthContext.Provider value={{ user, state, dispatch }}>{children}</AuthContext.Provider>;

@@ -49,3 +49,4 @@ packages/ui/dist/
 
 # Ignore temp local
 /temp
+/data/minio

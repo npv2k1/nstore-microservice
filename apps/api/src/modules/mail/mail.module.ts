@@ -7,6 +7,7 @@ import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailController } from './mail.controller';
 import { QUEUE_NAME } from '@/common/enums/queue-name.enum';
+import { CustomerModule } from '../customer/customer.module';
 
 @Global()
 @Module({
@@ -46,6 +47,7 @@ import { QUEUE_NAME } from '@/common/enums/queue-name.enum';
         return config;
       },
     }),
+    CustomerModule
   ],
   controllers: [MailController],
   providers: [
