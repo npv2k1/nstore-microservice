@@ -5,34 +5,6 @@ import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } fro
 import { Product } from '@/modules/product/entities/product.entity';
 import { Customer } from '@/modules/customer/entities/customer.entity';
 
-// @ObjectType()
-// @Schema()
-// export class CartItem {
-//   @Prop({
-//     required: true,
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: Product.name,
-//     autopopulate: true,
-//     index: true,
-//     unique: true,
-//   })
-//   product: Product;
-
-//   @Prop({ required: true, default: 1 })
-//   quantity: number;
-
-//   @Prop({
-//     type: Number,
-//     // Calculate subtotal
-//     get: function () {
-//       return this.product.price * this.quantity;
-//     },
-//   })
-//   subtotal: number;
-// }
-// export const CartItemSchema = SchemaFactory.createForClass(CartItem);
-// CartItemSchema.plugin(mongooseAutopopulate);
-
 @Schema()
 @ObjectType()
 export class Cart {
@@ -44,7 +16,7 @@ export class Cart {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Customer.name,
-    // autopopulate: true,
+    autopopulate: true,
   })
   customer: Customer;
 

@@ -16,12 +16,12 @@ import { Customer } from '../customer/entities/customer.entity';
 import { User } from '../user/entities/user.entity';
 import { AuthUser } from '../auth/entities/auth-user,entity';
 
+@Roles(ROLE.USER)
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Cart)
 export class CartResolver {
   constructor(private readonly cartService: CartService) {}
 
-  @Roles(ROLE.USER)
   @Query(() => [Cart], {
     name: `${pluralize.plural(Cart.name.toLowerCase())}`,
   })
@@ -31,29 +31,29 @@ export class CartResolver {
       query: {
         ...args.query,
         customer: user._id,
-      }
-    }
+      },
+    };
     return this.cartService.findMany(_args);
   }
 
   @Query(() => Cart, { name: Cart.name.toLowerCase() })
-  async findOne(@Args() args: FindOneCartArgs) {
-    return this.cartService.findOne(args);
+  async findOne(@Args() args: FindOneCartArgs, @UserEntity() user: AuthUser) {
+    args.query.customer = user._id;
+    const res = await this.cartService.findOne(args);
+    console.log("🚀 ~ file: cart.resolver.ts:43 ~ CartResolver ~ findOne ~ res:", res)
+    return res;
   }
 
   @Mutation(() => Cart, {
     name: `deleteOne${pluralize.singular(Cart.name)}`,
   })
-  async deleteOne(@Args() args: DeleteOneCartArgs) {
-    return await this.cartService.deleteOne(args);
-  }
+  async deleteOne(@Args() args: DeleteOneCartArgs, @UserEntity() user: AuthUser) {
+    args.query.customer = user._id;
 
-  // @Mutation(() => Cart, {
-  //   name: `deleteMany${pluralize.plural(Cart.name)}`,
-  // })
-  // async deleteMany(@Args() args: DeleteManyCartArgs) {
-  //   return await this.cartService.deleteMany(args);
-  // }
+    const res =  await this.cartService.deleteOne(args);
+    console.log("🚀 ~ file: cart.resolver.ts:54 ~ CartResolver ~ deleteOne ~ res:", res)
+    return res;
+  }
 
   @Roles(ROLE.USER)
   @Mutation(() => Cart, {
@@ -65,6 +65,15 @@ export class CartResolver {
     return await this.cartService.upsertOneAndIncreaseQuantity(args);
   }
 
+  @Mutation(() => Cart, {
+    name: `updateOne${pluralize.singular(Cart.name)}`,
+  })
+  async updateOne(@Args() args: UpdateOneCartArgs, @UserEntity() user: AuthUser) {
+    args.query.customer = user._id;
+    const res = await this.cartService.updateOne(args);
+    return res;
+  }
+
   // @Mutation(() => Cart, {
   //   name: `insertMany${pluralize.plural(Cart.name)}`,
   // })
@@ -72,18 +81,18 @@ export class CartResolver {
   //   return await this.cartService.insertMany(args);
   // }
 
-  @Mutation(() => Cart, {
-    name: `updateOne${pluralize.singular(Cart.name)}`,
-  })
-  async updateOne(@Args() args: UpdateOneCartArgs) {
-    return await this.cartService.updateOne(args);
-  }
-
   // @Mutation(() => Cart, {
   //   name: `updateMany${pluralize.plural(Cart.name)}`,
   // })
   // async updateMany(@Args() args: UpdateManyCartArgs) {
   //   return await this.cartService.updateMany(args);
+  // }
+
+  // @Mutation(() => Cart, {
+  //   name: `deleteMany${pluralize.plural(Cart.name)}`,
+  // })
+  // async deleteMany(@Args() args: DeleteManyCartArgs) {
+  //   return await this.cartService.deleteMany(args);
   // }
 
   // @Mutation(() => Cart, {

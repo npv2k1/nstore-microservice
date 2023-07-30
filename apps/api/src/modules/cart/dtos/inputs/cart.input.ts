@@ -9,9 +9,7 @@ export class CartInput {
 
   product: string;
 
-  @Field(() => Int, {
-    defaultValue: 1,
-  })
+  @Field(() => Int)
   quantity: number;
 
   @Field(() => String, {

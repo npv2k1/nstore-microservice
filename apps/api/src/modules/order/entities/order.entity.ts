@@ -102,18 +102,22 @@ export class Order {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Customer.name,
+    autopopulate: true,
   })
   customer: Customer;
 
+  @Field(() => Coupon, { nullable: true })
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Coupon.name,
+    autopopulate: true,
   })
   coupon: Coupon;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Payment.name,
+    autopopulate: true,
   })
   payment: Payment;
 
@@ -121,6 +125,7 @@ export class Order {
     type: String,
     enum: PaymentMethod,
     default: PaymentMethod.COD,
+    autopopulate: true,
   })
   paymentMethod: string;
 

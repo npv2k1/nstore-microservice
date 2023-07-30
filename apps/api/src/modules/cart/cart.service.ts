@@ -23,6 +23,7 @@ export class CartService {
   }
 
   async findOne(args: FindOneCartArgs) {
+    console.log("🚀 ~ file: cart.service.ts:26 ~ CartService ~ findOne ~ args:", args)
     return this.cartRepo.findOne(args.query);
   }
 

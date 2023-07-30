@@ -14,21 +14,21 @@ input CartInsertInput {
   _id: String
   customer: String
   product: String!
-  quantity: Int! = 1
+  quantity: Int!
 }
 
 input CartQueryInput {
   _id: String
   customer: String
   product: String
-  quantity: Int = 1
+  quantity: Int
 }
 
 input CartUpdateInput {
   _id: String
   customer: String
   product: String
-  quantity: Int = 1
+  quantity: Int
 }
 
 type Category {
@@ -80,7 +80,7 @@ type Coupon {
   code: String
   discountType: String!
   discountValue: Int
-  product: Int
+  product: Product
   status: Boolean!
   type: String!
 }
@@ -91,7 +91,7 @@ input CouponInsertInput {
   discountType: DiscountType!
   discountValue: Int!
   product: String
-  status: Boolean = true
+  status: Boolean
   type: CouponType!
 }
 
@@ -101,7 +101,7 @@ input CouponQueryInput {
   discountType: DiscountType
   discountValue: Int
   product: String
-  status: Boolean = true
+  status: Boolean
   type: CouponType
 }
 
@@ -117,7 +117,7 @@ input CouponUpdateInput {
   discountType: DiscountType
   discountValue: Int
   product: String
-  status: Boolean = true
+  status: Boolean
   type: CouponType
 }
 
@@ -274,7 +274,7 @@ type Mutation {
 
 type Order {
   _id: String!
-  coupon: Coupon!
+  coupon: Coupon
   customer: Customer!
   deliveryAddress: String!
   deliveryFee: Int!

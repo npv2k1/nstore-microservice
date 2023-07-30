@@ -20,6 +20,7 @@ export class CouponResolver {
 
   @Query(() => Coupon, { name: Coupon.name.toLowerCase() })
   async findOne(@Args() args: FindOneCouponArgs) {
+    console.log("🚀 ~ file: coupon.resolver.ts:23 ~ CouponResolver ~ findOne ~ args:", args)
     return this.couponService.findOne(args);
   }
 

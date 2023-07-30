@@ -48,7 +48,7 @@ export class Coupon {
     type: mongoose.Schema.Types.ObjectId,
     ref: Product.name,
   })
-  @Field(() => Number, {
+  @Field(() => Product, {
     nullable: true,
   })
   product: Product;

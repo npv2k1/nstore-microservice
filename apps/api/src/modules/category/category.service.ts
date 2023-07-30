@@ -44,25 +44,25 @@ export class CategoryService {
     return await this.CategoryRepo.create(args.data);
   }
 
-  async insertMany(args: InsertManyCategoryArgs) {
-    return await this.CategoryRepo.create(args.data);
-  }
+  // async insertMany(args: InsertManyCategoryArgs) {
+  //   return await this.CategoryRepo.create(args.data);
+  // }
 
   async updateOne(args: UpdateOneCategoryArgs) {
     return await this.CategoryRepo.updateOne(args.query, args.data);
   }
 
-  async updateMany(args: UpdateManyCategoryArgs) {
-    return await this.CategoryRepo.updateMany(args.query, args.data);
-  }
+  // async updateMany(args: UpdateManyCategoryArgs) {
+  //   return await this.CategoryRepo.updateMany(args.query, args.data);
+  // }
 
   async deleteOne(args: DeleteOneCategoryArgs) {
     return await this.CategoryRepo.deleteOne(args.query);
   }
 
-  async deleteMany(args: DeleteManyCategoryArgs) {
-    return await this.CategoryRepo.deleteMany(args.query);
-  }
+  // async deleteMany(args: DeleteManyCategoryArgs) {
+  //   return await this.CategoryRepo.deleteMany(args.query);
+  // }
 
   async upsertOne(args: UpsertOneCategoryArgs) {
     return await this.CategoryRepo.updateOneOrCreate(args.query, args.data);

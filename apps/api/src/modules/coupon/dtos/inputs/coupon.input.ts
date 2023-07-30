@@ -22,9 +22,7 @@ export class CouponInput {
   })
   code: string;
 
-  @Field(() => Boolean, {
-    defaultValue: true,
-  })
+  @Field(() => Boolean)
   status?: boolean;
 
   @Field(() => Int, {

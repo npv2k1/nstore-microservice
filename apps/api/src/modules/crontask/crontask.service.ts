@@ -13,17 +13,17 @@ export class CrontaskService {
     private flashsaleService: FlashSaleService,
     private eventBusService: EventBusService
   ) {}
-  @Cron(CronExpression.EVERY_10_SECONDS, {
-    name: 'FlashSale',
-  })
-  async handleCron() {
-    this.logger.debug('Called when the current second');
-    const flashsale = await this.flashsaleService.findAllFlashSaleSchedule();
-    console.log(flashsale);
-    
-    // Send event to event bus
-    this.eventBusService.emit(EventBusName.FLASHSALE_SCHEDULE, flashsale);
-  }
+  // @Cron(CronExpression.EVERY_MINUTE, {
+  //   name: 'FlashSale',
+  // })
+  // async handleCron() {
+  //   this.logger.debug('Called when the current second');
+  //   const flashsale = await this.flashsaleService.findAllFlashSaleSchedule();
+  //   console.log(flashsale);
+
+  //   // Send event to event bus
+  //   this.eventBusService.emit(EventBusName.FLASHSALE_SCHEDULE, flashsale);
+  // }
 
   addCronJob(name: string, seconds: string) {
     const job = new CronJob(`${seconds} * * * * *`, () => {

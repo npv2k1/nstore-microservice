@@ -41,13 +41,13 @@ services:
 
   minio:
     image: quay.io/minio/minio
-    restart: on-failure
+    restart: always
     ports:
       - 9000:9000
       - 9090:9090
     command: server /data --console-address ":9090"
     volumes:
-      - ./data/minio:/data
+      - minio-data:/data
     env_file:
       - .env
 
@@ -63,8 +63,12 @@ services:
   #   ports:
   #     - "27018:27017"
 
+    
+
 volumes:
   rabbitmq-data:
   redis-data:
   mongodb-data:
   postgres-data:
+  minio-data:
+

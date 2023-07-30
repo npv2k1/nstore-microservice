@@ -51,8 +51,9 @@ export class OrderService {
 
   async insertOne(args: InsertOneOrderArgs) {
     const cart = await this.cartService.getCartByUser(args.data.customer);
+    console.log("🚀 ~ file: order.service.ts:54 ~ OrderService ~ insertOne ~ cart:", cart)
 
-    if (!cart) {
+    if (!cart || cart.length === 0) {
       throw new Error('Cart is empty');
     }
     const orderItem = cart.map((item) => {
