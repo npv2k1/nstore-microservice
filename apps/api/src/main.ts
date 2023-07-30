@@ -2,7 +2,6 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { json, urlencoded } from 'express';
-
 import type { NestConfig } from 'src/common/configs/config.interface';
 
 import { HttpExceptionFilter } from './common/filters/HttpExceptions.filter';
@@ -11,6 +10,7 @@ import { setupPrisma } from './common/prisma/prisma';
 import { setupSocket } from './common/socket/socket';
 import { setupSwagger } from './common/swagger/swagger';
 import { AppModule } from './app.module';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
