@@ -1,13 +1,15 @@
 import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/common/prisma/prisma';
 import { Response } from 'express';
+
 import { ReqUser } from 'src/common/decorators/user.decorator';
 import { GoogleOauthGuard, JwtGuard } from 'src/common/guards';
-import { AuthService } from './auth.service';
+import { User } from 'src/common/prisma/prisma';
+
 import { LoginInput } from './dtos/inputs/login.input';
 import { SignupInput } from './dtos/inputs/signup.input';
 import { Token } from './entities/token.entity';
+import { AuthService } from './auth.service';
 
 @ApiTags('Auth')
 @Controller('auth')

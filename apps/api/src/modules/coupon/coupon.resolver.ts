@@ -1,9 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { DeleteOneCouponArgs, DeleteManyCouponArgs } from './dtos/args/delete-coupon.args';
+
+import { DeleteManyCouponArgs, DeleteOneCouponArgs } from './dtos/args/delete-coupon.args';
 import { FindManyCouponArgs, FindOneCouponArgs } from './dtos/args/find-coupon.args';
-import { InsertOneCouponArgs, InsertManyCouponArgs } from './dtos/args/insert-coupon.args';
-import { UpdateOneCouponArgs, UpdateManyCouponArgs } from './dtos/args/update-coupon.args';
+import { InsertManyCouponArgs, InsertOneCouponArgs } from './dtos/args/insert-coupon.args';
+import { UpdateManyCouponArgs, UpdateOneCouponArgs } from './dtos/args/update-coupon.args';
 import { UpsertOneCouponArgs } from './dtos/args/upsert-coupon.args';
 import { Coupon } from './entities/coupon.entity';
 import { CouponService } from './coupon.service';
@@ -20,7 +21,7 @@ export class CouponResolver {
 
   @Query(() => Coupon, { name: Coupon.name.toLowerCase() })
   async findOne(@Args() args: FindOneCouponArgs) {
-    console.log("🚀 ~ file: coupon.resolver.ts:23 ~ CouponResolver ~ findOne ~ args:", args)
+    console.log('🚀 ~ file: coupon.resolver.ts:23 ~ CouponResolver ~ findOne ~ args:', args);
     return this.couponService.findOne(args);
   }
 

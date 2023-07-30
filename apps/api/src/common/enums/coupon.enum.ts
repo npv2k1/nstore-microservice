@@ -1,10 +1,10 @@
 export enum DiscountType {
-  PERCENT="percent",
-  FIXED="fixed"
+  PERCENT = 'percent',
+  FIXED = 'fixed',
 }
 
 export enum CouponType {
-  PRODUCT='product',
-  ORDER='order',
-  DELIVERY='delivery'
+  PRODUCT = 'product',
+  ORDER = 'order',
+  DELIVERY = 'delivery',
 }

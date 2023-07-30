@@ -1,7 +1,12 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
+
+import {
+  mongooseAggregatePaginate,
+  mongooseAutopopulate,
+  mongoosePaginate,
+} from '@/common/mongoose/plugin';
 import { Product } from '@/modules/product/entities/product.entity';
 
 @Schema()
@@ -40,7 +45,6 @@ export class FlashSale {
   })
   product: Product;
 }
-
 
 export type FlashSaleDocument = FlashSale & Document;
 export const FlashSaleSchema = SchemaFactory.createForClass(FlashSale);

@@ -8,9 +8,7 @@ import { Type } from 'class-transformer';
  * @param CreateInputClass - The class of the input object that will be used to create the entity.
  * @returns A class that extends ArgsType
  */
-export function CreateBaseArgs<CreateInput>(
-  CreateInputClass: NestjsType<CreateInput>
-) {
+export function CreateBaseArgs<CreateInput>(CreateInputClass: NestjsType<CreateInput>) {
   @ArgsType()
   abstract class CreateBase {
     @ApiProperty({

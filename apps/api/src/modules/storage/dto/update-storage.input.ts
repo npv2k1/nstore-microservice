@@ -1,5 +1,6 @@
+import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
+
 import { CreateStorageInput } from './create-storage.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateStorageInput extends PartialType(CreateStorageInput) {

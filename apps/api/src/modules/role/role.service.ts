@@ -3,11 +3,9 @@ import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class RoleService {
-  constructor(protected readonly prisma: PrismaService){}
+  constructor(protected readonly prisma: PrismaService) {}
 
-
-  async findMany(){
+  async findMany() {
     return this.prisma.role.findMany();
   }
-
 }

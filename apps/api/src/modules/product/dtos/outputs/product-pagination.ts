@@ -1,5 +1,7 @@
+import { createUnionType, Field, ObjectType } from '@nestjs/graphql';
+
 import { Pagination } from '@/modules/common/entities/pagination.entity';
-import { Field, ObjectType, createUnionType } from '@nestjs/graphql';
+
 import { Product } from '../../entities/product.entity';
 
 @ObjectType()
@@ -19,7 +21,7 @@ export const ProductResultUnion = createUnionType({
       return ProductPagination;
     }
 
-    return Product
+    return Product;
 
     return null;
   },

@@ -1,11 +1,13 @@
-import { AuthService } from './../../modules/auth/auth.service';
-import { GraphqlConfig } from '../configs/config.interface';
-import { ConfigService } from '@nestjs/config';
 import { ApolloDriverConfig, AuthenticationError } from '@nestjs/apollo';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { GqlOptionsFactory } from '@nestjs/graphql';
 // import { AuthenticationError } from 'apollo-server-express';
 import GraphQLJSON from 'graphql-type-json';
+
+import { GraphqlConfig } from '../configs/config.interface';
+
+import { AuthService } from './../../modules/auth/auth.service';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
@@ -89,7 +91,7 @@ export class GqlConfigService implements GqlOptionsFactory {
         return {
           message: err.message,
         };
-      }
+      },
     };
   }
 }

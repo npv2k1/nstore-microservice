@@ -2,10 +2,13 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { RmqContext } from '@nestjs/microservices/ctx-host';
 import { Ctx, MessagePattern, Payload } from '@nestjs/microservices/decorators';
 import { ApiTags } from '@nestjs/swagger';
-import { MailService } from './mail.service';
-import { SendMailDto } from './dtos/send-mail.dto';
+
 import { EventBusName } from '@/common/enums/event.enum';
+
 import { CustomerService } from '../customer/customer.service';
+
+import { SendMailDto } from './dtos/send-mail.dto';
+import { MailService } from './mail.service';
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -15,7 +18,10 @@ function sleep(ms) {
 @ApiTags('Mail')
 @Controller('mail')
 export class MailController {
-  constructor(protected readonly mailService: MailService, private customerService: CustomerService) {}
+  constructor(
+    protected readonly mailService: MailService,
+    private customerService: CustomerService
+  ) {}
 
   @Post('send')
   async sendMail(@Body() data: SendMailDto) {
@@ -29,14 +35,14 @@ export class MailController {
 
     if (data) {
       console.log(`Pattern: ${context.getPattern()}`, data);
-      const customer = await this.customerService.findAll(  )
+      const customer = await this.customerService.findAll();
       customer.forEach((element) => {
         this.mailService.send({
           to: element.email,
           subject: 'Flash sale',
           html: `Flash sale ${JSON.stringify(data)}`,
         });
-      })
+      });
     }
 
     return 'pong';
@@ -51,7 +57,6 @@ export class MailController {
     await sleep(10000);
     channel.ack(originalMsg);
     console.log(`DONE: ${context.getPattern()}`, data);
-    
 
     return 'pong';
   }

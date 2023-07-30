@@ -1,9 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { DeleteOneShipmentArgs, DeleteManyShipmentArgs } from './dtos/args/delete-shipment.args';
+
+import { DeleteManyShipmentArgs, DeleteOneShipmentArgs } from './dtos/args/delete-shipment.args';
 import { FindManyShipmentArgs, FindOneShipmentArgs } from './dtos/args/find-shipment.args';
-import { InsertOneShipmentArgs, InsertManyShipmentArgs } from './dtos/args/insert-shipment.args';
-import { UpdateOneShipmentArgs, UpdateManyShipmentArgs } from './dtos/args/update-shipment.args';
+import { InsertManyShipmentArgs, InsertOneShipmentArgs } from './dtos/args/insert-shipment.args';
+import { UpdateManyShipmentArgs, UpdateOneShipmentArgs } from './dtos/args/update-shipment.args';
 import { UpsertOneShipmentArgs } from './dtos/args/upsert-shipment.args';
 import { Shipment } from './entities/shipment.entity';
 import { ShipmentService } from './shipment.service';

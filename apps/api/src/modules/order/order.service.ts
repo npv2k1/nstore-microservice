@@ -1,17 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DeleteOneOrderArgs, DeleteManyOrderArgs } from './dtos/args/delete-order.args';
-import { FindManyOrderArgs, FindOneOrderArgs } from './dtos/args/find-order.args';
-import { InsertOneOrderArgs, InsertManyOrderArgs } from './dtos/args/insert-order.args';
-import { UpdateOneOrderArgs, UpdateManyOrderArgs } from './dtos/args/update-order.args';
-import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
-import { OrderRepository } from './order.repository';
 import { ClientProxy } from '@nestjs/microservices';
+
+import { EventBusName } from '@/common/enums/event.enum';
+
 import { AuthUser } from '../auth/entities/auth-user,entity';
 import { CartService } from '../cart/cart.service';
 import { CustomerService } from '../customer/customer.service';
-import { Order, OrderItem } from './entities/order.entity';
 import { EventBusService } from '../event-bus/event-bus.service';
-import { EventBusName } from '@/common/enums/event.enum';
+
+import { DeleteManyOrderArgs, DeleteOneOrderArgs } from './dtos/args/delete-order.args';
+import { FindManyOrderArgs, FindOneOrderArgs } from './dtos/args/find-order.args';
+import { InsertManyOrderArgs, InsertOneOrderArgs } from './dtos/args/insert-order.args';
+import { UpdateManyOrderArgs, UpdateOneOrderArgs } from './dtos/args/update-order.args';
+import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
+import { Order, OrderItem } from './entities/order.entity';
+import { OrderRepository } from './order.repository';
 
 @Injectable()
 export class OrderService {
@@ -51,7 +54,7 @@ export class OrderService {
 
   async insertOne(args: InsertOneOrderArgs) {
     const cart = await this.cartService.getCartByUser(args.data.customer);
-    console.log("🚀 ~ file: order.service.ts:54 ~ OrderService ~ insertOne ~ cart:", cart)
+    console.log('🚀 ~ file: order.service.ts:54 ~ OrderService ~ insertOne ~ cart:', cart);
 
     if (!cart || cart.length === 0) {
       throw new Error('Cart is empty');
@@ -99,7 +102,7 @@ export class OrderService {
     await this.orderRepo.updateOne({ _id: orderResult._id }, { payment: payment._id });
 
     // TODO: Clear cart
-    console.log("orderResult", {
+    console.log('orderResult', {
       ...orderResult.toJSON(),
     });
     // return {
@@ -110,7 +113,6 @@ export class OrderService {
       ...orderResult.toJSON(),
       payment: payment,
     };
-
   }
 
   async insertMany(args: InsertManyOrderArgs) {

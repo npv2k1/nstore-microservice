@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
+
 import { Prisma, PrismaService } from 'src/common/prisma/prisma';
 import { PasswordService } from 'src/modules/auth/password.service';
+
+import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
+import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
 import { FindManyUserArgs, FindOneUserArgs } from './dtos/args/find-user.args';
 import { InsertManyUserArgs, InsertOneUserArgs } from './dtos/args/insert-user.args';
 import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.args';
-import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
-import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +25,7 @@ export class UsersService {
   async insertOne(args: InsertOneUserArgs) {
     const roles = args.data.roles;
     delete args.data.roles;
-    if(roles){
+    if (roles) {
       return await this.createUser(args, roles);
     }
     return await this.createUser(args, ['user']);
@@ -52,7 +54,7 @@ export class UsersService {
   async aggregate(args: AggregateUserArgs) {
     return this.prisma.user.aggregate({
       ...args,
-      _count: true
+      _count: true,
     });
   }
 

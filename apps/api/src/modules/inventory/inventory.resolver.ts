@@ -1,21 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import {
-  DeleteOneInventoryArgs,
-  DeleteManyInventoryArgs,
-} from './dtos/args/delete-inventory.args';
-import {
-  FindManyInventoryArgs,
-  FindOneInventoryArgs,
-} from './dtos/args/find-inventory.args';
-import {
-  InsertOneInventoryArgs,
-  InsertManyInventoryArgs,
-} from './dtos/args/insert-inventory.args';
-import {
-  UpdateOneInventoryArgs,
-  UpdateManyInventoryArgs,
-} from './dtos/args/update-inventory.args';
+
+import { DeleteManyInventoryArgs, DeleteOneInventoryArgs } from './dtos/args/delete-inventory.args';
+import { FindManyInventoryArgs, FindOneInventoryArgs } from './dtos/args/find-inventory.args';
+import { InsertManyInventoryArgs, InsertOneInventoryArgs } from './dtos/args/insert-inventory.args';
+import { UpdateManyInventoryArgs, UpdateOneInventoryArgs } from './dtos/args/update-inventory.args';
 import { UpsertOneInventoryArgs } from './dtos/args/upsert-inventory.args';
 import { Inventory } from './entities/inventory.entity';
 import { InventoryService } from './inventory.service';

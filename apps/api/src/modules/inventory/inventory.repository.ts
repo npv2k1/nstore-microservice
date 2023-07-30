@@ -1,7 +1,9 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 import { BaseRepository } from '@/common/mongoose/mongoose';
+
 import { Inventory, InventoryDocument } from './entities/inventory.entity';
 
 @Injectable()

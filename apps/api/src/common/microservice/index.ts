@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
 import { QUEUE_NAME } from '../enums/queue-name.enum';
 
 export const setupMicroservice = async (app: INestApplication) => {
@@ -34,18 +35,18 @@ export const setupMicroservice = async (app: INestApplication) => {
     },
   });
 
-   app.connectMicroservice<MicroserviceOptions>({
-     transport: Transport.RMQ,
-     options: {
-       urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
-       queue: QUEUE_NAME.EVENT_BUS,
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+      queue: QUEUE_NAME.EVENT_BUS,
       //  noAck: false,
       //  prefetchCount: 1, // Process one by one
-       queueOptions: {
-         durable: false,
-       },
-     },
-   });
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });
 
   await app.startAllMicroservices().then(() => console.log('Microservice is listening'));
 };

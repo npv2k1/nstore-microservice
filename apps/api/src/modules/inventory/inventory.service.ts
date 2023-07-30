@@ -1,23 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import {
-  DeleteOneInventoryArgs,
-  DeleteManyInventoryArgs,
-} from './dtos/args/delete-inventory.args';
-import {
-  FindManyInventoryArgs,
-  FindOneInventoryArgs,
-} from './dtos/args/find-inventory.args';
-import {
-  InsertOneInventoryArgs,
-  InsertManyInventoryArgs,
-} from './dtos/args/insert-inventory.args';
-import {
-  UpdateOneInventoryArgs,
-  UpdateManyInventoryArgs,
-} from './dtos/args/update-inventory.args';
+
+import { convertToMultiLevel } from '@/utils';
+
+import { DeleteManyInventoryArgs, DeleteOneInventoryArgs } from './dtos/args/delete-inventory.args';
+import { FindManyInventoryArgs, FindOneInventoryArgs } from './dtos/args/find-inventory.args';
+import { InsertManyInventoryArgs, InsertOneInventoryArgs } from './dtos/args/insert-inventory.args';
+import { UpdateManyInventoryArgs, UpdateOneInventoryArgs } from './dtos/args/update-inventory.args';
 import { UpsertOneInventoryArgs } from './dtos/args/upsert-inventory.args';
 import { InventoryRepository } from './inventory.repository';
-import { convertToMultiLevel } from '@/utils';
 
 @Injectable()
 export class InventoryService {

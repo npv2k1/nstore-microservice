@@ -1,28 +1,19 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import {
-  DeleteOneOrderArgs,
-  DeleteManyOrderArgs,
-} from './dtos/args/delete-order.args';
-import {
-  FindManyOrderArgs,
-  FindOneOrderArgs,
-} from './dtos/args/find-order.args';
-import {
-  InsertOneOrderArgs,
-  InsertManyOrderArgs,
-} from './dtos/args/insert-order.args';
-import {
-  UpdateOneOrderArgs,
-  UpdateManyOrderArgs,
-} from './dtos/args/update-order.args';
+
+import { UserEntity } from '@/common/decorators';
+import { GqlAuthGuard } from '@/common/guards';
+
+import { AuthUser } from '../auth/entities/auth-user,entity';
+
+import { DeleteManyOrderArgs, DeleteOneOrderArgs } from './dtos/args/delete-order.args';
+import { FindManyOrderArgs, FindOneOrderArgs } from './dtos/args/find-order.args';
+import { InsertManyOrderArgs, InsertOneOrderArgs } from './dtos/args/insert-order.args';
+import { UpdateManyOrderArgs, UpdateOneOrderArgs } from './dtos/args/update-order.args';
 import { UpsertOneOrderArgs } from './dtos/args/upsert-order.args';
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/common/guards';
-import { UserEntity } from '@/common/decorators';
-import { AuthUser } from '../auth/entities/auth-user,entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Order)

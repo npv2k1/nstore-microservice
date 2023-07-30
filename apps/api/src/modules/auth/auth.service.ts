@@ -1,5 +1,3 @@
-import { User } from '@modules/user/entities/user.entity';
-import { UsersService } from '@modules/user/users.service';
 import {
   BadRequestException,
   ConflictException,
@@ -9,15 +7,20 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@modules/user/entities/user.entity';
+import { UsersService } from '@modules/user/users.service';
+
 import { SecurityConfig } from 'src/common/configs/config.interface';
 import { Prisma, PrismaService, UserRole } from 'src/common/prisma/prisma';
 import { generateRandomPassword } from 'src/utils/tool';
+
+import { CustomerService } from '../customer/customer.service';
 import { MailService } from '../mail/mail.service';
+
 import { LoginInput } from './dtos/inputs/login.input';
 import { ChangePasswordInput } from './dtos/inputs/reset-password.input';
 import { Token } from './entities/token.entity';
 import { PasswordService } from './password.service';
-import { CustomerService } from '../customer/customer.service';
 
 export type UserPayload = {
   userId: number;
@@ -230,7 +233,7 @@ export class AuthService {
   }
 
   private generateAccessToken(payload: UserPayload): string {
-    let p = {
+    const p = {
       ...payload,
       'https://hasura.io/jwt/claims': {
         'x-hasura-allowed-roles': payload.role,
@@ -332,7 +335,7 @@ export class AuthService {
 
     // find user and password
 
-    let oldUser = await this.prisma.user.findUnique({
+    const oldUser = await this.prisma.user.findUnique({
       where: { id: user.id },
       select: {
         id: true,
@@ -340,7 +343,10 @@ export class AuthService {
       },
     });
 
-    const passwordValid = await this.passwordService.validatePassword(oldPassword, oldUser.password);
+    const passwordValid = await this.passwordService.validatePassword(
+      oldPassword,
+      oldUser.password
+    );
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');

@@ -1,5 +1,6 @@
-import { PaymentMethod } from '@/common/enums/payment.enum';
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+
+import { PaymentMethod } from '@/common/enums/payment.enum';
 
 registerEnumType(PaymentMethod, {
   name: 'PaymentMethod',

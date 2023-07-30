@@ -1,21 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import {
-  DeleteOnePaymentArgs,
-  DeleteManyPaymentArgs,
-} from './dtos/args/delete-payment.args';
-import {
-  FindManyPaymentArgs,
-  FindOnePaymentArgs,
-} from './dtos/args/find-payment.args';
-import {
-  InsertOnePaymentArgs,
-  InsertManyPaymentArgs,
-} from './dtos/args/insert-payment.args';
-import {
-  UpdateOnePaymentArgs,
-  UpdateManyPaymentArgs,
-} from './dtos/args/update-payment.args';
+
+import { DeleteManyPaymentArgs, DeleteOnePaymentArgs } from './dtos/args/delete-payment.args';
+import { FindManyPaymentArgs, FindOnePaymentArgs } from './dtos/args/find-payment.args';
+import { InsertManyPaymentArgs, InsertOnePaymentArgs } from './dtos/args/insert-payment.args';
+import { UpdateManyPaymentArgs, UpdateOnePaymentArgs } from './dtos/args/update-payment.args';
 import { UpsertOnePaymentArgs } from './dtos/args/upsert-payment.args';
 import { Payment } from './entities/payment.entity';
 import { PaymentService } from './payment.service';

@@ -1,9 +1,14 @@
 import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
-import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
-import { Category } from '@/modules/category/entities/category.entity';
 import { GraphQLJSONObject } from 'graphql-type-json';
+import mongoose, { Document } from 'mongoose';
+
+import {
+  mongooseAggregatePaginate,
+  mongooseAutopopulate,
+  mongoosePaginate,
+} from '@/common/mongoose/plugin';
+import { Category } from '@/modules/category/entities/category.entity';
 
 @Schema()
 @ObjectType()

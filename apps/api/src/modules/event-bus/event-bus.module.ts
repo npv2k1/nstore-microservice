@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { EventBusService } from './event-bus.service';
-import { EventBusController } from './event-bus.controller';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+
 import { QUEUE_NAME } from '@/common/enums/queue-name.enum';
+
+import { EventBusController } from './event-bus.controller';
+import { EventBusService } from './event-bus.service';
 
 @Module({
   controllers: [EventBusController],

@@ -14,9 +14,8 @@ export class FlashSaleInput {
   })
   status: string;
 
-
-  @Field(()=>String, {
-    nullable:true
+  @Field(() => String, {
+    nullable: true,
   })
   description?: string;
 
@@ -29,7 +28,6 @@ export class FlashSaleInput {
     nullable: false,
   })
   endDate: Date;
-
 
   @Field(() => Int, {
     nullable: false,

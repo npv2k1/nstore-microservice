@@ -1,7 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
+
+import {
+  mongooseAggregatePaginate,
+  mongooseAutopopulate,
+  mongoosePaginate,
+} from '@/common/mongoose/plugin';
 import { Order } from '@/modules/order/entities/order.entity';
 
 @Schema()
@@ -14,7 +19,7 @@ export class Shipment {
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: Order.name
+    ref: Order.name,
   })
   order: Order;
 

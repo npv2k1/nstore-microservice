@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { FlashSaleQueryInput } from '../inputs/flashsale-query.input';
 import { FlashSaleUpdateInput } from '../inputs/flashsale-update.input';
 

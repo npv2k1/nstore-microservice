@@ -1,17 +1,19 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { InsertManyUserArgs, InsertOneUserArgs } from './dtos/args/insert-user.args';
-import { FindManyUserArgs, FindOneUserArgs } from './dtos/args/find-user.args';
-import { UserRole } from './entities/user-role.entity';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
-import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.args';
-import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
-import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
-import { UserAggregate } from './dtos/outputs/user-aggragate.output';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/common/guards';
+
 import { Roles } from '@/common/decorators';
+import { GqlAuthGuard } from '@/common/guards';
+
+import { AggregateUserArgs } from './dtos/args/aggregate-user.args';
+import { DeleteManyUserArgs, DeleteOneUserArgs } from './dtos/args/delete-user.args';
+import { FindManyUserArgs, FindOneUserArgs } from './dtos/args/find-user.args';
+import { InsertManyUserArgs, InsertOneUserArgs } from './dtos/args/insert-user.args';
+import { UpdateManyUserArgs, UpdateOneUserArgs } from './dtos/args/update-user.args';
+import { UserAggregate } from './dtos/outputs/user-aggragate.output';
+import { User } from './entities/user.entity';
+import { UserRole } from './entities/user-role.entity';
+import { UsersService } from './users.service';
 
 @UseGuards(GqlAuthGuard)
 @Roles('admin')

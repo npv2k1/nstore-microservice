@@ -1,6 +1,7 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { UpdateUserInput } from '../inputs/user-update.input';
+
 import { UserQueryUniqueInput } from '../inputs/user-query.input';
+import { UpdateUserInput } from '../inputs/user-update.input';
 
 @ArgsType()
 export class UpdateOneUserArgs {
@@ -9,8 +10,6 @@ export class UpdateOneUserArgs {
   @Field()
   where: UserQueryUniqueInput;
 }
-
-
 
 @ArgsType()
 export class UpdateManyUserArgs {

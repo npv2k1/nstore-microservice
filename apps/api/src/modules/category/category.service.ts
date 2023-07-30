@@ -1,20 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import {
-  DeleteOneCategoryArgs,
-  DeleteManyCategoryArgs,
-} from './dtos/args/delete-category.args';
-import {
-  FindManyCategoryArgs,
-  FindOneCategoryArgs,
-} from './dtos/args/find-category.args';
-import {
-  InsertOneCategoryArgs,
-  InsertManyCategoryArgs,
-} from './dtos/args/insert-category.args';
-import {
-  UpdateOneCategoryArgs,
-  UpdateManyCategoryArgs,
-} from './dtos/args/update-category.args';
+
+import { DeleteManyCategoryArgs, DeleteOneCategoryArgs } from './dtos/args/delete-category.args';
+import { FindManyCategoryArgs, FindOneCategoryArgs } from './dtos/args/find-category.args';
+import { InsertManyCategoryArgs, InsertOneCategoryArgs } from './dtos/args/insert-category.args';
+import { UpdateManyCategoryArgs, UpdateOneCategoryArgs } from './dtos/args/update-category.args';
 import { UpsertOneCategoryArgs } from './dtos/args/upsert-category.args';
 import { CategoryRepository } from './category.repository';
 
@@ -33,7 +22,7 @@ export class CategoryService {
 
   async findManyPaginate(args: FindManyCategoryArgs) {
     const { paginate } = args;
-    return await this.CategoryRepo.paginate(args.query, paginate);  
+    return await this.CategoryRepo.paginate(args.query, paginate);
   }
 
   async findOne(args: FindOneCategoryArgs) {

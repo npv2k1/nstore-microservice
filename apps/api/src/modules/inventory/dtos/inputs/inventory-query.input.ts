@@ -1,7 +1,9 @@
 import { Field, InputType, PartialType } from '@nestjs/graphql';
-import { InventoryInput } from './inventory.input';
 import { Filter } from 'mongodb';
+
 import { Inventory } from '../../entities/inventory.entity';
+
+import { InventoryInput } from './inventory.input';
 
 @InputType()
 export class InventoryQueryInput extends PartialType(InventoryInput) {

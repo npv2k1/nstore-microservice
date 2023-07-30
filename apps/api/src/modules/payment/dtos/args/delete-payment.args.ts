@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { PaymentQueryInput } from '../inputs/payment-query.input';
 
 @ArgsType()

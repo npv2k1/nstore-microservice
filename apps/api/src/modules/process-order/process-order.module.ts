@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ProcessOrderService } from './process-order.service';
-import { ProcessOrderController } from './process-order.controller';
-import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
+import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+
+import { ProcessOrderController } from './process-order.controller';
+import { ProcessOrderService } from './process-order.service';
 
 @Module({
   controllers: [ProcessOrderController],

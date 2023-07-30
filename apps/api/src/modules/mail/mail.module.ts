@@ -1,13 +1,16 @@
 import { Global, Module } from '@nestjs/common';
-import { MailService } from './mail.service';
-import { ClientProxyFactory, ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
+import { ClientProxyFactory, ClientsModule, Transport } from '@nestjs/microservices';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { MailController } from './mail.controller';
+import { join } from 'path';
+
 import { QUEUE_NAME } from '@/common/enums/queue-name.enum';
+
 import { CustomerModule } from '../customer/customer.module';
+
+import { MailController } from './mail.controller';
+import { MailService } from './mail.service';
 
 @Global()
 @Module({
@@ -47,7 +50,7 @@ import { CustomerModule } from '../customer/customer.module';
         return config;
       },
     }),
-    CustomerModule
+    CustomerModule,
   ],
   controllers: [MailController],
   providers: [

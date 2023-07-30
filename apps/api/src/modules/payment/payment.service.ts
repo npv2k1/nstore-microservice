@@ -1,35 +1,28 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  DeleteOnePaymentArgs,
-  DeleteManyPaymentArgs,
-} from './dtos/args/delete-payment.args';
-import {
-  FindManyPaymentArgs,
-  FindOnePaymentArgs,
-} from './dtos/args/find-payment.args';
-import {
-  InsertOnePaymentArgs,
-  InsertManyPaymentArgs,
-} from './dtos/args/insert-payment.args';
-import {
-  UpdateOnePaymentArgs,
-  UpdateManyPaymentArgs,
-} from './dtos/args/update-payment.args';
+import { ClientProxy } from '@nestjs/microservices';
+
+import { EventBusName } from '@/common/enums/event.enum';
+
+import { EventBusService } from '../event-bus/event-bus.service';
+
+import { DeleteManyPaymentArgs, DeleteOnePaymentArgs } from './dtos/args/delete-payment.args';
+import { FindManyPaymentArgs, FindOnePaymentArgs } from './dtos/args/find-payment.args';
+import { InsertManyPaymentArgs, InsertOnePaymentArgs } from './dtos/args/insert-payment.args';
+import { UpdateManyPaymentArgs, UpdateOnePaymentArgs } from './dtos/args/update-payment.args';
 import { UpsertOnePaymentArgs } from './dtos/args/upsert-payment.args';
 import { PaymentRepository } from './payment.repository';
-import { ClientProxy } from '@nestjs/microservices';
-import { EventBusService } from '../event-bus/event-bus.service';
-import { EventBusName } from '@/common/enums/event.enum';
 
 @Injectable()
 export class PaymentService {
   constructor(
     private readonly PaymentRepo: PaymentRepository,
-    private readonly eventBusService: EventBusService,
+    private readonly eventBusService: EventBusService
   ) {}
 
-  async paymentSuccess(){
-    return await this.eventBusService.emit(EventBusName.PAYMENT_COMPLETED, { message: 'Payment Success' });
+  async paymentSuccess() {
+    return await this.eventBusService.emit(EventBusName.PAYMENT_COMPLETED, {
+      message: 'Payment Success',
+    });
   }
 
   async create(args: InsertOnePaymentArgs) {

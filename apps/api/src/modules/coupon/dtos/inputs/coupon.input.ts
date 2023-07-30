@@ -1,5 +1,6 @@
-import { CouponType, DiscountType } from '@/common/enums/coupon.enum';
 import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
+
+import { CouponType, DiscountType } from '@/common/enums/coupon.enum';
 
 registerEnumType(DiscountType, {
   name: 'DiscountType',

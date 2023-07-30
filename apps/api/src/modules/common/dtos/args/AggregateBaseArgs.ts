@@ -3,9 +3,7 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-export function AggregateBaseArgs<WhereInput>(
-  WhereInputClass: NestjsType<WhereInput>
-) {
+export function AggregateBaseArgs<WhereInput>(WhereInputClass: NestjsType<WhereInput>) {
   @ArgsType()
   abstract class AggregateManyBase {
     @ApiProperty({

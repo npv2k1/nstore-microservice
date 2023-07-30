@@ -9,13 +9,13 @@ class Token {
     type: String,
   })
   @Field(() => String)
-  accessToken!: String;
+  accessToken!: string;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @Field(() => String)
-  refreshToken!: String;
+  refreshToken!: string;
 }
 export { Token };

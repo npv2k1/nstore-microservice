@@ -1,8 +1,9 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { UserQueryInput, UserQueryUniqueInput } from '../inputs/user-query.input';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+
 import { UserOrderByInput } from '../inputs/user-order-by.input';
+import { UserQueryInput, UserQueryUniqueInput } from '../inputs/user-query.input';
 
 @ArgsType()
 export class FindManyUserArgs {

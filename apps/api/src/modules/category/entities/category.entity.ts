@@ -1,10 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+
 import {
-  mongoosePaginate,
   mongooseAggregatePaginate,
   mongooseAutopopulate,
+  mongoosePaginate,
 } from '@/common/mongoose/plugin';
 
 @Schema()

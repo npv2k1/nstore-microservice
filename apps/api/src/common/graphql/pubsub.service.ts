@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { PubSub, PubSubEngine } from 'graphql-subscriptions';
 import { Redis } from 'ioredis';
+
 import { SubEventName, SubEventNameType } from './sub-event-name';
 
 @Injectable()

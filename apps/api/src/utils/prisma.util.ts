@@ -1,13 +1,11 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
-export const PRISMA_QUERY_INTERPRETATION_ERROR = "P2016";
-export const PRISMA_RECORD_NOT_FOUND = "RecordNotFound";
+export const PRISMA_QUERY_INTERPRETATION_ERROR = 'P2016';
+export const PRISMA_RECORD_NOT_FOUND = 'RecordNotFound';
 
-export function isRecordNotFoundError(
-  error: Error & { code?: string }
-): boolean {
+export function isRecordNotFoundError(error: Error & { code?: string }): boolean {
   return (
-    "code" in error &&
+    'code' in error &&
     error.code === PRISMA_QUERY_INTERPRETATION_ERROR &&
     error.message.includes(PRISMA_RECORD_NOT_FOUND)
   );
@@ -16,32 +14,27 @@ export function isRecordNotFoundError(
 export async function transformStringFieldUpdateInput<
   T extends undefined | string | { set?: string }
 >(input: T, transform: (input: string) => Promise<string>): Promise<T> {
-  if (typeof input === "object" && typeof input?.set === "string") {
+  if (typeof input === 'object' && typeof input?.set === 'string') {
     return { set: await transform(input.set) } as T;
   }
-  if (typeof input === "object") {
-    if (typeof input.set === "string") {
+  if (typeof input === 'object') {
+    if (typeof input.set === 'string') {
       return { set: await transform(input.set) } as T;
     }
     return input;
   }
-  if (typeof input === "string") {
+  if (typeof input === 'string') {
     return (await transform(input)) as T;
   }
   return input;
 }
-
-
 
 export function customPrismaMiddleware(): Prisma.Middleware {
   return async (params, next) => {
     const result = await next(params);
 
     return JSON.parse(
-      JSON.stringify(result, (key, value) =>
-        typeof value === 'bigint' ? value.toString() : value
-      )
+      JSON.stringify(result, (key, value) => (typeof value === 'bigint' ? value.toString() : value))
     );
   };
 }
-

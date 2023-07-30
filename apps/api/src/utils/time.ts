@@ -13,14 +13,12 @@ export const getTimestampBydate = (date: Date) => {
 export const getDateByTimestamps = (timestamp: number, time?: boolean) => {
   if (!timestamp) return null;
   return new Date(timestamp * 1000);
-
 };
 export const getDateFormatByTimestamps = (timestamp: number, format: string) => {
   if (!timestamp) return '';
   return moment.unix(timestamp).format(format);
-
 };
 
 export const getCurrentTimestampUtc = () => {
-  return moment().utc(true).unix()
-}
+  return moment().utc(true).unix();
+};

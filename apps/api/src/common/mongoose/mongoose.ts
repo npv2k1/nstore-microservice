@@ -1,6 +1,5 @@
-
 import { merge, slice } from 'lodash';
-import { ReadPreferenceMode, TransactionOptions, ObjectId } from 'mongodb';
+import { ObjectId, ReadPreferenceMode, TransactionOptions } from 'mongodb';
 import mongoose, {
   ClientSession,
   Document,
@@ -105,7 +104,10 @@ export interface Repository<T extends Document> {
 
   updateOneOrCreate(conditions: any, doc: any, options?: FindAndUpdateOptions): Promise<T>;
 
-  withTransaction<U>(fn: (session: ClientSession) => Promise<U>, option?: TransactionOptions): Promise<U>;
+  withTransaction<U>(
+    fn: (session: ClientSession) => Promise<U>,
+    option?: TransactionOptions
+  ): Promise<U>;
 
   getCollectionName(): string;
 
@@ -145,7 +147,10 @@ export class BaseRepository<T extends Document> implements Repository<T> {
 
   async create(docs: Record<string, any>[], options?: SaveOptions): Promise<T[]>;
 
-  async create(docs: Record<string, any> | Record<string, any>[], options?: SaveOptions): Promise<T | T[]> {
+  async create(
+    docs: Record<string, any> | Record<string, any>[],
+    options?: SaveOptions
+  ): Promise<T | T[]> {
     if (Array.isArray(docs)) {
       const result: T[] = [];
       for (const doc of docs) {
@@ -223,7 +228,11 @@ export class BaseRepository<T extends Document> implements Repository<T> {
     return this.modifyQuery(this.model.findOne(conditions, null, options)).exec();
   }
 
-  async findOneOrCreate(conditions: any, doc: any, options?: FindOptions & SaveOptions): Promise<T> {
+  async findOneOrCreate(
+    conditions: any,
+    doc: any,
+    options?: FindOptions & SaveOptions
+  ): Promise<T> {
     let document = await this.findOne(conditions, options);
     if (!document) {
       document = await this.create(merge({}, conditions, doc), options);
@@ -262,13 +271,22 @@ export class BaseRepository<T extends Document> implements Repository<T> {
 
   async updateOne(conditions: any, doc: any, options?: FindAndUpdateOptions): Promise<T> {
     //@ts-ignore
-    return this.modifyQuery(this.model.findOneAndUpdate(conditions, doc, merge({ new: true }, options))).exec();
+    return this.modifyQuery(
+      this.model.findOneAndUpdate(conditions, doc, merge({ new: true }, options))
+    ).exec();
   }
   async updateOneOrCreate(conditions: any, doc: any, options?: FindAndUpdateOptions): Promise<T> {
-    return this.updateOne(conditions, doc, merge({ new: true, upsert: true, setDefaultsOnInsert: true }, options));
+    return this.updateOne(
+      conditions,
+      doc,
+      merge({ new: true, upsert: true, setDefaultsOnInsert: true }, options)
+    );
   }
 
-  async withTransaction<U>(fn: (session: ClientSession) => Promise<U>, options?: TransactionOptions): Promise<U> {
+  async withTransaction<U>(
+    fn: (session: ClientSession) => Promise<U>,
+    options?: TransactionOptions
+  ): Promise<U> {
     const session = await this.model.db.startSession();
     let result: U;
     try {
@@ -309,7 +327,9 @@ export class BaseRepository<T extends Document> implements Repository<T> {
   }
 
   private async isCollectionExists(): Promise<boolean> {
-    const result = await this.model.db.db.listCollections({ name: this.model.collection.collectionName }).next();
+    const result = await this.model.db.db
+      .listCollections({ name: this.model.collection.collectionName })
+      .next();
     return !!result;
   }
 

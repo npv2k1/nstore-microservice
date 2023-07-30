@@ -1,20 +1,23 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { DeleteOneCartArgs, DeleteManyCartArgs } from './dtos/args/delete-cart.args';
-import { FindManyCartArgs, FindOneCartArgs } from './dtos/args/find-cart.args';
-import { InsertOneCartArgs, InsertManyCartArgs } from './dtos/args/insert-cart.args';
-import { UpdateOneCartArgs, UpdateManyCartArgs } from './dtos/args/update-cart.args';
-import { UpsertOneCartArgs } from './dtos/args/upsert-cart.args';
-import { Cart } from './entities/cart.entity';
-import { CartService } from './cart.service';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/common/guards';
+
 import { Roles, UserEntity } from '@/common/decorators';
 import { ROLES_KEY } from '@/common/decorators/roles.decorator';
 import { ROLE } from '@/common/enums/role.enum';
+import { GqlAuthGuard } from '@/common/guards';
+
+import { AuthUser } from '../auth/entities/auth-user,entity';
 import { Customer } from '../customer/entities/customer.entity';
 import { User } from '../user/entities/user.entity';
-import { AuthUser } from '../auth/entities/auth-user,entity';
+
+import { DeleteManyCartArgs, DeleteOneCartArgs } from './dtos/args/delete-cart.args';
+import { FindManyCartArgs, FindOneCartArgs } from './dtos/args/find-cart.args';
+import { InsertManyCartArgs, InsertOneCartArgs } from './dtos/args/insert-cart.args';
+import { UpdateManyCartArgs, UpdateOneCartArgs } from './dtos/args/update-cart.args';
+import { UpsertOneCartArgs } from './dtos/args/upsert-cart.args';
+import { Cart } from './entities/cart.entity';
+import { CartService } from './cart.service';
 
 @Roles(ROLE.USER)
 @UseGuards(GqlAuthGuard)
@@ -26,7 +29,7 @@ export class CartResolver {
     name: `${pluralize.plural(Cart.name.toLowerCase())}`,
   })
   async findMany(@Args() args: FindManyCartArgs, @UserEntity() user: AuthUser) {
-    let _args = {
+    const _args = {
       ...args,
       query: {
         ...args.query,
@@ -40,7 +43,7 @@ export class CartResolver {
   async findOne(@Args() args: FindOneCartArgs, @UserEntity() user: AuthUser) {
     args.query.customer = user._id;
     const res = await this.cartService.findOne(args);
-    console.log("🚀 ~ file: cart.resolver.ts:43 ~ CartResolver ~ findOne ~ res:", res)
+    console.log('🚀 ~ file: cart.resolver.ts:43 ~ CartResolver ~ findOne ~ res:', res);
     return res;
   }
 
@@ -50,8 +53,8 @@ export class CartResolver {
   async deleteOne(@Args() args: DeleteOneCartArgs, @UserEntity() user: AuthUser) {
     args.query.customer = user._id;
 
-    const res =  await this.cartService.deleteOne(args);
-    console.log("🚀 ~ file: cart.resolver.ts:54 ~ CartResolver ~ deleteOne ~ res:", res)
+    const res = await this.cartService.deleteOne(args);
+    console.log('🚀 ~ file: cart.resolver.ts:54 ~ CartResolver ~ deleteOne ~ res:', res);
     return res;
   }
 

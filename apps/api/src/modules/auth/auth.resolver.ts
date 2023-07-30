@@ -1,14 +1,20 @@
-import { User } from '@modules/user/entities/user.entity';
 import { Inject, Injectable, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { User } from '@modules/user/entities/user.entity';
 import { PubSub } from 'graphql-subscriptions';
+
 import { Roles, UserEntity } from 'src/common/decorators';
 import { GqlAuthGuard } from 'src/common/guards';
-import { AuthService } from './auth.service';
+
 import { LoginInput } from './dtos/inputs/login.input';
+import {
+  ChangePasswordInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+} from './dtos/inputs/reset-password.input';
 import { SignupInput } from './dtos/inputs/signup.input';
 import { Token } from './entities/token.entity';
-import { ChangePasswordInput, ForgotPasswordInput, ResetPasswordInput } from './dtos/inputs/reset-password.input';
+import { AuthService } from './auth.service';
 
 @Resolver(() => User)
 export class AuthResolver {

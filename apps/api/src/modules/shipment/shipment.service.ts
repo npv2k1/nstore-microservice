@@ -1,21 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DeleteOneShipmentArgs, DeleteManyShipmentArgs } from './dtos/args/delete-shipment.args';
+import { ClientProxy } from '@nestjs/microservices';
+
+import { DeleteManyShipmentArgs, DeleteOneShipmentArgs } from './dtos/args/delete-shipment.args';
 import { FindManyShipmentArgs, FindOneShipmentArgs } from './dtos/args/find-shipment.args';
-import { InsertOneShipmentArgs, InsertManyShipmentArgs } from './dtos/args/insert-shipment.args';
-import { UpdateOneShipmentArgs, UpdateManyShipmentArgs } from './dtos/args/update-shipment.args';
+import { InsertManyShipmentArgs, InsertOneShipmentArgs } from './dtos/args/insert-shipment.args';
+import { UpdateManyShipmentArgs, UpdateOneShipmentArgs } from './dtos/args/update-shipment.args';
 import { UpsertOneShipmentArgs } from './dtos/args/upsert-shipment.args';
 import { ShipmentRepository } from './shipment.repository';
-import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class ShipmentService {
-  constructor(
-    private readonly ShipmentRepo: ShipmentRepository,
-  ) {}
+  constructor(private readonly ShipmentRepo: ShipmentRepository) {}
 
-  async shipmentSuccess() {
-  
-  }
+  async shipmentSuccess() {}
 
   async create(args: InsertOneShipmentArgs) {
     return this.ShipmentRepo.create(args.data);

@@ -1,9 +1,11 @@
+import { UseGuards } from '@nestjs/common';
 import { Query, Resolver } from '@nestjs/graphql';
+
+import { UserEntity } from '@/common/decorators';
+import { GqlAuthGuard } from '@/common/guards';
+
 import { Customer } from './entities/customer.entity';
 import { CustomerService } from './customer.service';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/common/guards';
-import { UserEntity } from '@/common/decorators';
 
 @Resolver(() => Customer)
 export class CustomerResolver {
@@ -12,7 +14,7 @@ export class CustomerResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => Customer)
   async profile(@UserEntity() user: Customer) {
-    console.log("profile", user);
+    console.log('profile', user);
     return user;
   }
 }

@@ -1,6 +1,7 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+
 import { UserQueryInput } from '../inputs/user-query.input';
 @ArgsType()
 class AggregateUserArgs {
@@ -22,7 +23,5 @@ class AggregateUserArgs {
   @Field(() => Number, { nullable: true })
   @Type(() => Number)
   take?: number;
-
-
 }
 export { AggregateUserArgs };

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { Customer, CustomerSchema } from './entities/customer.entity';
 import { CustomerRepository } from './customer.repository';
 import { CustomerResolver } from './customer.resolver';

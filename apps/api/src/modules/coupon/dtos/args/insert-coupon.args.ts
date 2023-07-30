@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { CouponInsertInput } from '../inputs/coupon-insert.input';
 
 @ArgsType()

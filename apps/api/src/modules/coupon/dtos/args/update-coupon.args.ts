@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { CouponQueryInput } from '../inputs/coupon-query.input';
 import { CouponUpdateInput } from '../inputs/coupon-update.input';
 

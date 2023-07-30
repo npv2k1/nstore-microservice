@@ -1,3 +1,3 @@
 import { PrismaClient, Role } from '@prisma/client';
 
-export interface IRole extends Role {}
+export type IRole = Role;

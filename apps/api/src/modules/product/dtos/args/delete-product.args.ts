@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { ProductQueryInput } from '../inputs/product-query.input';
 
 @ArgsType()

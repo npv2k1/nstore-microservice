@@ -1,8 +1,8 @@
+import { INestApplication } from '@nestjs/common';
 import { IoAdapter } from '@nestjs/platform-socket.io';
-import { ServerOptions } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
-import { INestApplication } from '@nestjs/common';
+import { ServerOptions } from 'socket.io';
 
 export class SocketAdapter extends IoAdapter {
   createIOServer(

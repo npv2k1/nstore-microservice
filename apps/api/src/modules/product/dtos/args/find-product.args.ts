@@ -1,6 +1,8 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { ProductQueryInput } from '../inputs/product-query.input';
+
 import { PaginateOptionsInput } from '@/modules/common/dtos/inputs/input';
+
+import { ProductQueryInput } from '../inputs/product-query.input';
 
 @ArgsType()
 export class FindManyProductArgs {

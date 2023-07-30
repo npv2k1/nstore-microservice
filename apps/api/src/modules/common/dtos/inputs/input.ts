@@ -1,4 +1,4 @@
-import { InputType, Field, Float, Int } from '@nestjs/graphql';
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class Input {
@@ -16,8 +16,6 @@ export class PaginateOptionsInput {
   page?: number | undefined;
   @Field(() => Int, { nullable: true })
   limit?: number | undefined;
-
-
 
   // pagination?: boolean | undefined;
   // allowDiskUse?: boolean | undefined;

@@ -1,17 +1,22 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DeleteOneCartArgs, DeleteManyCartArgs } from './dtos/args/delete-cart.args';
+import { ClientProxy } from '@nestjs/microservices';
+
+import { AuthUser } from '../auth/entities/auth-user,entity';
+import { ProductService } from '../product/product.service';
+
+import { DeleteManyCartArgs, DeleteOneCartArgs } from './dtos/args/delete-cart.args';
 import { FindManyCartArgs, FindOneCartArgs } from './dtos/args/find-cart.args';
-import { InsertOneCartArgs, InsertManyCartArgs } from './dtos/args/insert-cart.args';
-import { UpdateOneCartArgs, UpdateManyCartArgs } from './dtos/args/update-cart.args';
+import { InsertManyCartArgs, InsertOneCartArgs } from './dtos/args/insert-cart.args';
+import { UpdateManyCartArgs, UpdateOneCartArgs } from './dtos/args/update-cart.args';
 import { UpsertOneCartArgs } from './dtos/args/upsert-cart.args';
 import { CartRepository } from './cart.repository';
-import { ClientProxy } from '@nestjs/microservices';
-import { ProductService } from '../product/product.service';
-import { AuthUser } from '../auth/entities/auth-user,entity';
 
 @Injectable()
 export class CartService {
-  constructor(private readonly cartRepo: CartRepository, private readonly productService: ProductService) {}
+  constructor(
+    private readonly cartRepo: CartRepository,
+    private readonly productService: ProductService
+  ) {}
 
   async create(args: InsertOneCartArgs) {
     return this.cartRepo.create(args.data);
@@ -23,7 +28,7 @@ export class CartService {
   }
 
   async findOne(args: FindOneCartArgs) {
-    console.log("🚀 ~ file: cart.service.ts:26 ~ CartService ~ findOne ~ args:", args)
+    console.log('🚀 ~ file: cart.service.ts:26 ~ CartService ~ findOne ~ args:', args);
     return this.cartRepo.findOne(args.query);
   }
 
@@ -79,7 +84,7 @@ export class CartService {
     );
   }
 
-  async getCartByUser(id: string){
-    return await this.cartRepo.findAll({customer: id});
+  async getCartByUser(id: string) {
+    return await this.cartRepo.findAll({ customer: id });
   }
 }

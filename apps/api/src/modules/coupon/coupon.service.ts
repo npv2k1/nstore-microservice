@@ -1,17 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DeleteOneCouponArgs, DeleteManyCouponArgs } from './dtos/args/delete-coupon.args';
+import { ClientProxy } from '@nestjs/microservices';
+
+import { DeleteManyCouponArgs, DeleteOneCouponArgs } from './dtos/args/delete-coupon.args';
 import { FindManyCouponArgs, FindOneCouponArgs } from './dtos/args/find-coupon.args';
-import { InsertOneCouponArgs, InsertManyCouponArgs } from './dtos/args/insert-coupon.args';
-import { UpdateOneCouponArgs, UpdateManyCouponArgs } from './dtos/args/update-coupon.args';
+import { InsertManyCouponArgs, InsertOneCouponArgs } from './dtos/args/insert-coupon.args';
+import { UpdateManyCouponArgs, UpdateOneCouponArgs } from './dtos/args/update-coupon.args';
 import { UpsertOneCouponArgs } from './dtos/args/upsert-coupon.args';
 import { CouponRepository } from './coupon.repository';
-import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class CouponService {
-  constructor(
-    private readonly CouponRepo: CouponRepository,
-  ) {}
+  constructor(private readonly CouponRepo: CouponRepository) {}
 
   async couponSuccess() {
     // return await this.orderService.emit('coupon_success', { message: 'Coupon Success' });

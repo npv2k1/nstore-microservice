@@ -1,6 +1,8 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { CategoryQueryInput } from '../inputs/category-query.input';
+
 import { PaginateOptionsInput } from '@/modules/common/dtos/inputs/input';
+
+import { CategoryQueryInput } from '../inputs/category-query.input';
 
 @ArgsType()
 export class FindManyCategoryArgs {

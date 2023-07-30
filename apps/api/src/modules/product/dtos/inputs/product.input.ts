@@ -12,12 +12,10 @@ export class ProductInput {
   @Field(() => Int)
   price: number;
 
-  @Field(()=>String,{
-    nullable: true
+  @Field(() => String, {
+    nullable: true,
   })
-  image: string
-
-
+  image: string;
 
   categories?: string[];
 

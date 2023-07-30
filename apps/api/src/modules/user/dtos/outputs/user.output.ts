@@ -1,6 +1,6 @@
-import { UserRole } from '@modules/user/entities/user-role.entity';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserRole } from '@modules/user/entities/user-role.entity';
 import { IsOptional, IsString } from 'class-validator';
 
 @ObjectType()

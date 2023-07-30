@@ -1,12 +1,13 @@
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document } from 'mongoose';
+
 import {
   mongooseAggregatePaginate,
   mongooseAutopopulate,
   mongoosePaginate,
 } from '@/common/mongoose/plugin';
 import { Product } from '@/modules/product/entities/product.entity';
-import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
 
 @Schema()
 @ObjectType()
@@ -20,7 +21,7 @@ export class Inventory {
     type: mongoose.Schema.Types.ObjectId,
     ref: Product.name,
   })
-  @Field(()=> Product)
+  @Field(() => Product)
   product: Product;
 
   @Prop({

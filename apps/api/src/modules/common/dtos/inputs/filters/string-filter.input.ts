@@ -1,9 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-
-import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
 import { registerEnumType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsOptional } from 'class-validator';
 
 export enum QueryMode {
   Default = 'default',

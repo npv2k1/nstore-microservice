@@ -31,8 +31,7 @@ export function filterObject(obj, key) {
  */
 export function makeId(length = 6) {
   let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -61,7 +60,7 @@ export const removeDuplicateFromArray = (arr: Array<any>) => {
 };
 
 export const checkNumber = (value: any) => {
-  let _number = Number(value);
+  const _number = Number(value);
   return isNumber(_number);
 };
 
@@ -75,13 +74,10 @@ export const compareString = (str1: string, str2: string) => {
 };
 
 export function generateRandomPassword(length: number): string {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let password = '';
   for (let i = 0; i < length; i++) {
-    password += characters.charAt(
-      Math.floor(Math.random() * characters.length)
-    );
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return password;
 }

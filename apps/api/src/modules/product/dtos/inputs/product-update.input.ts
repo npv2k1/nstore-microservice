@@ -1,4 +1,5 @@
 import { InputType, PartialType } from '@nestjs/graphql';
+
 import { ProductInsertInput } from './product-insert.input';
 
 @InputType()

@@ -1,8 +1,11 @@
 import { Injectable, Query, UseGuards } from '@nestjs/common';
-import { CustomerRepository } from './customer.repository';
-import { GqlAuthGuard } from '@/common/guards';
+
 import { UserEntity } from '@/common/decorators';
+import { GqlAuthGuard } from '@/common/guards';
+
 import { User } from '../user/entities/user.entity';
+
+import { CustomerRepository } from './customer.repository';
 
 @Injectable()
 export class CustomerService {
@@ -16,7 +19,7 @@ export class CustomerService {
     return await this.customerRepo.findOne({ uid });
   }
 
-  async findAll(){
+  async findAll() {
     return await this.customerRepo.findAll();
   }
 }

@@ -1,9 +1,14 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
-import { Product } from '@/modules/product/entities/product.entity';
+
+import {
+  mongooseAggregatePaginate,
+  mongooseAutopopulate,
+  mongoosePaginate,
+} from '@/common/mongoose/plugin';
 import { Customer } from '@/modules/customer/entities/customer.entity';
+import { Product } from '@/modules/product/entities/product.entity';
 
 @Schema()
 @ObjectType()

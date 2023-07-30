@@ -1,10 +1,5 @@
 import { Controller } from '@nestjs/common';
-import {
-  Ctx,
-  MessagePattern,
-  Payload,
-  RmqContext,
-} from '@nestjs/microservices';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

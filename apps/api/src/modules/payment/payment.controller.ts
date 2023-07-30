@@ -1,8 +1,11 @@
-import { EventBusName } from '@/common/enums/event.enum';
 import { Controller } from '@nestjs/common';
 import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
-import { PaymentService } from './payment.service';
+
+import { EventBusName } from '@/common/enums/event.enum';
+
 import { Order } from '../order/entities/order.entity';
+
+import { PaymentService } from './payment.service';
 
 @Controller('payment')
 export class PaymentController {

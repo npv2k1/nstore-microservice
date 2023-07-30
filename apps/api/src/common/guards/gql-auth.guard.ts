@@ -1,7 +1,7 @@
-import { Injectable, ExecutionContext, CanActivate } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { GqlExecutionContext } from '@nestjs/graphql';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { GqlExecutionContext } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '@modules/auth/auth.service';
 import { intersection } from 'lodash';
 @Injectable()
@@ -16,7 +16,10 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
   }
   async canActivate(context: ExecutionContext) {
     await super.canActivate(context);
-    const roles = this.reflector.getAllAndOverride<any[]>('roles', [context.getHandler(), context.getClass()]);
+    const roles = this.reflector.getAllAndOverride<any[]>('roles', [
+      context.getHandler(),
+      context.getClass(),
+    ]);
 
     if (!roles) return true;
     const ctx = GqlExecutionContext.create(context);

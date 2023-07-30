@@ -1,14 +1,16 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { DeleteOneCategoryArgs, DeleteManyCategoryArgs } from './dtos/args/delete-category.args';
+
+import { Product } from '../product/entities/product.entity';
+
+import { DeleteManyCategoryArgs, DeleteOneCategoryArgs } from './dtos/args/delete-category.args';
 import { FindManyCategoryArgs, FindOneCategoryArgs } from './dtos/args/find-category.args';
-import { InsertOneCategoryArgs, InsertManyCategoryArgs } from './dtos/args/insert-category.args';
-import { UpdateOneCategoryArgs, UpdateManyCategoryArgs } from './dtos/args/update-category.args';
+import { InsertManyCategoryArgs, InsertOneCategoryArgs } from './dtos/args/insert-category.args';
+import { UpdateManyCategoryArgs, UpdateOneCategoryArgs } from './dtos/args/update-category.args';
 import { UpsertOneCategoryArgs } from './dtos/args/upsert-category.args';
+import { CategoryPagination } from './dtos/outputs/category-pagination';
 import { Category } from './entities/category.entity';
 import { CategoryService } from './category.service';
-import { Product } from '../product/entities/product.entity';
-import { CategoryPagination } from './dtos/outputs/category-pagination';
 
 @Resolver(() => Category)
 export class CategoryResolver {
@@ -17,7 +19,7 @@ export class CategoryResolver {
     name: `${pluralize.plural(Category.name.toLowerCase())}`,
   })
   async findMany(@Args() args: FindManyCategoryArgs) {
-    const res =  await this.categoryService.findManyPaginate(args);
+    const res = await this.categoryService.findManyPaginate(args);
     return res;
   }
 

@@ -1,9 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as pluralize from 'pluralize';
-import { DeleteOneFlashSaleArgs, DeleteManyFlashSaleArgs } from './dtos/args/delete-flashsale.args';
+
+import { DeleteManyFlashSaleArgs, DeleteOneFlashSaleArgs } from './dtos/args/delete-flashsale.args';
 import { FindManyFlashSaleArgs, FindOneFlashSaleArgs } from './dtos/args/find-flashsale.args';
-import { InsertOneFlashSaleArgs, InsertManyFlashSaleArgs } from './dtos/args/insert-flashsale.args';
-import { UpdateOneFlashSaleArgs, UpdateManyFlashSaleArgs } from './dtos/args/update-flashsale.args';
+import { InsertManyFlashSaleArgs, InsertOneFlashSaleArgs } from './dtos/args/insert-flashsale.args';
+import { UpdateManyFlashSaleArgs, UpdateOneFlashSaleArgs } from './dtos/args/update-flashsale.args';
 import { UpsertOneFlashSaleArgs } from './dtos/args/upsert-flashsale.args';
 import { FlashSale } from './entities/flashsale.entity';
 import { FlashSaleService } from './flashsale.service';

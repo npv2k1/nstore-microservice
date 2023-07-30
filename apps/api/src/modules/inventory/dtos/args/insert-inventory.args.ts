@@ -1,4 +1,5 @@
 import { ArgsType, Field } from '@nestjs/graphql';
+
 import { InventoryInsertInput } from '../inputs/inventory-insert.input';
 
 @ArgsType()

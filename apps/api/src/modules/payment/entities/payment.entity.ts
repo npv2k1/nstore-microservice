@@ -1,10 +1,11 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+
 import {
-  mongoosePaginate,
   mongooseAggregatePaginate,
   mongooseAutopopulate,
+  mongoosePaginate,
 } from '@/common/mongoose/plugin';
 
 @Schema()
@@ -44,8 +45,6 @@ export class Payment {
     nullable: true,
   })
   paymentAmount: number;
-
-  
 }
 
 export type PaymentDocument = Payment & Document;

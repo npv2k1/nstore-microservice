@@ -1,8 +1,10 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
-import { UserRole } from './user-role.entity';
+
 import { IUser } from '../interfaces/user.interface';
+
+import { UserRole } from './user-role.entity';
 
 @ObjectType()
 export class User implements IUser {

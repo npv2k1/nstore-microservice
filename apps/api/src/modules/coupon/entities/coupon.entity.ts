@@ -1,7 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { mongoosePaginate, mongooseAggregatePaginate, mongooseAutopopulate } from '@/common/mongoose/plugin';
+
+import {
+  mongooseAggregatePaginate,
+  mongooseAutopopulate,
+  mongoosePaginate,
+} from '@/common/mongoose/plugin';
 import { Product } from '@/modules/product/entities/product.entity';
 
 @Schema()
@@ -13,7 +18,7 @@ export class Coupon {
   _id?: string;
 
   @Prop()
-  status: boolean
+  status: boolean;
 
   @Prop({
     unique: true,

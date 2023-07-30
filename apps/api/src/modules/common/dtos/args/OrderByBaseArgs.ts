@@ -3,9 +3,7 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-export function OrderByBaseArgs<OrderByInput>(
-  OrderByInputClass: NestjsType<OrderByInput>
-) {
+export function OrderByBaseArgs<OrderByInput>(OrderByInputClass: NestjsType<OrderByInput>) {
   @ArgsType()
   abstract class FindManyBase {
     @ApiProperty({
