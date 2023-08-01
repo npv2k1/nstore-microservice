@@ -24,5 +24,5 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/templates ./templates
 
 
-EXPOSE 3000
+EXPOSE 4005
 CMD [ "npm", "run", "start:prod" ]

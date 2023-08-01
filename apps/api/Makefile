@@ -1,2 +1,2 @@
 build:
-	docker build -t nstore_auth .
+	docker build -t nstore_api .
