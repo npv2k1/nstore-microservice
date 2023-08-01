@@ -14,10 +14,7 @@ const nextConfig = {
       "127.0.0.1",
     ],
   },
-  // swcMinify: true,
-  // experimental: {
-  //   forceSwcTransforms: true,
-  // },
+  swcMinify: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -31,13 +28,8 @@ const nextConfig = {
   },
   i18n,
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
-  output: "standalone",
 };
 
 module.exports = nextConfig;
