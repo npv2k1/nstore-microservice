@@ -110,6 +110,9 @@ export class Product {
   @Prop({
     type: [String],
   })
+  @Field(() => [String], {
+    nullable: true,
+  })
   tags?: string[];
 
   @Prop({

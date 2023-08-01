@@ -380,11 +380,16 @@ type Product {
 
 input ProductInsertInput {
   _id: String
+  available: Boolean
   categories: [String!]
+  gallery: [String!]
   image: String
-  name: String
+  name: String!
   price: Int!
   properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
 }
 
 type ProductPagination {
@@ -403,21 +408,31 @@ type ProductPagination {
 
 input ProductQueryInput {
   _id: String
+  available: Boolean
   categories: [String!]
   categories_in: [String!]
+  gallery: [String!]
   image: String
   name: String
   price: Int
   properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
 }
 
 input ProductUpdateInput {
   _id: String
+  available: Boolean
   categories: [String!]
+  gallery: [String!]
   image: String
   name: String
   price: Int
   properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
 }
 
 type Query {
