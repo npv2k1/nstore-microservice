@@ -21,11 +21,14 @@ export const setupMicroservice = async (app: INestApplication) => {
     MQ_QUEUE,
   });
 
+  const serverRMQ = configService.get('AMQP_URL');
+  console.log("🚀 ~ file: index.ts:25 ~ setupMicroservice ~ serverRMQ:", serverRMQ)
+
   // Start microservice for mail
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+      urls: [serverRMQ],
       queue: QUEUE_NAME.MAIL,
       noAck: false,
       prefetchCount: 1, // Process one by one
@@ -38,7 +41,7 @@ export const setupMicroservice = async (app: INestApplication) => {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+      urls: [serverRMQ],
       queue: QUEUE_NAME.EVENT_BUS,
       //  noAck: false,
       //  prefetchCount: 1, // Process one by one
