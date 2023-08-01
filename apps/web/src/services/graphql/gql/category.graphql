@@ -1,0 +1,51 @@
+query Categories($paginate: PaginateOptionsInput, $query: CategoryQueryInput) {
+  categories(paginate: $paginate, query: $query) {
+    docs {
+      _id
+      description
+      image
+      name
+      slug
+    }
+    hasNextPage
+    hasPrevPage
+    limit
+    nextPage
+    offset
+    page
+    pagingCounter
+    prevPage
+    totalDocs
+    totalPages
+  }
+}
+
+mutation InsertOneCategory($data: CategoryInsertInput!) {
+  insertOneCategory(data: $data) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}
+
+mutation DeleteOneCategory($query: CategoryQueryInput!) {
+  deleteOneCategory(query: $query) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}
+
+mutation UpdateOneCategory($data: CategoryUpdateInput!, $query: CategoryQueryInput!) {
+  updateOneCategory(data: $data, query: $query) {
+    _id
+    description
+    image
+    name
+    slug
+  }
+}

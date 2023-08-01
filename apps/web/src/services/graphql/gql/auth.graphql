@@ -1,0 +1,37 @@
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    accessToken
+    refreshToken
+  }
+}
+mutation ForgotPassword($input: ForgotPasswordInput!) {
+  forgotPassword(input: $input)
+}
+
+mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input)
+}
+mutation ResetPassword($input: ResetPasswordInput!) {
+  resetPassword(input: $input)
+}
+mutation Signup($input: SignupInput!) {
+  signup(input: $input) {
+    accessToken
+    refreshToken
+  }
+}
+query Me {
+  me {
+    address
+    bio
+    dateOfBirth
+    email
+    fullName
+    gender
+    id
+    password
+    phone
+    picture
+    roles
+  }
+}

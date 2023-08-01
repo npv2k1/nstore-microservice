@@ -1,0 +1,68 @@
+query GetUsers($where: UserQueryInput, $take: Int, $skip: Int, $orderBy: [UserOrderByInput!]) {
+  users(where: $where, take: $take, skip: $skip, orderBy: $orderBy) {
+    address
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+    roles
+  }
+  aggregateUsers(where: $where) {
+    _count
+  }
+}
+
+mutation DeleteUser($where: UserQueryUniqueInput!) {
+  deleteOneUser(where: $where) {
+    id
+  }
+}
+
+query GetRoles {
+  Role {
+    description
+    name
+  }
+}
+
+mutation CreateUser($data: UserInsertInput!) {
+  insertOneUser(data: $data) {
+    id
+    roles
+  }
+}
+
+query FindDetailUser($where: UserQueryUniqueInput!) {
+  user(where: $where) {
+    address
+    picture
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+  }
+}
+
+mutation UpdateUser($where: UserQueryUniqueInput!, $data: UpdateUserInput!) {
+  updateOneUser(where: $where, data: $data) {
+    address
+    picture
+    email
+    fullName
+    id
+    password
+    roles
+    gender
+  }
+}
+
+query GetListRole {
+  Role {
+    name
+    description
+  }
+}

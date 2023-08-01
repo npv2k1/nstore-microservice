@@ -1,0 +1,571 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cart {
+  _id: String!
+  customer: Customer!
+  product: Product!
+  quantity: Int!
+  subtotal: Int!
+}
+
+input CartInsertInput {
+  _id: String
+  customer: String
+  product: String!
+  quantity: Int!
+}
+
+input CartQueryInput {
+  _id: String
+  customer: String
+  product: String
+  quantity: Int
+}
+
+input CartUpdateInput {
+  _id: String
+  customer: String
+  product: String
+  quantity: Int
+}
+
+type Category {
+  _id: String!
+  description: String
+  image: String
+  name: String
+  parent: Category
+  products: [Product!]
+  slug: String
+}
+
+input CategoryInsertInput {
+  _id: String
+  name: String
+}
+
+type CategoryPagination {
+  docs: [Category!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input CategoryQueryInput {
+  _id: String
+  name: String
+}
+
+input CategoryUpdateInput {
+  _id: String
+  name: String
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+type Coupon {
+  _id: String!
+  code: String
+  discountType: String!
+  discountValue: Int
+  product: Product
+  status: Boolean!
+  type: String!
+}
+
+input CouponInsertInput {
+  _id: String
+  code: String!
+  discountType: DiscountType!
+  discountValue: Int!
+  product: String
+  status: Boolean
+  type: CouponType!
+}
+
+input CouponQueryInput {
+  _id: String
+  code: String
+  discountType: DiscountType
+  discountValue: Int
+  product: String
+  status: Boolean
+  type: CouponType
+}
+
+enum CouponType {
+  DELIVERY
+  ORDER
+  PRODUCT
+}
+
+input CouponUpdateInput {
+  _id: String
+  code: String
+  discountType: DiscountType
+  discountValue: Int
+  product: String
+  status: Boolean
+  type: CouponType
+}
+
+type Customer {
+  _id: String!
+  address: String
+  dateOfBirth: DateTime
+  email: String!
+  fullName: String
+  gender: String
+  phone: String
+  picture: String
+  uid: Int
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum DiscountType {
+  FIXED
+  PERCENT
+}
+
+type FlashSale {
+  _id: String!
+  description: String
+  endDate: DateTime!
+  isNotify: Boolean
+  product: Product
+  salePrice: Int!
+  startDate: DateTime!
+  status: String!
+}
+
+input FlashSaleInsertInput {
+  _id: String
+  description: String
+  endDate: DateTime!
+  isNotify: Boolean
+  product: String!
+  salePrice: Int!
+  startDate: DateTime!
+  status: Boolean!
+}
+
+input FlashSaleQueryInput {
+  _id: String
+  description: String
+  endDate: DateTime
+  isNotify: Boolean
+  product: String
+  salePrice: Int
+  startDate: DateTime
+  status: Boolean
+}
+
+input FlashSaleUpdateInput {
+  _id: String
+  description: String
+  endDate: DateTime
+  isNotify: Boolean
+  product: String
+  salePrice: Int
+  startDate: DateTime
+  status: Boolean
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+type Inventory {
+  _id: String!
+  product: Product!
+  quantity: Int!
+}
+
+input InventoryInsertInput {
+  _id: String
+  product: String!
+  quantity: Int!
+}
+
+input InventoryQueryInput {
+  _id: String
+  categories_in: [String!]
+  product: String
+  quantity: Int
+}
+
+input InventoryUpdateInput {
+  _id: String
+  product: String
+  quantity: Int
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  changePassword(input: ChangePasswordInput!): String!
+  deleteManyUsers(where: UserQueryInput!): User!
+  deleteOneCart(query: CartQueryInput!): Cart!
+  deleteOneCategory(query: CategoryQueryInput!): Category!
+  deleteOneCoupon(query: CouponQueryInput!): Coupon!
+  deleteOneFlashSale(query: FlashSaleQueryInput!): FlashSale!
+  deleteOneInventory(query: InventoryQueryInput!): Inventory!
+  deleteOnePayment(query: PaymentQueryInput!): Payment!
+  deleteOneProduct(query: ProductQueryInput!): Product!
+  deleteOneShipment(query: ShipmentQueryInput!): Shipment!
+  deleteOneUser(where: UserQueryUniqueInput!): User!
+  forgotPassword(input: ForgotPasswordInput!): String!
+  insertManyUsers(data: [UserInsertInput!]!): User!
+  insertOneCart(data: CartInsertInput!): Cart!
+  insertOneCategory(data: CategoryInsertInput!): Category!
+  insertOneCoupon(data: CouponInsertInput!): Coupon!
+  insertOneFlashSale(data: FlashSaleInsertInput!): FlashSale!
+  insertOneInventory(data: InventoryInsertInput!): Inventory!
+  insertOneOrder(data: OrderInsertInput!): Order!
+  insertOnePayment(data: PaymentInsertInput!): Payment!
+  insertOneProduct(data: ProductInsertInput!): Product!
+  insertOneShipment(data: ShipmentInsertInput!): Shipment!
+  insertOneUser(data: UserInsertInput!): User!
+  login(input: LoginInput!): Token!
+  resetPassword(input: ResetPasswordInput!): String!
+  signup(input: SignupInput!): Token!
+  updateManyUsers(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
+  updateOneCart(data: CartUpdateInput!, query: CartQueryInput!): Cart!
+  updateOneCategory(data: CategoryUpdateInput!, query: CategoryQueryInput!): Category!
+  updateOneCoupon(data: CouponUpdateInput!, query: CouponQueryInput!): Coupon!
+  updateOneFlashSale(data: FlashSaleUpdateInput!, query: FlashSaleQueryInput!): FlashSale!
+  updateOneInventory(data: InventoryUpdateInput!, query: InventoryQueryInput!): Inventory!
+  updateOnePayment(data: PaymentUpdateInput!, query: PaymentQueryInput!): Payment!
+  updateOneProduct(data: ProductUpdateInput!, query: ProductQueryInput!): Product!
+  updateOneShipment(data: ShipmentUpdateInput!, query: ShipmentQueryInput!): Shipment!
+  updateOneUser(data: UpdateUserInput!, where: UserQueryUniqueInput!): User!
+  upsertOneCoupon(data: CouponInsertInput!, query: CouponQueryInput): Coupon!
+  upsertOneFlashSale(data: FlashSaleInsertInput!, query: FlashSaleQueryInput): FlashSale!
+}
+
+type Order {
+  _id: String!
+  coupon: Coupon
+  customer: Customer!
+  deliveryAddress: String!
+  deliveryFee: Int!
+  deliveryStatus: String!
+  discount: Int!
+  items: [OrderItem!]!
+  payment: Payment!
+  paymentMethod: String!
+  phone: String!
+  productTotal: Int!
+  status: String!
+  total: Int!
+}
+
+input OrderInsertInput {
+  _id: String
+  coupon: String
+  customer: String
+  deliveryAddress: String!
+  paymentMethod: PaymentMethod! = COD
+  phone: String!
+}
+
+type OrderItem {
+  _id: String!
+  price: Int!
+  product: Product!
+  quantity: Int
+  subtotal: Int
+}
+
+input OrderQueryInput {
+  _id: String
+  coupon: String
+  customer: String
+  deliveryAddress: String
+  paymentMethod: PaymentMethod = COD
+  phone: String
+}
+
+input PaginateOptionsInput {
+  limit: Int
+  offset: Int
+  page: Int
+}
+
+type Payment {
+  _id: String!
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
+}
+
+input PaymentInsertInput {
+  _id: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
+}
+
+enum PaymentMethod {
+  COD
+  CREDIT_CARD
+  PAYPAL
+  STRIPE
+}
+
+input PaymentQueryInput {
+  _id: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
+}
+
+input PaymentUpdateInput {
+  _id: String
+  order: String
+  paymentAmount: Int
+  paymentDate: String
+  paymentMethod: String
+  paymentStatus: String
+}
+
+type Product {
+  _id: String!
+  available: Boolean
+  barcode: String
+  categories: [Category!]
+  gallery: [String!]
+  image: String
+  name: String
+  price: Int
+  productType: String!
+  properties: JSONObject
+  quantity: Int
+  salePrice: Int
+  status: String
+  tags: [String!]
+  unit: String
+  variants: [Product!]
+}
+
+input ProductInsertInput {
+  _id: String
+  available: Boolean
+  categories: [String!]
+  gallery: [String!]
+  image: String
+  name: String!
+  price: Int!
+  properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
+}
+
+type ProductPagination {
+  docs: [Product!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input ProductQueryInput {
+  _id: String
+  available: Boolean
+  categories: [String!]
+  categories_in: [String!]
+  gallery: [String!]
+  image: String
+  name: String
+  price: Int
+  properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
+}
+
+input ProductUpdateInput {
+  _id: String
+  available: Boolean
+  categories: [String!]
+  gallery: [String!]
+  image: String
+  name: String
+  price: Int
+  properties: JSONObject
+  status: String
+  tags: [String!]
+  variants: [String!]
+}
+
+type Query {
+  Role: [Role!]!
+  aggregateUsers(skip: Int, take: Int, where: UserQueryInput): UserAggregate!
+  cart(query: CartQueryInput!): Cart!
+  carts(query: CartQueryInput): [Cart!]!
+  categories(paginate: PaginateOptionsInput, query: CategoryQueryInput): CategoryPagination!
+  category(query: CategoryQueryInput!): Category!
+  coupon(query: CouponQueryInput!): Coupon!
+  coupons(query: CouponQueryInput): [Coupon!]!
+  flashsale(query: FlashSaleQueryInput!): FlashSale!
+  flashsales(query: FlashSaleQueryInput): [FlashSale!]!
+  inventories(query: InventoryQueryInput): [Inventory!]!
+  inventory(query: InventoryQueryInput!): Inventory!
+  me: User!
+  order(query: OrderQueryInput!): Order!
+  orders(query: OrderQueryInput): [Order!]!
+  payment(query: PaymentQueryInput!): Payment!
+  payments(query: PaymentQueryInput): [Payment!]!
+  product(query: ProductQueryInput!): Product!
+  products(paginate: PaginateOptionsInput, query: ProductQueryInput): ProductPagination!
+  profile: Customer!
+  shipment(query: ShipmentQueryInput!): Shipment!
+  shipments(query: ShipmentQueryInput): [Shipment!]!
+  user(where: UserQueryUniqueInput!): User!
+  users(orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserQueryInput): [User!]!
+}
+
+input ResetPasswordInput {
+  password: String!
+  token: String!
+}
+
+type Role {
+  description: String
+  name: String!
+}
+
+type Shipment {
+  _id: String!
+  order: Order!
+  status: String!
+}
+
+input ShipmentInsertInput {
+  _id: String
+  name: String
+}
+
+input ShipmentQueryInput {
+  _id: String
+  name: String
+}
+
+input ShipmentUpdateInput {
+  _id: String
+  name: String
+}
+
+input SignupInput {
+  email: String!
+  password: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+type Token {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input UpdateUserInput {
+  address: String
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+type User {
+  address: String
+  bio: String
+  dateOfBirth: DateTime
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int!
+  password: String
+  phone: String
+  picture: String
+  roles: [String!]
+}
+
+type UserAggregate {
+  _count: Int
+}
+
+input UserInsertInput {
+  address: String
+  bio: String
+  email: String!
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String!
+  phone: String
+  roles: [String!]
+}
+
+input UserOrderByInput {
+  id: SortOrder
+}
+
+input UserQueryInput {
+  address: String
+  bio: String
+  email: String
+  fullName: String
+  gender: Boolean
+  id: Int
+  password: String
+  phone: String
+  roles: [String!]
+}
+
+input UserQueryUniqueInput {
+  id: Int
+}
