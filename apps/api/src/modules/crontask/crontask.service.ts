@@ -21,36 +21,14 @@ export class CrontaskService {
   async handleCron() {
     const flashsale = await this.flashsaleService.findAllFlashSaleSchedule();
     console.log(flashsale);
+    if (flashsale.length === 0) return;
     // Send event to event bus
     this.eventBusService.emit(EventBusName.FLASHSALE_SCHEDULE, flashsale);
-  }
-
-  addCronJob(name: string, seconds: string) {
-    const job = new CronJob(`${seconds} * * * * *`, () => {
-      this.logger.warn(`time (${seconds}) for job ${name} to run!`);
-    });
-
-    this.schedulerRegistry.addCronJob(name, job);
-    job.start();
-
-    this.logger.warn(`job ${name} added for each minute at ${seconds} seconds!`);
-  }
-
-  deleteCron(name: string) {
-    this.schedulerRegistry.deleteCronJob(name);
-    this.logger.warn(`job ${name} deleted!`);
-  }
-
-  getCrons() {
-    const jobs = this.schedulerRegistry.getCronJobs();
-    jobs.forEach((value, key, map) => {
-      let next;
-      try {
-        next = value.nextDates();
-      } catch (e) {
-        next = 'error: next fire date is in the past!';
-      }
-      this.logger.log(`job: ${key} -> next: ${next}`);
-    });
+    // Update status
+    await Promise.all(
+      flashsale.map((item) =>
+        this.flashsaleService.updateOne({ query: { _id: item._id }, data: { isNotify: true } })
+      )
+    );
   }
 }

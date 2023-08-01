@@ -44,6 +44,10 @@ export class FlashSale {
     nullable: true,
   })
   product: Product;
+
+  @Prop()
+  @Field()
+  isNotify?: boolean;
 }
 
 export type FlashSaleDocument = FlashSale & Document;

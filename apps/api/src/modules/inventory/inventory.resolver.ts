@@ -8,7 +8,13 @@ import { UpdateManyInventoryArgs, UpdateOneInventoryArgs } from './dtos/args/upd
 import { UpsertOneInventoryArgs } from './dtos/args/upsert-inventory.args';
 import { Inventory } from './entities/inventory.entity';
 import { InventoryService } from './inventory.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
+import { Roles } from '@/common/decorators';
+import { ROLE } from '@/common/enums/role.enum';
 
+@Roles(ROLE.ADMIN)
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Inventory)
 export class InventoryResolver {
   constructor(private readonly inventoryService: InventoryService) {}

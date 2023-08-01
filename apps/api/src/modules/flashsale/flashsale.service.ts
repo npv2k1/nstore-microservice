@@ -28,6 +28,7 @@ export class FlashSaleService {
         $lte: startTimeThreshold.toDate(),
         $gte: currentTime.toDate(),
       },
+      isNotify: false,
     });
     return flashsale;
   }

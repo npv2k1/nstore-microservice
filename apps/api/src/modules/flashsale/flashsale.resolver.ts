@@ -8,7 +8,10 @@ import { UpdateManyFlashSaleArgs, UpdateOneFlashSaleArgs } from './dtos/args/upd
 import { UpsertOneFlashSaleArgs } from './dtos/args/upsert-flashsale.args';
 import { FlashSale } from './entities/flashsale.entity';
 import { FlashSaleService } from './flashsale.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => FlashSale)
 export class FlashSaleResolver {
   constructor(private readonly flashsaleService: FlashSaleService) {}

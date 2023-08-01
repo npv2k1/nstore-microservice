@@ -11,7 +11,13 @@ import { UpsertOneCategoryArgs } from './dtos/args/upsert-category.args';
 import { CategoryPagination } from './dtos/outputs/category-pagination';
 import { Category } from './entities/category.entity';
 import { CategoryService } from './category.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '@/common/guards';
+import { ROLE } from '@/common/enums/role.enum';
+import { Roles } from '@/common/decorators';
 
+@Roles(ROLE.ADMIN)
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Category)
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}

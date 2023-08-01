@@ -38,4 +38,9 @@ export class FlashSaleInput {
     nullable: false,
   })
   product: string;
+
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isNotify?: boolean;
 }
