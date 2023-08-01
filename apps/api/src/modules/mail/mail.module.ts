@@ -68,7 +68,7 @@ import { MailService } from './mail.service';
         return ClientProxyFactory.create({
           transport: Transport.RMQ,
           options: {
-            urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+            urls: [configService.get('AMQP_URL')],
             queue: QUEUE_NAME.MAIL,
             noAck: false,
             queueOptions: {

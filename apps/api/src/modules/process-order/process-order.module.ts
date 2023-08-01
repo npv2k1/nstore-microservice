@@ -20,7 +20,7 @@ import { ProcessOrderService } from './process-order.service';
         return ClientProxyFactory.create({
           transport: Transport.RMQ,
           options: {
-            urls: [`amqp://${MQ_USER}:${MQ_PASS}@${MQ_HOST}:${MQ_PORT}`],
+            urls: [configService.get('AMQP_URL')],
             queue: MQ_QUEUE,
             noAck: false,
             queueOptions: {
