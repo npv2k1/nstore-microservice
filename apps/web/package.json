@@ -8,7 +8,7 @@
     "dev:codegen": "graphql-codegen --watch",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint '**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "codegen": "graphql-codegen",
     "codegen:dev": "graphql-codegen --watch",

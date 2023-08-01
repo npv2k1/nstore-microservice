@@ -18,7 +18,7 @@ function DropdownProfile({ align, user }: DropdownProfileProps) {
 
   // close on click outside
   useEffect(() => {
-    const clickHandler = ({ target }) => {
+    const clickHandler = ({ target }: any) => {
       if (!dropdown.current) return;
       if (!trigger.current) return;
       if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target))
