@@ -1,5 +1,4 @@
-import { Field, Float, InputType } from '@nestjs/graphql';
-import { GraphQLJSONObject } from 'graphql-type-json';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType({
   isAbstract: true,
@@ -7,15 +6,9 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 export class InventoryInput {
   _id?: string;
 
-  name?: string;
+  @Field(() => String)
+  product: String;
 
-  @Field(() => Float)
-  price: number;
-
-  categories?: string[];
-
-  @Field(() => GraphQLJSONObject, {
-    nullable: true,
-  })
-  properties: JSON;
+  @Field(() => Int)
+  quantity: number;
 }

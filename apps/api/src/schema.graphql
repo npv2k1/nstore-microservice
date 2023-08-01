@@ -190,34 +190,26 @@ input ForgotPasswordInput {
 type Inventory {
   _id: String!
   product: Product!
-  purchasePrice: Float!
   quantity: Int!
-  salePrice: Float!
 }
 
 input InventoryInsertInput {
   _id: String
-  categories: [String!]
-  name: String
-  price: Float!
-  properties: JSONObject
+  product: String!
+  quantity: Int!
 }
 
 input InventoryQueryInput {
   _id: String
-  categories: [String!]
   categories_in: [String!]
-  name: String
-  price: Float
-  properties: JSONObject
+  product: String
+  quantity: Int
 }
 
 input InventoryUpdateInput {
   _id: String
-  categories: [String!]
-  name: String
-  price: Float
-  properties: JSONObject
+  product: String
+  quantity: Int
 }
 
 """

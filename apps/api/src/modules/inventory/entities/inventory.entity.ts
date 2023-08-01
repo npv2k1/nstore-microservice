@@ -20,6 +20,7 @@ export class Inventory {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: Product.name,
+    autopopulate: true,
   })
   @Field(() => Product)
   product: Product;
@@ -30,24 +31,12 @@ export class Inventory {
   })
   @Field(() => Int, { defaultValue: 0 })
   quantity: number;
-
-  @Prop({
-    type: Number,
-    default: 0,
-  })
-  @Field(() => Float)
-  salePrice: number;
-
-  @Prop({
-    type: Number,
-    default: 0,
-  })
-  @Field(() => Float)
-  purchasePrice: number;
 }
 
 export type InventoryDocument = Inventory & Document;
 export const InventorySchema = SchemaFactory.createForClass(Inventory);
+InventorySchema.index({ product: 1, quantity: 1 }, { unique: true });
+
 InventorySchema.plugin(mongoosePaginate);
 InventorySchema.plugin(mongooseAggregatePaginate);
 InventorySchema.plugin(mongooseAutopopulate);
