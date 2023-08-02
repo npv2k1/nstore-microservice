@@ -54,8 +54,6 @@ export class OrderService {
 
   async insertOne(args: InsertOneOrderArgs) {
     const cart = await this.cartService.getCartByUser(args.data.customer);
-    console.log('🚀 ~ file: order.service.ts:54 ~ OrderService ~ insertOne ~ cart:', cart);
-
     if (!cart || cart.length === 0) {
       throw new Error('Cart is empty');
     }
@@ -67,8 +65,6 @@ export class OrderService {
         subtotal: item.subtotal,
       };
     });
-
-    console.log('orderItem', orderItem);
 
     // Calculate total
     const productTotal = cart.reduce((acc, item) => {
@@ -95,8 +91,8 @@ export class OrderService {
       items: orderItem,
     };
     const orderResult = await this.orderRepo.create(orderInfo);
-    await this.eventBusService.emit('OrderCreated', orderResult);
     const payment = await this.eventBusService.send(EventBusName.CREATE_ORDER_PAYMENT, orderResult);
+    const product = await this.eventBusService.send(EventBusName.CREATE_ORDER_PRODUCT, orderResult);
     // update payment in order
 
     await this.orderRepo.updateOne({ _id: orderResult._id }, { payment: payment._id });
@@ -105,10 +101,6 @@ export class OrderService {
     console.log('orderResult', {
       ...orderResult.toJSON(),
     });
-    // return {
-    //   ...orderResult,
-    //   // payment: payment,
-    // };
     return {
       ...orderResult.toJSON(),
       payment: payment,
