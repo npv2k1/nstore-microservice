@@ -1,9 +1,5 @@
 # nstore microservice
 
-## Slide
-
-https://docs.google.com/presentation/d/1jElUQCcES8Q-v5YIxeEjE0jsRuR3eZEk_h6oF_HKlHo/edit?usp=sharing
-
 ## Hướng dẫn cài đặt
 
 Clone project:
