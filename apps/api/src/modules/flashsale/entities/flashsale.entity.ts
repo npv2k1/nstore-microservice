@@ -36,14 +36,13 @@ export class FlashSale {
   salePrice: number;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Product.name,
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: Product.name }],
     autopopulate: true,
   })
-  @Field(() => Product, {
+  @Field(() => [Product], {
     nullable: true,
   })
-  product: Product;
+  product: Product[];
 
   @Prop()
   @Field()

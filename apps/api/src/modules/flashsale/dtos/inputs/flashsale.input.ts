@@ -34,10 +34,10 @@ export class FlashSaleInput {
   })
   salePrice: number;
 
-  @Field(() => String, {
+  @Field(() => [String], {
     nullable: false,
   })
-  product: string;
+  product: string[];
 
   @Field(() => Boolean, {
     nullable: true,
